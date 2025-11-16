@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>회원가입 완료 - MAJANGDEAL</title>
+  <link href="https://fonts.googleapis.com/css?family=Inter&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      border: none !important;
+      background-color: #ffffff;
+      font-family: 'Inter', sans-serif;
+      overflow-y: scroll;
+      scrollbar-gutter: stable;
+    }
+    
+    .signup-main-content {
+      width: 100%;
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: flex-start;
+      background-color: #ffffff;
+      padding: 80px 20px 40px 20px;
+      box-sizing: border-box;
+    }
+    
+    .signup-container {
+      width: 480px;
+      max-width: 100%;
+      background-color: #ffffff;
+      border: 1px solid #e2e8f0;
+      border-radius: 16px;
+      padding: 48px;
+      display: flex;
+      flex-direction: column;
+      gap: 24px;
+      box-sizing: border-box;
+      box-shadow: 0px 4px 6px -1px rgba(0, 0, 0, 0.1), 0px 2px 4px -1px rgba(0, 0, 0, 0.06);
+    }
+    
+    .signup-header-section {
+      display: flex;
+      flex-direction: column;
+      gap: 24px;
+    }
+    
+    .signup-complete-title {
+      font-family: 'Inter', sans-serif;
+      font-weight: 700;
+      font-size: 28px;
+      line-height: 33.6px;
+      color: #1e293b;
+      margin: 0;
+    }
+    
+    .signup-complete-description {
+      font-family: 'Inter', sans-serif;
+      font-weight: 500;
+      font-size: 20px;
+      line-height: 24px;
+      color: #6b7280;
+      margin: 0;
+    }
+    
+    .signup-complete-buttons {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+    
+    .signup-complete-button {
+      width: 100%;
+      height: 56px;
+      border-radius: 8px;
+      border: none;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      font-family: 'Inter', sans-serif;
+      font-weight: 600;
+      font-size: 16px;
+      line-height: 19.2px;
+      color: #ffffff;
+      transition: background-color 0.2s;
+    }
+    
+    .signup-complete-button-sell {
+      background-color: #10b981;
+    }
+    
+    .signup-complete-button-sell:hover {
+      background-color: #059669;
+    }
+    
+    .signup-complete-button-main {
+      background-color: #3b82f6;
+    }
+    
+    .signup-complete-button-main:hover {
+      background-color: #2563eb;
+    }
+    
+    .plus-icon {
+      width: 20px;
+      height: 20px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+  </style>
+</head>
+<body>
+  <div class="signup-main-content">
+    <div class="signup-container">
+      <div class="signup-header-section">
+        <h1 class="signup-complete-title">회원가입 완료!</h1>
+        <p class="signup-complete-description">알림은 마이페이지에서 재설정 가능합니다.</p>
+      </div>
+      
+      <div class="signup-complete-buttons">
+        <button type="button" class="signup-complete-button signup-complete-button-sell" id="sell-button">
+          <div class="plus-icon">
+            <img src="images/icon-17.svg" alt="plus icon" style="width: 19px; height: 19px;" />
+          </div>
+          판매글 쓰러가기!
+        </button>
+        
+        <button type="button" class="signup-complete-button signup-complete-button-main" id="main-button">
+          메인페이지로 이동
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      const sellButton = document.getElementById('sell-button');
+      const mainButton = document.getElementById('main-button');
+      
+      if (sellButton) {
+        sellButton.addEventListener('click', function() {
+          // 판매글 작성 페이지로 이동 (추후 구현)
+          window.location.href = 'index.html'; // 임시로 메인 페이지로 이동
+        });
+      }
+      
+      if (mainButton) {
+        mainButton.addEventListener('click', function() {
+          window.location.href = 'index.html';
+        });
+      }
+    });
+  </script>
+</body>
+</html>
+

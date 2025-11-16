@@ -1,0 +1,660 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>회원가입 2단계 - MAJANGDEAL</title>
+  <link href="https://fonts.googleapis.com/css?family=Inter&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      border: none !important;
+      background-color: #ffffff;
+      font-family: 'Inter', sans-serif;
+      overflow-y: auto;
+      scrollbar-gutter: stable; /* 스크롤바 공간을 항상 예약하여 레이아웃 시프트 방지 */
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
+    }
+    
+    .signup-main-content {
+      width: 100%;
+      flex: 1;
+      display: flex;
+      justify-content: center;
+      align-items: flex-start;
+      background-color: #ffffff;
+      padding: 80px 20px 40px 20px;
+    }
+    
+    .signup-container {
+      width: 480px;
+      background-color: #ffffff;
+      border: 1px solid #e2e8f0;
+      border-radius: 16px;
+      padding: 48px;
+      display: flex;
+      flex-direction: column;
+      gap: 24px;
+      box-sizing: border-box;
+    }
+    
+    .signup-header-section {
+      display: flex;
+      flex-direction: column;
+      gap: 24px;
+    }
+    
+    .signup-progress {
+      display: flex;
+      flex-direction: row;
+      gap: 8px;
+      align-items: center;
+      height: 8px;
+    }
+    
+    .signup-step {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background-color: #e2e8f0;
+    }
+    
+    .signup-step-1 {
+      background-color: #10b981;
+    }
+    
+    .signup-step-2 {
+      background-color: #3b82f6;
+    }
+    
+    .signup-title {
+      font-family: 'Inter', sans-serif;
+      font-weight: 700;
+      font-size: 28px;
+      line-height: 33.6px;
+      color: #1e293b;
+      margin: 0;
+    }
+    
+    .signup-description {
+      font-family: 'Inter', sans-serif;
+      font-weight: 500;
+      font-size: 20px;
+      line-height: 24px;
+      color: #6b7280;
+      margin: 0;
+    }
+    
+    .signup-safety-message {
+      background-color: #f0f9ff;
+      border: 1px solid #bfdbfe;
+      border-radius: 8px;
+      padding: 16px;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+    
+    .signup-safety-header {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      gap: 8px;
+    }
+    
+    .signup-shield-icon {
+      width: 16px;
+      height: 16px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    
+    .signup-safety-title {
+      font-family: 'Inter', sans-serif;
+      font-weight: 600;
+      font-size: 14px;
+      line-height: 16.8px;
+      color: #1e40af;
+      margin: 0;
+    }
+    
+    .signup-safety-text {
+      font-family: 'Inter', sans-serif;
+      font-weight: 400;
+      font-size: 14px;
+      line-height: 19.6px;
+      color: #1e40af;
+      margin: 0;
+    }
+    
+    .signup-form-section {
+      display: flex;
+      flex-direction: column;
+      gap: 24px;
+    }
+    
+    .signup-business-info {
+      display: flex;
+      flex-direction: column;
+      gap: 24px;
+    }
+    
+    .signup-business-number {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+    
+    .signup-label-row {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      justify-content: space-between;
+    }
+    
+    .signup-label {
+      font-family: 'Inter', sans-serif;
+      font-weight: 600;
+      font-size: 14px;
+      line-height: 16.8px;
+      color: #374151;
+      margin: 0;
+    }
+    
+    .signup-verify-button {
+      background-color: #f3f4f6;
+      border: 1px solid #d1d5db;
+      border-radius: 6px;
+      padding: 8px 12px;
+      cursor: pointer;
+      font-family: 'Inter', sans-serif;
+      font-weight: 500;
+      font-size: 12px;
+      line-height: 14.4px;
+      color: #6b7280;
+      transition: background-color 0.2s, border-color 0.2s, color 0.2s;
+    }
+    
+    .signup-verify-button:hover {
+      background-color: #e5e7eb;
+    }
+    
+    .signup-verify-button.active {
+      background-color: #3b82f6;
+      border-color: #3b82f6;
+      color: #ffffff;
+    }
+    
+    .signup-verify-button.active:hover {
+      background-color: #2563eb;
+    }
+    
+    .signup-verify-button.verified {
+      background-color: transparent;
+      border: none;
+      padding: 0;
+      cursor: default;
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+    
+    .signup-verify-button.verified .verify-check-icon {
+      width: 28px;
+      height: 28px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    
+    .signup-verify-button.verified .verify-text {
+      font-family: 'Inter', sans-serif;
+      font-weight: 500;
+      font-size: 12px;
+      line-height: 14.4px;
+      color: #3b82f6;
+    }
+    
+    .signup-input {
+      width: 100%;
+      height: 48px;
+      background-color: #ffffff;
+      border: 1px solid #d1d5db;
+      border-radius: 8px;
+      padding: 0 16px;
+      font-family: 'Inter', sans-serif;
+      font-weight: 400;
+      font-size: 16px;
+      line-height: 19.2px;
+      color: #111827;
+      box-sizing: border-box;
+    }
+    
+    .signup-input::placeholder {
+      color: #9ca3af;
+    }
+    
+    .signup-input:focus {
+      outline: none;
+      border-color: #3b82f6;
+    }
+    
+    .signup-input.verified {
+      background-color: #f3f4f6;
+      border-color: #d1d5db;
+      color: #6b7280;
+      cursor: not-allowed;
+    }
+    
+    .signup-input.verified:focus {
+      outline: none;
+      border-color: #d1d5db;
+    }
+    
+    .signup-input-group {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+    
+    .signup-detail-address-group {
+      margin: 0;
+      border-radius: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+    
+    .signup-detail-address-group .signup-label {
+      padding-left: 0;
+    }
+    
+    .signup-detail-address-group .signup-input {
+      margin: 0;
+      background-color: #ffffff;
+    }
+    
+    .signup-notice-box {
+      background-color: #fef3f2;
+      border: 1px solid #fecaca;
+      border-radius: 8px;
+      padding: 16px;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+    
+    .signup-notice-header {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      gap: 8px;
+    }
+    
+    .signup-info-icon {
+      width: 16px;
+      height: 16px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    
+    .signup-notice-title {
+      font-family: 'Inter', sans-serif;
+      font-weight: 600;
+      font-size: 14px;
+      line-height: 16.8px;
+      color: #dc2626;
+      margin: 0;
+    }
+    
+    .signup-notice-text {
+      font-family: 'Inter', sans-serif;
+      font-weight: 400;
+      font-size: 12px;
+      line-height: 16.8px;
+      color: #dc2626;
+      margin: 0;
+    }
+    
+    .signup-submit-button {
+      width: 100%;
+      height: 56px;
+      background-color: #9ca3af;
+      border-radius: 8px;
+      border: none;
+      cursor: not-allowed;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: background-color 0.2s;
+      font-family: 'Inter', sans-serif;
+      font-weight: 600;
+      font-size: 16px;
+      line-height: 19.2px;
+      color: #ffffff;
+    }
+    
+    .signup-submit-button:not(:disabled) {
+      background-color: #3b82f6;
+      cursor: pointer;
+    }
+    
+    .signup-submit-button:disabled {
+      cursor: not-allowed;
+    }
+    
+    .signup-footer-section {
+      width: 100%;
+      background-color: #f8fafc;
+      padding: 40px 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-shrink: 0;
+    }
+    
+    .signup-footer-links {
+      display: flex;
+      flex-direction: row;
+      gap: 20px;
+      align-items: center;
+    }
+    
+    .signup-footer-link {
+      font-family: 'Inter', sans-serif;
+      font-weight: 400;
+      font-size: 14px;
+      line-height: 16.8px;
+      color: #9ca3af;
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+    
+    .signup-footer-link:hover {
+      color: #6b7280;
+    }
+  </style>
+</head>
+<body>
+  <div class="signup-main-content">
+    <div class="signup-container">
+      <div class="signup-header-section">
+        <div class="signup-progress">
+          <div class="signup-step signup-step-1"></div>
+          <div class="signup-step signup-step-2"></div>
+          <div class="signup-step signup-step-3"></div>
+          <div class="signup-step signup-step-4"></div>
+        </div>
+        <p class="signup-title">사업자 회원가입</p>
+        <p class="signup-description">사업자등록증의 정보를 입력해주세요.</p>
+      </div>
+      
+      <div class="signup-safety-message">
+        <div class="signup-safety-header">
+          <div class="signup-shield-icon">
+            <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M8 1L2 3.5V7C2 10.5 4.5 13.5 8 15C11.5 13.5 14 10.5 14 7V3.5L8 1Z" stroke="#3b82f6" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+              <path d="M6 8L7.5 9.5L10 7" stroke="#3b82f6" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </div>
+          <p class="signup-safety-title">안전한 거래를 위해</p>
+        </div>
+        <p class="signup-safety-text">사장님들간 안전한 거래를 위해 사업자 정보를 받고있어요.</p>
+      </div>
+      
+      <div class="signup-form-section">
+        <div class="signup-business-info">
+          <div class="signup-business-number">
+            <div class="signup-label-row">
+              <p class="signup-label">사업자 등록번호</p>
+              <button type="button" class="signup-verify-button" id="verify-business-btn">인증하기</button>
+            </div>
+            <input type="text" class="signup-input" id="business-number-input" placeholder="사업자 등록번호(숫자10자리)" maxlength="10">
+          </div>
+          
+          <div class="signup-input-group">
+            <p class="signup-label">상호</p>
+            <input type="text" class="signup-input" id="company-name-input" placeholder="상호명을 입력해주세요.">
+          </div>
+          
+          <div class="signup-input-group">
+            <p class="signup-label">사업장 주소</p>
+            <input type="text" class="signup-input" id="address-input" placeholder="주소를 입력해주세요.">
+          </div>
+          
+          <div class="signup-detail-address-group">
+            <p class="signup-label">상세주소</p>
+            <input type="text" class="signup-input" id="detail-address-input" placeholder="입력가능">
+          </div>
+        </div>
+        
+        <div class="signup-notice-box">
+          <div class="signup-notice-header">
+            <div class="signup-info-icon">
+              <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <circle cx="8" cy="8" r="7" stroke="#dc2626" stroke-width="1.5"/>
+                <path d="M8 5V8M8 11H8.01" stroke="#dc2626" stroke-width="1.5" stroke-linecap="round"/>
+              </svg>
+            </div>
+            <p class="signup-notice-title">주의사항</p>
+          </div>
+          <p class="signup-notice-text">사업자 정보를 도용하거나 허위 기재 시, 조세범 처벌법 제11조 제1항에 따라 처벌받을 수 있습니다.</p>
+        </div>
+        
+        <button type="button" class="signup-submit-button" id="signup-submit-button" disabled>
+          다음 단계로
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // Form validation
+    document.addEventListener('DOMContentLoaded', function() {
+      const businessNumberInput = document.getElementById('business-number-input');
+      const companyNameInput = document.getElementById('company-name-input');
+      const addressInput = document.getElementById('address-input');
+      const detailAddressInput = document.getElementById('detail-address-input');
+      const submitButton = document.getElementById('signup-submit-button');
+      const verifyButton = document.getElementById('verify-business-btn');
+      
+      // Step 2 저장된 데이터 불러오기
+      const savedStep2Data = localStorage.getItem('signup_step2_data');
+      if (savedStep2Data) {
+        try {
+          const step2Data = JSON.parse(savedStep2Data);
+          if (step2Data.businessRegistrationNumber) {
+            businessNumberInput.value = step2Data.businessRegistrationNumber;
+            // 인증된 상태로 복원
+            businessNumberInput.classList.add('verified');
+            businessNumberInput.disabled = true;
+            verifyButton.classList.remove('active');
+            verifyButton.classList.add('verified');
+            verifyButton.innerHTML = `
+              <div class="verify-check-icon">
+                <svg width="28" height="28" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M9 14L12.5 17.5L19 11" stroke="#3b82f6" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+              </div>
+              <span class="verify-text">인증완료</span>
+            `;
+            verifyButton.disabled = true;
+          }
+          if (step2Data.storeName) {
+            companyNameInput.value = step2Data.storeName;
+          }
+          if (step2Data.businessAddress) {
+            addressInput.value = step2Data.businessAddress;
+          }
+          if (step2Data.businessAddressDetail) {
+            detailAddressInput.value = step2Data.businessAddressDetail;
+          }
+          // 데이터 로드 후 버튼 상태 업데이트
+          updateSubmitButton();
+        } catch (e) {
+          console.error('Error loading step 2 data:', e);
+        }
+      }
+      
+      function updateSubmitButton() {
+        const businessNumber = businessNumberInput.value.trim();
+        const companyName = companyNameInput.value.trim();
+        const address = addressInput.value.trim();
+        const isBusinessNumberVerified = businessNumberInput.classList.contains('verified');
+        
+        if (businessNumber && companyName && address && isBusinessNumberVerified) {
+          submitButton.disabled = false;
+        } else {
+          submitButton.disabled = true;
+        }
+      }
+      
+      function updateVerifyButton() {
+        const businessNumber = businessNumberInput.value.trim();
+        if (businessNumber.length > 0) {
+          verifyButton.classList.add('active');
+        } else {
+          verifyButton.classList.remove('active');
+        }
+      }
+      
+      businessNumberInput.addEventListener('input', function() {
+        // Only allow numbers
+        this.value = this.value.replace(/[^0-9]/g, '');
+        updateSubmitButton();
+        updateVerifyButton();
+      });
+      
+      companyNameInput.addEventListener('input', updateSubmitButton);
+      addressInput.addEventListener('input', updateSubmitButton);
+      detailAddressInput.addEventListener('input', updateSubmitButton);
+      
+      // Initialize verify button state
+      updateVerifyButton();
+      
+      verifyButton.addEventListener('click', async function() {
+        const businessNumber = businessNumberInput.value.trim();
+        if (businessNumber.length !== 10) {
+          alert('사업자 등록번호는 10자리 숫자여야 합니다.');
+          return;
+        }
+        
+        // Save original button HTML
+        const originalButtonHTML = verifyButton.innerHTML;
+        
+        // Disable button during API call
+        verifyButton.disabled = true;
+        verifyButton.innerHTML = '인증 중...';
+        
+        try {
+          const API_BASE_URL = 'http://localhost:8080';
+          console.log('Calling API:', `${API_BASE_URL}/api/v1/members/business-number/verify`);
+          console.log('Request body:', { businessNumber: businessNumber });
+          
+          const response = await fetch(`${API_BASE_URL}/api/v1/members/business-number/verify`, {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+              businessNumber: businessNumber
+            }),
+            credentials: 'include'
+          });
+          
+          console.log('Response status:', response.status);
+          console.log('Response ok:', response.ok);
+          
+          if (response.ok) {
+            let data;
+            try {
+              data = await response.json();
+              console.log('Response data:', data);
+            } catch (e) {
+              console.log('Response is not JSON, treating as success');
+              data = {};
+            }
+            
+            // Success: Change input to gray
+            businessNumberInput.classList.add('verified');
+            businessNumberInput.disabled = true;
+            
+            // Change button to verified state (Figma design)
+            verifyButton.classList.remove('active');
+            verifyButton.classList.add('verified');
+            verifyButton.innerHTML = `
+              <div class="verify-check-icon">
+                <svg width="28" height="28" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M9 14L12.5 17.5L19 11" stroke="#3b82f6" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+              </div>
+              <span class="verify-text">인증완료</span>
+            `;
+            verifyButton.disabled = true;
+          } else {
+            // Error response
+            let errorMessage = '인증에 실패했습니다.';
+            try {
+              const errorData = await response.json();
+              console.log('Error response data:', errorData);
+              errorMessage = errorData.message || errorData.error || errorMessage;
+            } catch (e) {
+              console.log('Error response is not JSON');
+              errorMessage = `인증에 실패했습니다. (상태 코드: ${response.status})`;
+            }
+            
+            alert(errorMessage);
+            
+            // Restore button state
+            verifyButton.disabled = false;
+            verifyButton.classList.remove('verified');
+            verifyButton.innerHTML = originalButtonHTML;
+            updateVerifyButton();
+          }
+        } catch (error) {
+          console.error('Error verifying business number:', error);
+          alert(`인증 중 오류가 발생했습니다: ${error.message}`);
+          
+          // Restore button state
+          verifyButton.disabled = false;
+          verifyButton.classList.remove('verified');
+          verifyButton.innerHTML = originalButtonHTML;
+          updateVerifyButton();
+        }
+      });
+      
+      submitButton.addEventListener('click', function() {
+        if (!submitButton.disabled) {
+          // Step 2 데이터 저장
+          const signupData = {
+            businessRegistrationNumber: businessNumberInput.value.trim(),
+            storeName: companyNameInput.value.trim(),
+            businessAddress: addressInput.value.trim(),
+            businessAddressDetail: detailAddressInput.value.trim() || ''
+          };
+          localStorage.setItem('signup_step2_data', JSON.stringify(signupData));
+          
+          // Navigate to next step
+          window.location.href = 'signup-step3.html';
+        }
+      });
+    });
+  </script>
+
+  <!-- Footer -->
+  <div class="signup-footer-section">
+    <div class="signup-footer-links">
+      <a href="#" class="signup-footer-link">이용약관</a>
+      <a href="#" class="signup-footer-link">개인정보처리방침</a>
+      <a href="#" class="signup-footer-link">고객센터</a>
+    </div>
+  </div>
+</body>
+</html>
+

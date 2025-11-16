@@ -1,0 +1,534 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>판매하기 - 부위 선택 - MAJANGDEAL</title>
+  <link href="https://fonts.googleapis.com/css?family=Inter&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      border: none !important;
+      background-color: #ffffff;
+      font-family: 'Inter', sans-serif;
+      overflow-y: auto;
+      scrollbar-gutter: stable;
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
+    }
+    
+    .sell-main-content {
+      width: 100%;
+      flex: 1;
+      display: flex;
+      justify-content: center;
+      align-items: flex-start;
+      background-color: #ffffff;
+      padding: 20px 20px 40px 20px;
+    }
+    
+    .sell-container {
+      width: 600px;
+      background-color: #ffffff;
+      border: 1px solid #e2e8f0;
+      border-radius: 16px;
+      padding: 48px;
+      display: flex;
+      flex-direction: column;
+      gap: 24px;
+      box-sizing: border-box;
+    }
+    
+    .sell-header-section {
+      display: flex;
+      flex-direction: column;
+      gap: 24px;
+    }
+    
+    .sell-progress {
+      display: flex;
+      flex-direction: row;
+      gap: 8px;
+      align-items: center;
+      height: 8px;
+    }
+    
+    .sell-step {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background-color: #e2e8f0;
+    }
+    
+    .sell-step-1 {
+      background-color: #10b981;
+    }
+    
+    .sell-step-2 {
+      background-color: #3b82f6;
+    }
+    
+    .sell-title {
+      font-family: 'Inter', sans-serif;
+      font-weight: 700;
+      font-size: 28px;
+      line-height: 33.6px;
+      color: #1e293b;
+      margin: 0;
+    }
+    
+    .sell-description {
+      font-family: 'Inter', sans-serif;
+      font-weight: 500;
+      font-size: 20px;
+      line-height: 24px;
+      color: #6b7280;
+      margin: 0;
+    }
+    
+    .sell-categories-section {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+    
+    .sell-category {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+    
+    .sell-category-header {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      padding: 16px;
+      background-color: #f8fafc;
+      border: 1px solid #e2e8f0;
+      border-radius: 8px;
+      height: 52px;
+      box-sizing: border-box;
+    }
+    
+    .sell-category-title {
+      font-family: 'Inter', sans-serif;
+      font-weight: 700;
+      font-size: 16px;
+      line-height: 19.2px;
+      color: #1e293b;
+      margin: 0;
+    }
+    
+    .sell-select-actions {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      gap: 8px;
+    }
+    
+    .sell-select-all-btn,
+    .sell-deselect-all-btn {
+      font-family: 'Inter', sans-serif;
+      font-weight: 500;
+      font-size: 12px;
+      line-height: 14.4px;
+      background: none;
+      border: none;
+      cursor: pointer;
+      padding: 0;
+      transition: opacity 0.2s;
+    }
+    
+    .sell-select-all-btn {
+      color: #3b82f6;
+    }
+    
+    .sell-deselect-all-btn {
+      color: #6b7280;
+    }
+    
+    .sell-select-all-btn:hover,
+    .sell-deselect-all-btn:hover {
+      opacity: 0.7;
+    }
+    
+    .sell-divider {
+      font-family: 'Inter', sans-serif;
+      font-weight: 500;
+      font-size: 12px;
+      line-height: 14.4px;
+      color: #d1d5db;
+    }
+    
+    .sell-items-grid {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      padding: 0 16px 16px 0;
+    }
+    
+    .sell-item-row {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      gap: 8px;
+      cursor: pointer;
+    }
+    
+    .sell-check {
+      width: 16px;
+      height: 16px;
+      border-radius: 3px;
+      border: 1px solid #d1d5db;
+      background-color: #ffffff;
+      cursor: pointer;
+      position: relative;
+      flex-shrink: 0;
+      transition: background-color 0.2s, border-color 0.2s;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    
+    .sell-check::after {
+      content: '✓';
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      color: white;
+      font-size: 12px;
+      font-weight: bold;
+      display: none;
+    }
+    
+    .sell-check.checked {
+      background-color: #3b82f6;
+      border-color: #3b82f6;
+    }
+    
+    .sell-check.checked::after {
+      display: block;
+    }
+    
+    .sell-item-label {
+      font-family: 'Inter', sans-serif;
+      font-weight: 500;
+      font-size: 14px;
+      line-height: 16.8px;
+      color: #374151;
+      margin: 0;
+    }
+    
+    .sell-submit-button {
+      width: 100%;
+      height: 56px;
+      background-color: #9ca3af;
+      border-radius: 8px;
+      border: none;
+      cursor: not-allowed;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: background-color 0.2s;
+      font-family: 'Inter', sans-serif;
+      font-weight: 600;
+      font-size: 16px;
+      line-height: 19.2px;
+      color: #ffffff;
+      margin-top: 8px;
+    }
+    
+    .sell-submit-button:not(:disabled) {
+      background-color: #3b82f6;
+      cursor: pointer;
+    }
+    
+    .sell-submit-button:disabled {
+      cursor: not-allowed;
+    }
+    
+    .sell-loading {
+      text-align: center;
+      padding: 40px;
+      color: #6b7280;
+    }
+    
+    #header-container {
+      width: 100%;
+    }
+    
+    #footer-container {
+      width: 100%;
+      flex-shrink: 0;
+    }
+  </style>
+</head>
+<body>
+  <!-- Header -->
+  <div id="header-container"></div>
+  
+  <div class="sell-main-content">
+    <div class="sell-container">
+      <div class="sell-header-section">
+        <div class="sell-progress">
+          <div class="sell-step sell-step-1"></div>
+          <div class="sell-step sell-step-2"></div>
+          <div class="sell-step"></div>
+        </div>
+        <p class="sell-title">판매하기</p>
+        <p class="sell-description" id="sell-description">판매를 원하시는 부위를 선택해주세요.</p>
+      </div>
+      
+      <!-- Categories Section -->
+      <div class="sell-categories-section" id="sell-categories-section">
+        <div class="sell-loading" id="sell-loading">
+          카테고리 정보를 불러오는 중...
+        </div>
+      </div>
+      
+      <button type="button" class="sell-submit-button" id="sell-submit-button" disabled>
+        다음
+      </button>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <div id="footer-container"></div>
+
+  <script src="config.js"></script>
+  <script src="script.js"></script>
+  <script>
+    // 헤더와 푸터 로드
+    async function loadHeader() {
+      const response = await fetch('header.html');
+      const html = await response.text();
+      document.getElementById('header-container').innerHTML = html;
+      
+      // 헤더 로드 후 로그인 상태 확인 및 헤더 업데이트
+      if (typeof restoreHeaderIfLoggedIn === 'function') {
+        restoreHeaderIfLoggedIn();
+      }
+    }
+    
+    async function loadFooter() {
+      const response = await fetch('footer.html');
+      const html = await response.text();
+      document.getElementById('footer-container').innerHTML = html;
+    }
+    
+    // 카테고리 데이터 로드 및 필터링
+    async function loadCategories() {
+      const meatType = localStorage.getItem('sell_meat_type');
+      const storageType = localStorage.getItem('sell_storage_type');
+      
+      if (!meatType) {
+        // 이전 단계 데이터가 없으면 첫 페이지로 리다이렉트
+        window.location.href = 'sell.html';
+        return;
+      }
+      
+      const API_BASE_URL = window.CONFIG?.API_BASE_URL || 'http://localhost:8080/api/v1';
+      const categoriesEndpoint = window.CONFIG?.ENDPOINT?.CATEGORIES || '/categories';
+      
+      try {
+        const response = await fetch(`${API_BASE_URL}${categoriesEndpoint}`, {
+          method: 'GET',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          credentials: window.CONFIG?.USE_CREDENTIALS ? 'include' : 'omit',
+        });
+        
+        if (!response.ok) {
+          throw new Error(`HTTP error! status: ${response.status}`);
+        }
+        
+        const data = await response.json();
+        
+        // categoryName을 기준으로 필터링
+        // 예: "한우", "육우", "한돈" 등
+        const filteredCategories = data.filter(category => {
+          const categoryName = category.categoryName || '';
+          // 선택한 축산물 종류와 일치하는 카테고리만 필터링
+          return categoryName === meatType;
+        });
+        
+        if (filteredCategories.length === 0) {
+          document.getElementById('sell-loading').innerHTML = 
+            '<p style="color: rgba(239, 68, 68, 1);">해당 카테고리 정보를 찾을 수 없습니다.</p>';
+          return;
+        }
+        
+        // 카테고리 렌더링
+        renderCategories(filteredCategories);
+        
+        // 체크박스 및 이벤트 리스너 초기화
+        initializeCheckboxes();
+        setupEventListeners();
+        
+        // 로딩 메시지 숨기기
+        const loadingElement = document.getElementById('sell-loading');
+        if (loadingElement) {
+          loadingElement.style.display = 'none';
+        }
+      } catch (error) {
+        console.error('Error loading categories:', error);
+        const loadingElement = document.getElementById('sell-loading');
+        if (loadingElement) {
+          loadingElement.innerHTML = '<p style="color: rgba(239, 68, 68, 1);">카테고리 정보를 불러오는데 실패했습니다.</p>';
+        }
+      }
+    }
+    
+    // 카테고리 렌더링
+    function renderCategories(categories) {
+      const container = document.getElementById('sell-categories-section');
+      if (!container) return;
+      
+      const loadingElement = document.getElementById('sell-loading');
+      if (loadingElement) {
+        loadingElement.remove();
+      }
+      
+      const categoriesHTML = categories.map(category => {
+        const categoryName = category.categoryName;
+        const parts = category.parts || [];
+        
+        const partsHTML = parts.map(part => {
+          return `
+            <div class="sell-item-row">
+              <div class="sell-check" data-item-id="${part.id}" data-item="${categoryName}-${part.part}"></div>
+              <p class="sell-item-label">${part.part}</p>
+            </div>
+          `;
+        }).join('');
+        
+        return `
+          <div class="sell-category" data-category="${categoryName}">
+            <div class="sell-category-header">
+              <p class="sell-category-title">${categoryName}</p>
+              <div class="sell-select-actions">
+                <button class="sell-select-all-btn" data-category="${categoryName}">전체선택</button>
+                <span class="sell-divider">|</span>
+                <button class="sell-deselect-all-btn" data-category="${categoryName}">전체해제</button>
+              </div>
+            </div>
+            <div class="sell-items-grid">
+              ${partsHTML}
+            </div>
+          </div>
+        `;
+      }).join('');
+      
+      container.innerHTML = categoriesHTML;
+    }
+    
+    function initializeCheckboxes() {
+      const checkboxes = document.querySelectorAll('.sell-check');
+      checkboxes.forEach(checkbox => {
+        checkbox.addEventListener('click', function(e) {
+          e.stopPropagation();
+          toggleCheckbox(this);
+          updateSubmitButton();
+        });
+      });
+      
+      const itemRows = document.querySelectorAll('.sell-item-row');
+      itemRows.forEach(row => {
+        row.addEventListener('click', function(e) {
+          if (e.target.classList.contains('sell-check')) {
+            return;
+          }
+          const checkbox = row.querySelector('.sell-check');
+          if (checkbox) {
+            toggleCheckbox(checkbox);
+            updateSubmitButton();
+          }
+        });
+      });
+    }
+    
+    function toggleCheckbox(checkbox) {
+      checkbox.classList.toggle('checked');
+    }
+    
+    function setupEventListeners() {
+      const selectAllButtons = document.querySelectorAll('.sell-select-all-btn');
+      selectAllButtons.forEach(button => {
+        button.addEventListener('click', function(e) {
+          e.stopPropagation();
+          const category = this.getAttribute('data-category');
+          const categoryItems = document.querySelectorAll(`[data-item^="${category}-"]`);
+          
+          categoryItems.forEach(item => {
+            item.classList.add('checked');
+          });
+          updateSubmitButton();
+        });
+      });
+      
+      const deselectAllButtons = document.querySelectorAll('.sell-deselect-all-btn');
+      deselectAllButtons.forEach(button => {
+        button.addEventListener('click', function(e) {
+          e.stopPropagation();
+          const category = this.getAttribute('data-category');
+          const categoryItems = document.querySelectorAll(`[data-item^="${category}-"]`);
+          
+          categoryItems.forEach(item => {
+            item.classList.remove('checked');
+          });
+          updateSubmitButton();
+        });
+      });
+      
+      const submitButton = document.getElementById('sell-submit-button');
+      if (submitButton) {
+        submitButton.addEventListener('click', function() {
+          if (!this.disabled) {
+            const selectedItems = [];
+            const checkedItems = document.querySelectorAll('.sell-check.checked[data-item-id]');
+            
+            checkedItems.forEach(item => {
+              const itemId = item.getAttribute('data-item-id');
+              if (itemId) {
+                selectedItems.push(parseInt(itemId));
+              }
+            });
+            
+            // 선택된 부위 ID 저장
+            localStorage.setItem('sell_selected_parts', JSON.stringify(selectedItems));
+            
+            // 다음 단계로 이동
+            window.location.href = 'sell-step3.html';
+          }
+        });
+      }
+    }
+    
+    function updateSubmitButton() {
+      const submitButton = document.getElementById('sell-submit-button');
+      const checkedItems = document.querySelectorAll('.sell-check.checked[data-item-id]');
+      
+      if (checkedItems.length > 0) {
+        submitButton.disabled = false;
+      } else {
+        submitButton.disabled = true;
+      }
+    }
+    
+    // 페이지 로드 시 실행
+    document.addEventListener('DOMContentLoaded', function() {
+      loadHeader();
+      loadFooter();
+      loadCategories();
+    });
+  </script>
+</body>
+</html>
+

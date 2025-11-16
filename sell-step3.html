@@ -1,0 +1,980 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>판매하기 - 판매정보 입력 - MAJANGDEAL</title>
+  <link href="https://fonts.googleapis.com/css?family=Inter&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      border: none !important;
+      background-color: #ffffff;
+      font-family: 'Inter', sans-serif;
+      overflow-y: auto;
+      scrollbar-gutter: stable;
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
+    }
+    
+    .sell-main-content {
+      width: 100%;
+      flex: 1;
+      display: flex;
+      justify-content: center;
+      align-items: flex-start;
+      background-color: #ffffff;
+      padding: 20px 20px 40px 20px;
+    }
+    
+    .sell-container {
+      width: 600px;
+      background-color: #ffffff;
+      border: 1px solid #e2e8f0;
+      border-radius: 16px;
+      padding: 48px;
+      display: flex;
+      flex-direction: column;
+      gap: 24px;
+      box-sizing: border-box;
+    }
+    
+    .sell-header-section {
+      display: flex;
+      flex-direction: column;
+      gap: 24px;
+    }
+    
+    .sell-progress {
+      display: flex;
+      flex-direction: row;
+      gap: 8px;
+      align-items: center;
+      height: 8px;
+    }
+    
+    .sell-step {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background-color: #e2e8f0;
+    }
+    
+    .sell-step-1 {
+      background-color: #10b981;
+    }
+    
+    .sell-step-2 {
+      background-color: #10b981;
+    }
+    
+    .sell-step-3 {
+      background-color: #3b82f6;
+    }
+    
+    .sell-title {
+      font-family: 'Inter', sans-serif;
+      font-weight: 700;
+      font-size: 28px;
+      line-height: 33.6px;
+      color: #1e293b;
+      margin: 0;
+    }
+    
+    .sell-description {
+      font-family: 'Inter', sans-serif;
+      font-weight: 500;
+      font-size: 20px;
+      line-height: 24px;
+      color: #6b7280;
+      margin: 0;
+    }
+    
+    .sell-info-box {
+      background-color: #ebf8ff;
+      border-radius: 8px;
+      padding: 16px;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+    
+    .sell-info-header {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      gap: 8px;
+    }
+    
+    .sell-info-icon {
+      width: 16px;
+      height: 16px;
+      border: 1px solid #3b82f6;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+    
+    .sell-info-icon::after {
+      content: 'i';
+      font-family: 'Inter', sans-serif;
+      font-weight: 700;
+      font-size: 12px;
+      color: #3b82f6;
+    }
+    
+    .sell-info-title {
+      font-family: 'Inter', sans-serif;
+      font-weight: 600;
+      font-size: 14px;
+      line-height: 16.8px;
+      color: #1e40af;
+      margin: 0;
+    }
+    
+    .sell-info-text {
+      font-family: 'Inter', sans-serif;
+      font-weight: 400;
+      font-size: 14px;
+      line-height: 15.6px;
+      color: #1e40af;
+      margin: 0;
+    }
+    
+    .sell-form-section {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+    
+    .sell-input-group {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+    
+    .sell-label {
+      font-family: 'Inter', sans-serif;
+      font-weight: 600;
+      font-size: 16px;
+      line-height: 19.2px;
+      color: #111827;
+      margin: 0;
+    }
+    
+    .sell-input {
+      width: 100%;
+      height: 48px;
+      padding: 0 16px;
+      border: 1px solid #d1d5db;
+      border-radius: 8px;
+      background-color: #ffffff;
+      font-family: 'Inter', sans-serif;
+      font-weight: 400;
+      font-size: 14px;
+      line-height: 16.8px;
+      color: #111827;
+      box-sizing: border-box;
+    }
+    
+    .sell-input::placeholder {
+      color: #9ca3af;
+    }
+    
+    .sell-input:focus {
+      outline: none;
+      border-color: #3b82f6;
+    }
+    
+    .sell-unit-row {
+      display: flex;
+      flex-direction: row;
+      gap: 12px;
+      align-items: center;
+      flex-wrap: nowrap;
+    }
+    
+    .sell-quantity-input {
+      flex: 1;
+      min-width: 0;
+      height: 48px;
+      padding: 0 16px;
+      border: 1px solid #d1d5db;
+      border-radius: 8px;
+      background-color: #ffffff;
+      font-family: 'Inter', sans-serif;
+      font-weight: 400;
+      font-size: 14px;
+      line-height: 16.8px;
+      color: #111827;
+      box-sizing: border-box;
+    }
+    
+    .sell-quantity-input::placeholder {
+      color: #9ca3af;
+    }
+    
+    .sell-quantity-input:focus {
+      outline: none;
+      border-color: #3b82f6;
+    }
+    
+    .sell-unit-options {
+      display: flex;
+      flex-direction: row;
+      gap: 12px;
+      flex-wrap: nowrap;
+      flex-shrink: 0;
+    }
+    
+    .sell-unit-option {
+      width: 120px;
+      height: 48px;
+      background-color: #f3f4f6;
+      border-radius: 8px;
+      padding: 12px 13px;
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      justify-content: center;
+      gap: 12px;
+      cursor: pointer;
+      transition: all 0.2s;
+      border: 2px solid transparent;
+      box-sizing: border-box;
+      flex-shrink: 0;
+    }
+    
+    .sell-unit-option:hover {
+      background-color: #e5e7eb;
+    }
+    
+    .sell-unit-option.selected {
+      border-color: transparent;
+    }
+    
+    .sell-unit-radio {
+      width: 16px;
+      height: 16px;
+      border-radius: 8px;
+      border: 1px solid #d1d5db;
+      background-color: #ffffff;
+      position: relative;
+      flex-shrink: 0;
+      transition: all 0.2s;
+    }
+    
+    .sell-unit-option.selected .sell-unit-radio {
+      border-color: #4f46e5;
+    }
+    
+    .sell-unit-radio::after {
+      content: '';
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 8px;
+      height: 8px;
+      border-radius: 4px;
+      background-color: #4f46e5;
+      display: none;
+    }
+    
+    .sell-unit-option.selected .sell-unit-radio::after {
+      display: block;
+    }
+    
+    .sell-unit-label {
+      font-family: 'Inter', sans-serif;
+      font-weight: 500;
+      font-size: 14px;
+      line-height: 16.8px;
+      color: #374151;
+      margin: 0;
+      white-space: nowrap;
+    }
+    
+    .sell-weight-row {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      gap: 12px;
+    }
+    
+    .sell-weight-input {
+      width: 200px;
+      height: 48px;
+      padding: 0 16px;
+      border: 1px solid #d1d5db;
+      border-radius: 8px;
+      background-color: #ffffff;
+      font-family: 'Inter', sans-serif;
+      font-weight: 400;
+      font-size: 14px;
+      line-height: 16.8px;
+      color: #111827;
+      box-sizing: border-box;
+    }
+    
+    .sell-weight-input::placeholder {
+      color: #9ca3af;
+    }
+    
+    .sell-weight-input:focus {
+      outline: none;
+      border-color: #3b82f6;
+    }
+    
+    .sell-unit-label-text {
+      font-family: 'Inter', sans-serif;
+      font-weight: 500;
+      font-size: 14px;
+      line-height: 16.8px;
+      color: #6b7280;
+      margin: 0;
+    }
+    
+    .sell-price-row {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      gap: 12px;
+    }
+    
+    .sell-price-input {
+      width: 200px;
+      height: 48px;
+      padding: 0 16px;
+      border: 1px solid #d1d5db;
+      border-radius: 8px;
+      background-color: #ffffff;
+      font-family: 'Inter', sans-serif;
+      font-weight: 400;
+      font-size: 14px;
+      line-height: 16.8px;
+      color: #111827;
+      box-sizing: border-box;
+    }
+    
+    .sell-price-input::placeholder {
+      color: #9ca3af;
+    }
+    
+    .sell-price-input:focus {
+      outline: none;
+      border-color: #3b82f6;
+    }
+    
+    .sell-description-header {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      justify-content: space-between;
+    }
+    
+    .sell-description-optional {
+      font-family: 'Inter', sans-serif;
+      font-weight: 400;
+      font-size: 14px;
+      line-height: 16.8px;
+      color: #9ca3af;
+      margin: 0;
+    }
+    
+    .sell-textarea {
+      width: 100%;
+      min-height: 120px;
+      padding: 16px;
+      border: 1px solid #d1d5db;
+      border-radius: 8px;
+      background-color: #ffffff;
+      font-family: 'Inter', sans-serif;
+      font-weight: 400;
+      font-size: 14px;
+      line-height: 19.6px;
+      color: #111827;
+      box-sizing: border-box;
+      resize: vertical;
+    }
+    
+    .sell-textarea::placeholder {
+      color: #9ca3af;
+    }
+    
+    .sell-textarea:focus {
+      outline: none;
+      border-color: #3b82f6;
+    }
+    
+    .sell-char-count {
+      font-family: 'Inter', sans-serif;
+      font-weight: 400;
+      font-size: 12px;
+      line-height: 14.4px;
+      color: #9ca3af;
+      text-align: right;
+      margin: 0;
+    }
+    
+    .sell-submit-button {
+      width: 100%;
+      height: 56px;
+      background-color: #9ca3af;
+      border-radius: 8px;
+      border: none;
+      cursor: not-allowed;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: background-color 0.2s;
+      font-family: 'Inter', sans-serif;
+      font-weight: 600;
+      font-size: 16px;
+      line-height: 19.2px;
+      color: #ffffff;
+      margin-top: 8px;
+    }
+    
+    .sell-submit-button:not(:disabled) {
+      background-color: #3b82f6;
+      cursor: pointer;
+    }
+    
+    .sell-submit-button:disabled {
+      cursor: not-allowed;
+    }
+    
+    #header-container {
+      width: 100%;
+    }
+    
+    #footer-container {
+      width: 100%;
+      flex-shrink: 0;
+    }
+  </style>
+</head>
+<body>
+  <!-- Header -->
+  <div id="header-container"></div>
+  
+  <div class="sell-main-content">
+    <div class="sell-container">
+      <div class="sell-header-section">
+        <div class="sell-progress">
+          <div class="sell-step sell-step-1"></div>
+          <div class="sell-step sell-step-2"></div>
+          <div class="sell-step sell-step-3"></div>
+        </div>
+        <p class="sell-title">판매하기</p>
+        <p class="sell-description">판매하실 축산물의 상세 정보를 입력해주세요.</p>
+      </div>
+      
+      <!-- Info Box -->
+      <div class="sell-info-box">
+        <div class="sell-info-header">
+          <div class="sell-info-icon"></div>
+          <p class="sell-info-title">판매정보 입력 안내</p>
+        </div>
+        <p class="sell-info-text">정확한 정보 입력은 구매자에게 신뢰를 줄 수 있습니다.</p>
+      </div>
+      
+      <!-- Form Section -->
+      <div class="sell-form-section">
+        <!-- Grade Section -->
+        <div class="sell-input-group">
+          <label class="sell-label">등급</label>
+          <input type="text" class="sell-input" id="grade-input" placeholder="등급을 입력해주세요 (예: 1+등급)">
+        </div>
+        
+        <!-- Unit Section -->
+        <div class="sell-input-group">
+          <label class="sell-label">판매 수량/단위 선택</label>
+          <div class="sell-unit-row">
+            <input type="number" class="sell-quantity-input" id="quantity-input" placeholder="수량을 입력해주세요">
+            <div class="sell-unit-options">
+              <div class="sell-unit-option selected" data-unit="kg">
+                <div class="sell-unit-radio"></div>
+                <p class="sell-unit-label">덩어리 (kg)</p>
+              </div>
+              <div class="sell-unit-option" data-unit="box">
+                <div class="sell-unit-radio"></div>
+                <p class="sell-unit-label">박스 (box)</p>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <!-- Average Weight Section -->
+        <div class="sell-input-group">
+          <label class="sell-label">평균 중량</label>
+          <div class="sell-weight-row">
+            <input type="number" class="sell-weight-input" id="weight-input" placeholder="평균 중량을 입력해주세요">
+            <p class="sell-unit-label-text">kg</p>
+          </div>
+        </div>
+        
+        <!-- Unit Price Section -->
+        <div class="sell-input-group">
+          <label class="sell-label">단가</label>
+          <div class="sell-price-row">
+            <input type="number" class="sell-price-input" id="price-input" placeholder="kg당 가격을 입력해주세요">
+            <p class="sell-unit-label-text">원 / kg당</p>
+          </div>
+        </div>
+        
+        <!-- Description Section -->
+        <div class="sell-input-group">
+          <div class="sell-description-header">
+            <label class="sell-label">상품설명</label>
+            <p class="sell-description-optional">(선택)</p>
+          </div>
+          <textarea class="sell-textarea" id="description-input" placeholder="EX. 원산지 등&#10;상품에 대한 상세한 설명을 입력해주세요.&#10;(최대 500자)" maxlength="500"></textarea>
+          <p class="sell-char-count" id="char-count">0 / 500</p>
+        </div>
+      </div>
+      
+      <button type="button" class="sell-submit-button" id="sell-submit-button" disabled>
+        등록하기
+      </button>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <div id="footer-container"></div>
+
+  <!-- Login Modal -->
+  <div id="login-modal" class="modal" style="display: none;">
+    <div class="modal-overlay"></div>
+    <div class="modal-content login-modal-content">
+      <div class="login-header-content">
+        <div class="login-logo-section">
+          <p class="login-logo-text">MAJANGDEAL</p>
+        </div>
+        <div class="login-error-message" id="login-error-message">
+          아이디와 비밀번호를 정확히 입력해 주세요.
+        </div>
+        <div class="login-frame-22">
+          <div class="login-user-actions">
+            <div class="login-frame-21">
+              <div class="login-input-field">
+                <input type="text" id="login-id" name="id" placeholder="아이디를 입력해주세요." required>
+              </div>
+              <div class="login-input-field">
+                <input type="password" id="login-password" name="password" placeholder="비밀번호를 입력해주세요." required>
+              </div>
+              <div class="login-save-id">
+                <input type="checkbox" id="save-id-checkbox">
+                <label for="save-id-checkbox">아이디 저장</label>
+              </div>
+            </div>
+            <button type="button" class="login-submit-button" id="login-submit-btn">로그인</button>
+          </div>
+          <div class="login-links-frame">
+            <a href="#" class="login-link">회원가입</a>
+            <span class="login-link-divider"></span>
+            <a href="#" class="login-link">아이디 찾기</a>
+            <span class="login-link-divider"></span>
+            <a href="#" class="login-link">비밀번호 재설정</a>
+          </div>
+        </div>
+      </div>
+    </div>
+    <button class="modal-close" id="close-login-modal">&times;</button>
+  </div>
+
+  <script src="config.js"></script>
+  <script src="script.js"></script>
+  <script>
+    // 헤더와 푸터 로드
+    async function loadHeader() {
+      const response = await fetch('header.html');
+      const html = await response.text();
+      document.getElementById('header-container').innerHTML = html;
+      
+      // 헤더 로드 후 로그인 상태 확인 및 헤더 업데이트
+      if (typeof restoreHeaderIfLoggedIn === 'function') {
+        restoreHeaderIfLoggedIn();
+      }
+    }
+    
+    async function loadFooter() {
+      const response = await fetch('footer.html');
+      const html = await response.text();
+      document.getElementById('footer-container').innerHTML = html;
+    }
+    
+    // 단위 선택 처리
+    function setupUnitOptions() {
+      const unitOptions = document.querySelectorAll('.sell-unit-option');
+      unitOptions.forEach(option => {
+        option.addEventListener('click', function() {
+          unitOptions.forEach(opt => opt.classList.remove('selected'));
+          this.classList.add('selected');
+          updateSubmitButton();
+        });
+      });
+    }
+    
+    // 글자 수 카운트
+    function setupCharCount() {
+      const textarea = document.getElementById('description-input');
+      const charCount = document.getElementById('char-count');
+      
+      if (textarea && charCount) {
+        textarea.addEventListener('input', function() {
+          const length = this.value.length;
+          charCount.textContent = `${length} / 500`;
+        });
+      }
+    }
+    
+    // 필수 입력 필드 검증
+    function validateForm() {
+      const grade = document.getElementById('grade-input').value.trim();
+      const quantity = document.getElementById('quantity-input').value.trim();
+      const weight = document.getElementById('weight-input').value.trim();
+      const price = document.getElementById('price-input').value.trim();
+      
+      return grade && quantity && weight && price;
+    }
+    
+    // 제출 버튼 상태 업데이트
+    function updateSubmitButton() {
+      const submitButton = document.getElementById('sell-submit-button');
+      if (submitButton) {
+        submitButton.disabled = !validateForm();
+      }
+    }
+    
+    // 입력 필드 이벤트 리스너 설정
+    function setupInputListeners() {
+      const requiredInputs = [
+        document.getElementById('grade-input'),
+        document.getElementById('quantity-input'),
+        document.getElementById('weight-input'),
+        document.getElementById('price-input')
+      ];
+      
+      requiredInputs.forEach(input => {
+        if (input) {
+          input.addEventListener('input', updateSubmitButton);
+        }
+      });
+    }
+    
+    // 제출 버튼 클릭 처리
+    function setupSubmitButton() {
+      const submitButton = document.getElementById('sell-submit-button');
+      if (submitButton) {
+        submitButton.addEventListener('click', async function() {
+          if (!this.disabled) {
+            try {
+              // 이전 단계에서 저장된 데이터 가져오기
+              const meatType = localStorage.getItem('sell_meat_type');
+              const storageType = localStorage.getItem('sell_storage_type');
+              const selectedPartsStr = localStorage.getItem('sell_selected_parts');
+              
+              if (!meatType || !selectedPartsStr) {
+                alert('이전 단계 정보가 없습니다. 처음부터 다시 진행해주세요.');
+                window.location.href = 'sell.html';
+                return;
+              }
+              
+              const selectedParts = JSON.parse(selectedPartsStr);
+              if (!selectedParts || selectedParts.length === 0) {
+                alert('부위를 선택해주세요.');
+                window.location.href = 'sell-step2.html';
+                return;
+              }
+              
+              // 현재 단계에서 입력한 데이터
+              const grade = document.getElementById('grade-input').value.trim();
+              const quantity = parseInt(document.getElementById('quantity-input').value.trim());
+              const unitValue = document.querySelector('.sell-unit-option.selected')?.getAttribute('data-unit') || 'kg';
+              const weight = parseFloat(document.getElementById('weight-input').value.trim());
+              const price = parseInt(document.getElementById('price-input').value.trim());
+              const description = document.getElementById('description-input').value.trim();
+              
+              // 유효성 검사
+              if (!grade || !quantity || !weight || !price) {
+                alert('필수 항목을 모두 입력해주세요.');
+                return;
+              }
+              
+              if (quantity <= 0) {
+                alert('수량은 0보다 커야 합니다.');
+                return;
+              }
+              
+              if (price <= 0) {
+                alert('가격은 0보다 커야 합니다.');
+                return;
+              }
+              
+              if (weight <= 0) {
+                alert('평균 중량은 0보다 커야 합니다.');
+                return;
+              }
+              
+              // ProductUnit 변환 (kg -> KG, box -> BOX)
+              const unit = unitValue.toUpperCase();
+              
+              // StorageType 변환 (냉동 -> FROZEN, 냉장 -> REFRIGERATED)
+              let storageTypeEnum = null;
+              if (storageType) {
+                if (storageType === '냉동') {
+                  storageTypeEnum = 'FROZEN';
+                } else if (storageType === '냉장') {
+                  storageTypeEnum = 'REFRIGERATED';
+                }
+              }
+              
+              // 첫 번째 선택된 부위 ID를 categoryId로 사용
+              const categoryId = selectedParts[0];
+              
+              // 상품명 생성 (카테고리명 + 부위명 조합, 추후 개선 가능)
+              const displayName = `${meatType} ${grade}`;
+              
+              // API 요청 데이터 구성
+              const requestData = {
+                categoryId: categoryId,
+                displayName: displayName,
+                grade: grade,
+                description: description || null,
+                price: price,
+                unit: unit,
+                storageType: storageTypeEnum,
+                avgWeight: weight,
+                quantity: quantity,
+                origin: null // 원산지는 추후 추가 가능
+              };
+              
+              // 필수 필드가 null이 아닌지 확인
+              if (!requestData.categoryId || !requestData.price || !requestData.unit || !requestData.storageType || !requestData.quantity) {
+                alert('필수 정보가 누락되었습니다. 다시 확인해주세요.');
+                return;
+              }
+              
+              // 상품 등록 함수 호출
+              await submitProductData(requestData);
+            } catch (error) {
+              console.error('상품 등록 오류:', error);
+              alert(error.message || '상품 등록 중 오류가 발생했습니다. 다시 시도해주세요.');
+            }
+          }
+        });
+      }
+    }
+    
+    // 로그인 후 재시도 플래그
+    let shouldRetryAfterLogin = false;
+    let pendingSubmitData = null;
+    
+    // 로그인 모달 설정
+    function setupLoginModal() {
+      const loginModal = document.getElementById('login-modal');
+      const closeModal = document.getElementById('close-login-modal');
+      const modalOverlay = loginModal ? loginModal.querySelector('.modal-overlay') : null;
+      const loginSubmitBtn = document.getElementById('login-submit-btn');
+      const loginErrorMessage = document.getElementById('login-error-message');
+      
+      if (closeModal && loginModal) {
+        closeModal.addEventListener('click', function() {
+          loginModal.style.display = 'none';
+          document.body.style.overflowY = 'scroll';
+          shouldRetryAfterLogin = false;
+          pendingSubmitData = null;
+        });
+      }
+      
+      if (modalOverlay && loginModal) {
+        modalOverlay.addEventListener('click', function() {
+          loginModal.style.display = 'none';
+          document.body.style.overflowY = 'scroll';
+          shouldRetryAfterLogin = false;
+          pendingSubmitData = null;
+        });
+      }
+      
+      // ESC 키로 모달 닫기
+      document.addEventListener('keydown', function(e) {
+        if (e.key === 'Escape' && loginModal && loginModal.style.display === 'flex') {
+          loginModal.style.display = 'none';
+          document.body.style.overflowY = 'scroll';
+          shouldRetryAfterLogin = false;
+          pendingSubmitData = null;
+        }
+      });
+      
+      // 로그인 버튼 핸들러
+      if (loginSubmitBtn) {
+        loginSubmitBtn.addEventListener('click', async function(e) {
+          e.preventDefault();
+          e.stopPropagation();
+          
+          const loginId = document.getElementById('login-id').value;
+          const loginPassword = document.getElementById('login-password').value;
+          
+          if (!loginId || !loginPassword) {
+            if (loginErrorMessage) {
+              loginErrorMessage.classList.add('visible');
+            }
+            return;
+          }
+          
+          const API_BASE_URL = window.CONFIG?.API_BASE_URL || 'http://localhost:8080/api/v1';
+          
+          try {
+            if (loginErrorMessage) {
+              loginErrorMessage.classList.remove('visible');
+            }
+            
+            const loginResponse = await fetch(`${API_BASE_URL}/members/login`, {
+              method: 'POST',
+              headers: { 'Content-Type': 'application/json' },
+              credentials: window.CONFIG?.USE_CREDENTIALS ? 'include' : 'omit',
+              body: JSON.stringify({ loginId, password: loginPassword })
+            });
+            
+            const loginData = await loginResponse.json();
+            
+            if (loginResponse.ok && (loginData.success !== false)) {
+              // 로그인 성공
+              const userInfo = {
+                loginId: loginId,
+                name: loginData.name || loginId,
+                ...loginData
+              };
+              localStorage.setItem('userInfo', JSON.stringify(userInfo));
+              
+              // 아이디 저장 처리
+              const saveIdCheckbox = document.getElementById('save-id-checkbox');
+              if (saveIdCheckbox && saveIdCheckbox.checked) {
+                localStorage.setItem('savedLoginId', loginId);
+              } else {
+                localStorage.removeItem('savedLoginId');
+              }
+              
+              // 모달 닫기
+              loginModal.style.display = 'none';
+              document.body.style.overflowY = 'scroll';
+              
+              // 헤더 업데이트
+              if (typeof updateHeaderAfterLogin === 'function') {
+                updateHeaderAfterLogin(userInfo);
+              }
+              
+              // 로그인 성공 후 다시 등록 시도
+              if (shouldRetryAfterLogin && pendingSubmitData) {
+                shouldRetryAfterLogin = false;
+                const data = pendingSubmitData;
+                pendingSubmitData = null;
+                
+                // 등록 재시도
+                setTimeout(async () => {
+                  await submitProductData(data);
+                }, 100);
+              }
+            } else {
+              // 로그인 실패
+              if (loginErrorMessage) {
+                loginErrorMessage.classList.add('visible');
+              }
+            }
+          } catch (err) {
+            console.error('Login error:', err);
+            if (loginErrorMessage) {
+              loginErrorMessage.classList.add('visible');
+            }
+          }
+        });
+      }
+    }
+    
+    // 상품 등록 함수 분리
+    async function submitProductData(requestData) {
+      const submitButton = document.getElementById('sell-submit-button');
+      
+      // 버튼 비활성화 및 로딩 표시
+      submitButton.disabled = true;
+      const originalText = submitButton.textContent;
+      submitButton.textContent = '등록 중...';
+      
+      try {
+        // API 호출
+        const API_BASE_URL = window.CONFIG?.API_BASE_URL || 'http://localhost:8080/api/v1';
+        const productsEndpoint = window.CONFIG?.ENDPOINT?.PRODUCTS || '/products';
+        
+        const response = await fetch(`${API_BASE_URL}${productsEndpoint}`, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          credentials: window.CONFIG?.USE_CREDENTIALS ? 'include' : 'omit',
+          body: JSON.stringify(requestData)
+        });
+        
+        if (!response.ok) {
+          const errorData = await response.json().catch(() => ({ message: '상품 등록에 실패했습니다.' }));
+          const errorMessage = errorData.message || errorData.error || `HTTP error! status: ${response.status}`;
+          
+          // 로그인이 필요한 경우 로그인 모달 표시
+          if (response.status === 401 || errorMessage.includes('로그인') || errorMessage.includes('인증') || errorMessage.includes('로그인이 필요합니다')) {
+            const loginModal = document.getElementById('login-modal');
+            if (loginModal) {
+              shouldRetryAfterLogin = true;
+              pendingSubmitData = requestData;
+              loginModal.style.display = 'flex';
+              document.body.style.overflowY = 'hidden';
+            }
+            submitButton.disabled = false;
+            submitButton.textContent = originalText;
+            return;
+          }
+          
+          throw new Error(errorMessage);
+        }
+        
+        const responseData = await response.json();
+        
+        // 성공 시 로컬 스토리지 정리
+        localStorage.removeItem('sell_meat_type');
+        localStorage.removeItem('sell_storage_type');
+        localStorage.removeItem('sell_selected_parts');
+        localStorage.removeItem('sell_form_data');
+        
+        // 성공 메시지 및 리다이렉트
+        alert('상품이 성공적으로 등록되었습니다.');
+        window.location.href = 'index.html'; // 또는 상품 상세 페이지로 이동
+        
+      } catch (error) {
+        console.error('상품 등록 오류:', error);
+        alert(error.message || '상품 등록 중 오류가 발생했습니다. 다시 시도해주세요.');
+        
+        // 버튼 다시 활성화
+        submitButton.disabled = false;
+        submitButton.textContent = originalText;
+      }
+    }
+    
+    // 페이지 로드 시 실행
+    document.addEventListener('DOMContentLoaded', function() {
+      loadHeader();
+      loadFooter();
+      setupUnitOptions();
+      setupCharCount();
+      setupInputListeners();
+      setupSubmitButton();
+      setupLoginModal();
+    });
+  </script>
+</body>
+</html>
+

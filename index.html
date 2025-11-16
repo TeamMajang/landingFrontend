@@ -1,0 +1,524 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Exported Figma Design</title>
+  <link href="https://fonts.googleapis.com/css?family=Inter&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+<!-- Login Modal -->
+<div id="login-modal" class="modal" style="display: none;">
+  <div class="modal-overlay"></div>
+  <div class="modal-content login-modal-content">
+    <div class="login-header-content">
+      <div class="login-logo-section">
+        <p class="login-logo-text">MAJANGDEAL</p>
+      </div>
+      <div class="login-error-message" id="login-error-message">
+        아이디와 비밀번호를 정확히 입력해 주세요.
+      </div>
+      <div class="login-frame-22">
+        <div class="login-user-actions">
+          <div class="login-frame-21">
+            <div class="login-input-field">
+              <input type="text" id="login-id" name="id" placeholder="아이디를 입력해주세요." required>
+            </div>
+            <div class="login-input-field">
+              <input type="password" id="login-password" name="password" placeholder="비밀번호를 입력해주세요." required>
+            </div>
+            <div class="login-save-id">
+              <input type="checkbox" id="save-id-checkbox">
+              <label for="save-id-checkbox">아이디 저장</label>
+            </div>
+          </div>
+          <button type="button" class="login-submit-button" id="login-submit-btn">로그인</button>
+        </div>
+        <div class="login-links-frame">
+          <a href="#" class="login-link">회원가입</a>
+          <span class="login-link-divider"></span>
+          <a href="#" class="login-link">아이디 찾기</a>
+          <span class="login-link-divider"></span>
+          <a href="#" class="login-link">비밀번호 재설정</a>
+        </div>
+      </div>
+    </div>
+    <button class="modal-close" id="close-login-modal">&times;</button>
+  </div>
+</div>
+
+<!-- Find ID Modal -->
+<div id="find-id-modal" class="modal" style="display: none;">
+  <div class="modal-overlay"></div>
+  <div class="modal-content find-id-modal-content">
+    <div class="find-id-header-content">
+      <div class="find-id-logo-section">
+        <p class="login-logo-text">MAJANGDEAL</p>
+      </div>
+      <div class="find-id-error-message" id="find-id-error-message" style="display: none;">
+        <p class="text-9" style="color: rgba(255, 29, 25, 1); margin: 0;"><span>사업자 등록번호를 정확히 입력해주세요.</span></p>
+      </div>
+      <div class="find-id-user-actions">
+        <div class="find-id-business-info">
+          <div class="find-id-representative">
+            <p class="find-id-label">사업자 등록번호</p>
+            <div class="find-id-name-input">
+              <input type="text" id="find-id-business-number" name="businessNumber" placeholder="사업자 등록번호를 입력해주세요." required style="border: none; outline: none; background: transparent; width: 100%; font-family: var(--font-family-inter); font-weight: 400; font-size: 16px; line-height: 19.200000762939453px; color: var(--text-rgb-55-65-81);">
+            </div>
+          </div>
+        </div>
+        <button type="button" class="find-id-submit-button" id="find-id-submit-btn">
+          <p class="text-16"><span class="text-white">아이디 찾기</span></p>
+        </button>
+      </div>
+    </div>
+    <button class="modal-close" id="close-find-id-modal">&times;</button>
+  </div>
+</div>
+
+<!-- Find ID Success Modal -->
+<div id="find-id-success-modal" class="modal" style="display: none;">
+  <div class="modal-overlay"></div>
+  <div class="modal-content find-id-success-modal-content">
+    <div class="find-id-success-header-content">
+      <div class="find-id-success-logo-section">
+        <p class="login-logo-text">MAJANGDEAL</p>
+      </div>
+      <div class="find-id-success-content">
+        <div class="find-id-success-info-section">
+          <div class="find-id-success-alert-icon">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <circle cx="12" cy="12" r="10" stroke="#3b82f6" stroke-width="2" fill="none"/>
+              <path d="M12 8v4M12 16h.01" stroke="#3b82f6" stroke-width="2" stroke-linecap="round"/>
+            </svg>
+          </div>
+          <p class="find-id-success-title">아이디 찾기 완료!</p>
+          <p class="find-id-success-message" id="find-id-success-message">고객님의 아이디는<br><span id="find-id-result"></span><br>입니다.</p>
+        </div>
+        <div class="find-id-success-contact-info">
+          <p class="find-id-success-contact-title">고객센터 번호</p>
+          <div class="find-id-success-phone-frame">
+            <div class="find-id-success-phone-icon">
+              <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M2 3C2 2.44772 2.44772 2 3 2H5.15287C5.64171 2 6.0589 2.35341 6.13927 2.8356L6.87858 7.27147C6.95075 7.70451 6.73206 8.13397 6.3394 8.3303L4.79126 9.10437C5.90756 11.8783 8.12168 14.0924 10.8956 15.2087L11.6697 13.6606C11.866 13.2679 12.2955 13.0492 12.7285 13.1214L17.1644 13.8607C17.6466 13.9411 18 14.3583 18 14.8471V17C18 17.5523 17.5523 18 17 18H15C7.8203 18 2 12.1797 2 5V3Z" stroke="#4f46e5" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </div>
+            <p class="find-id-success-phone-number">1588-1234</p>
+          </div>
+          <p class="find-id-success-hours">운영시간: 평일 09:00 ~ 18:00</p>
+        </div>
+        <button type="button" class="find-id-success-close-button" id="find-id-success-close-btn">
+          <p class="text-16"><span class="text-white">닫기</span></p>
+        </button>
+      </div>
+    </div>
+    <button class="modal-close" id="close-find-id-success-modal">&times;</button>
+  </div>
+</div>
+
+<!-- Reset Password Modal -->
+<div id="reset-password-modal" class="modal" style="display: none;">
+  <div class="modal-overlay"></div>
+  <div class="modal-content reset-password-modal-content">
+    <div class="reset-password-header-content">
+      <div class="reset-password-logo-section">
+        <p class="login-logo-text">MAJANGDEAL</p>
+      </div>
+      <div class="reset-password-content">
+        <div class="reset-password-info-section">
+          <div class="reset-password-lock-icon">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <rect x="4" y="10" width="16" height="10" rx="2" stroke="#3b82f6" stroke-width="2" fill="none"/>
+              <path d="M7 10V7C7 4.79086 8.79086 3 11 3H13C15.2091 3 17 4.79086 17 7V10" stroke="#3b82f6" stroke-width="2" stroke-linecap="round"/>
+            </svg>
+          </div>
+          <p class="reset-password-title">비밀번호 재설정 안내</p>
+          <p class="reset-password-message">등록된 핸드폰 번호로 새로운 비밀번호를 보냈어요. 다시 로그인 하신 후 마이페이지에서 비밀번호를 재설정 가능합니다.</p>
+        </div>
+        <div class="reset-password-contact-info">
+          <p class="reset-password-contact-title">고객센터 번호</p>
+          <div class="reset-password-phone-frame">
+            <div class="reset-password-phone-icon">
+              <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M2 3C2 2.44772 2.44772 2 3 2H5.15287C5.64171 2 6.0589 2.35341 6.13927 2.8356L6.87858 7.27147C6.95075 7.70451 6.73206 8.13397 6.3394 8.3303L4.79126 9.10437C5.90756 11.8783 8.12168 14.0924 10.8956 15.2087L11.6697 13.6606C11.866 13.2679 12.2955 13.0492 12.7285 13.1214L17.1644 13.8607C17.6466 13.9411 18 14.3583 18 14.8471V17C18 17.5523 17.5523 18 17 18H15C7.8203 18 2 12.1797 2 5V3Z" stroke="#4f46e5" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </div>
+            <p class="reset-password-phone-number">1588-1234</p>
+          </div>
+          <p class="reset-password-hours">운영시간: 평일 09:00 ~ 18:00</p>
+        </div>
+        <button type="button" class="reset-password-close-button" id="reset-password-close-btn">
+          <p class="text-16"><span class="text-white">닫기</span></p>
+        </button>
+      </div>
+    </div>
+    <button class="modal-close" id="close-reset-password-modal">&times;</button>
+  </div>
+</div>
+
+<!-- Signup Modal -->
+<div id="signup-modal" class="modal" style="display: none;">
+  <div class="modal-overlay"></div>
+  <div class="modal-content signup-modal-content">
+    <div class="signup-agreement-container">
+      <div class="signup-header-section">
+        <div class="signup-progress">
+          <div class="signup-step signup-step-1"></div>
+          <div class="signup-step signup-step-2"></div>
+          <div class="signup-step signup-step-3"></div>
+          <div class="signup-step signup-step-4"></div>
+        </div>
+        <p class="signup-title">사업자 회원가입</p>
+        <p class="signup-description">이용약관을 확인하신 후 동의해주세요.</p>
+      </div>
+      <div class="signup-terms-section">
+        <div class="signup-select-all">
+          <div class="signup-all-check-row">
+            <div class="signup-all-check">
+              <div class="signup-check" id="signup-all-check"></div>
+              <p class="signup-all-check-text">모두 동의</p>
+            </div>
+            <p class="signup-optional-text">* 선택 항목 포함</p>
+          </div>
+        </div>
+        <div class="signup-terms-list">
+          <div class="signup-age-check-row">
+            <div class="signup-check" id="signup-age-check"></div>
+            <div class="signup-age-check">
+              <span class="signup-required-label">(필수)</span>
+              <span class="signup-age-text">만 14세 이상입니다.</span>
+            </div>
+          </div>
+          <div class="signup-service-row">
+            <div class="signup-service-check">
+              <div class="signup-check" id="signup-service-check"></div>
+              <div class="signup-service-label">
+                <span class="signup-required-label">(필수)</span>
+                <span class="signup-service-text">이용약관 동의</span>
+              </div>
+            </div>
+            <div class="signup-chevron-right">
+              <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M6 4L10 8L6 12" stroke="#9ca3af" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </div>
+          </div>
+          <div class="signup-privacy-req-row">
+            <div class="signup-privacy-req-check">
+              <div class="signup-check" id="signup-privacy-req-check"></div>
+              <div class="signup-privacy-req-label">
+                <span class="signup-required-label">(필수)</span>
+                <span class="signup-privacy-req-text">개인정보 수집 및 이용 동의</span>
+              </div>
+            </div>
+            <div class="signup-chevron-right">
+              <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M6 4L10 8L6 12" stroke="#9ca3af" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </div>
+          </div>
+          <div class="signup-privacy-opt-row">
+            <div class="signup-privacy-opt-check">
+              <div class="signup-check" id="signup-privacy-opt-check"></div>
+              <div class="signup-privacy-opt-label">
+                <span class="signup-optional-label">(선택)</span>
+                <span class="signup-privacy-opt-text">개인정보 수집 및 이용 동의</span>
+              </div>
+            </div>
+            <div class="signup-chevron-right">
+              <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M6 4L10 8L6 12" stroke="#9ca3af" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </div>
+          </div>
+          <div class="signup-marketing-row">
+            <div class="signup-marketing-check">
+              <div class="signup-check" id="signup-marketing-check"></div>
+              <div class="signup-marketing-label">
+                <span class="signup-optional-label">(선택)</span>
+                <span class="signup-marketing-text">광고성 정보 수신 동의</span>
+              </div>
+            </div>
+            <div class="signup-chevron-right">
+              <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M6 4L10 8L6 12" stroke="#9ca3af" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </div>
+          </div>
+        </div>
+        <div class="signup-notice-section">
+          <div class="signup-notice-item">
+            <span class="signup-bullet">•</span>
+            <span class="signup-notice-text">고객의 이용약관과 개인정보 수집 및 이용에 대한 동의를 거부할 권리가 있으며, 동의를 거부할 경우 사이트 가입 또는 일부 서비스 이용이 제한됩니다.</span>
+          </div>
+          <div class="signup-notice-item">
+            <span class="signup-bullet">•</span>
+            <span class="signup-notice-text">만 14세 미만은 가입이 제한됩니다.</span>
+          </div>
+        </div>
+        <button type="button" class="signup-submit-button" id="signup-submit-button" disabled>
+          <p class="signup-submit-text">다음 단계로</p>
+        </button>
+      </div>
+    </div>
+    <button class="modal-close" id="close-signup-modal">&times;</button>
+  </div>
+</div>
+
+<div class="main-container">
+<div class="hero-section-1">
+<div class="header-2">
+<div class="header-content-3">
+<div class="logo-section-4">
+<p class="text-5"><span class="text-black">MAJANGDEAL</span></p>
+</div>
+<div class="user-actions-6">
+<div class="login-button-7">
+<p class="text-8"><span class="text-rgb-55-65-81">로그인</span></p>
+</div>
+<div class="signup-button-9">
+<p class="text-10"><span class="text-white">회원가입</span></p>
+</div>
+<div class="mypage-dropdown-container" id="mypage-dropdown-container" style="display: none;">
+  <div class="profile-dropdown-menu">
+    <div class="dropdown-menu-items">
+      <div class="dropdown-menu-item personal-info-item">
+        <div class="dropdown-icon user-icon">
+          <svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M9 9C11.0711 9 12.75 7.32107 12.75 5.25C12.75 3.17893 11.0711 1.5 9 1.5C6.92893 1.5 5.25 3.17893 5.25 5.25C5.25 7.32107 6.92893 9 9 9Z" stroke="#6b7280" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+            <path d="M15.75 16.5C15.75 13.5147 12.7279 11.25 9 11.25C5.27208 11.25 2.25 13.5147 2.25 16.5" stroke="#6b7280" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </div>
+        <p class="dropdown-menu-text">개인정보 보기</p>
+        <div class="dropdown-chevron">
+          <svg width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M5.25 3.5L8.75 7L5.25 10.5" stroke="#9ca3af" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </div>
+      </div>
+      <div class="dropdown-divider"></div>
+      <div class="dropdown-menu-item notification-item">
+        <div class="dropdown-icon bell-icon">
+          <svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M13.5 6.75C13.5 5.55653 13.0259 4.41193 12.182 3.56802C11.3381 2.72411 10.1935 2.25 9 2.25C7.80653 2.25 6.66193 2.72411 5.81802 3.56802C4.97411 4.41193 4.5 5.55653 4.5 6.75C4.5 11.25 2.25 12.75 2.25 12.75H15.75C15.75 12.75 13.5 11.25 13.5 6.75Z" stroke="#6b7280" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+            <path d="M10.8184 15.75C10.6561 15.9773 10.437 16.166 10.1791 16.3009C9.92118 16.4358 9.63179 16.5128 9.33643 16.5257C9.04108 16.5386 8.74778 16.4871 8.47945 16.3753C8.21112 16.2635 7.9755 16.0945 7.79182 15.8821C7.60813 15.6697 7.48168 15.4202 7.42288 15.1538C7.36408 14.8874 7.37449 14.6118 7.45318 14.35" stroke="#6b7280" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </div>
+        <p class="dropdown-menu-text">알림설정</p>
+        <div class="dropdown-chevron">
+          <svg width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M5.25 3.5L8.75 7L5.25 10.5" stroke="#9ca3af" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+</div>
+</div>
+</div>
+<div class="hero-content-11">
+<p class="text-12"><span class="text-black">쉽고 빠른 마장동 거래 알림 서비스</span></p>
+<p class="text-13"><span class="text-rgb-68-68-68">빠르게 팔고 싶은, 사고 싶은 재고에 대해<br>알림을 받아보세요.</span></p>
+<div class="cta-buttons-14">
+<div class="sell-button-15">
+<div class="plus-circle-16">
+<img src="images/icon-17.svg" class="icon-17" alt="icon" />
+</div>
+<p class="text-18"><span class="text-white">판매하기</span></p>
+</div>
+<div class="buy-button-19">
+<div class="bell-20">
+<img src="images/icon-21.svg" class="icon-21" alt="icon" />
+</div>
+<p class="text-22"><span class="text-white">알림설정</span></p>
+</div>
+</div>
+</div>
+</div>
+</div>
+
+<div class="features-section-1">
+<div class="features-header-2">
+<p class="text-3"><span class="text-black">왜 우리를 선택해야 할까요?</span></p>
+<p class="text-4"><span class="text-rgb-68-68-68">안전하고 편리한 거래를 위한 다양한 기능들</span></p>
+</div>
+<div class="features-grid-5">
+<div class="feature-1-6">
+<div class="icon-7">
+<div class="shield-check-8">
+<img src="images/vector-9.svg" class="vector-9" alt="vector" />
+<img src="images/vector-10.svg" class="vector-10" alt="vector" />
+</div>
+</div>
+<p class="text-11"><span class="text-black">안전한 거래</span></p>
+<p class="text-12"><span class="text-rgb-68-68-68">사업자 등록 인증으로 사장님들의<br>신뢰할 수 있는 거래를 연결합니다. </span></p>
+</div>
+<div class="feature-2-13">
+<div class="icon-14">
+<div class="zap-15">
+<img src="images/vector-16.svg" class="vector-16" alt="vector" />
+</div>
+</div>
+<p class="text-17"><span class="text-black">빠른 거래</span></p>
+<p class="text-18"><span class="text-rgb-68-68-68">제출 후 평균 매칭 3~7시간<br>급하게 처리해야 할 재고도 대응 가능</span></p>
+</div>
+<div class="feature-3-19">
+<div class="icon-20">
+<div class="bell-21">
+<img src="images/icon-22.svg" class="icon-22" alt="icon" />
+</div>
+</div>
+<p class="text-23"><span class="text-black">맞춤형 문자 알림</span></p>
+<p class="text-24"><span class="text-rgb-68-68-68">원하는 부위/등급을 지정하면 들어오는 물량을
+문자로 보내드립니다.</span></p>
+</div>
+</div>
+</div>
+
+<div class="price-section">
+<div class="price-container">
+<div class="price-header-content">
+<p class="price-main-title">한우</p>
+<div class="price-header-info">
+<div class="inquiry-frame">
+<p class="inquiry-label">조회일자</p>
+<p class="inquiry-value">2025-11-09</p>
+</div>
+<div class="market-frame">
+<p class="market-label">도매시장</p>
+<p class="market-value">전국</p>
+</div>
+</div>
+</div>
+<div class="price-rows">
+<div class="price-row">
+<div class="category-cell">
+<p class="category-text">암</p>
+</div>
+<div class="price-cell-group">
+<div class="price-header-cell">
+<p class="price-label">평균가격</p>
+</div>
+<div class="price-value-cell">
+<p class="price-amount">15,000</p>
+</div>
+</div>
+<div class="change-cell-group">
+<div class="change-header-cell">
+<p class="change-label">전일대비</p>
+</div>
+<div class="change-value-cell">
+<div class="change-content">
+<img src="images/chevron-up.svg" alt="up" class="chevron-icon" />
+<p class="change-amount price-up">000</p>
+</div>
+</div>
+</div>
+</div>
+<div class="price-row">
+<div class="category-cell">
+<p class="category-text">수</p>
+</div>
+<div class="price-cell-group">
+<div class="price-header-cell">
+<p class="price-label">평균가격</p>
+</div>
+<div class="price-value-cell">
+<p class="price-amount">15,000</p>
+</div>
+</div>
+<div class="change-cell-group">
+<div class="change-header-cell">
+<p class="change-label">전일대비</p>
+</div>
+<div class="change-value-cell">
+<div class="change-content">
+<img src="images/chevron-up.svg" alt="up" class="chevron-icon" />
+<p class="change-amount price-up">000</p>
+</div>
+</div>
+</div>
+</div>
+<div class="price-row">
+<div class="category-cell">
+<p class="category-text">거세</p>
+</div>
+<div class="price-cell-group">
+<div class="price-header-cell">
+<p class="price-label">평균가격</p>
+</div>
+<div class="price-value-cell">
+<p class="price-amount">15,000</p>
+</div>
+</div>
+<div class="change-cell-group">
+<div class="change-header-cell">
+<p class="change-label">전일대비</p>
+</div>
+<div class="change-value-cell">
+<div class="change-content">
+<img src="images/chevron-down.svg" alt="down" class="chevron-icon" />
+<p class="change-amount price-down">000</p>
+</div>
+</div>
+</div>
+</div>
+<div class="price-row">
+<div class="category-cell">
+<p class="category-text">전체</p>
+</div>
+<div class="price-cell-group">
+<div class="price-header-cell">
+<p class="price-label">평균가격</p>
+</div>
+<div class="price-value-cell">
+<p class="price-amount">15,000</p>
+</div>
+</div>
+<div class="change-cell-group">
+<div class="change-header-cell">
+<p class="change-label">전일대비</p>
+</div>
+<div class="change-value-cell">
+<div class="change-content">
+<img src="images/chevron-down.svg" alt="down" class="chevron-icon" />
+<p class="change-amount price-down">000</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+
+<div class="footer-section">
+<div class="footer-content">
+<div class="footer-left">
+<p class="footer-logo">MAJANGDEAL</p>
+<p class="footer-subtitle">믿을 수 있는 상인 거래 플랫폼</p>
+</div>
+<div class="footer-right">
+<div class="footer-column">
+<p class="footer-column-title">서비스</p>
+<p class="footer-link">판매하기</p>
+<p class="footer-link">구매하기</p>
+<p class="footer-link">카테고리</p>
+</div>
+<div class="footer-column">
+<p class="footer-column-title">고객지원</p>
+<p class="footer-link">고객센터</p>
+<p class="footer-link">자주묻는질문</p>
+<p class="footer-link">공지사항</p>
+</div>
+</div>
+</div>
+</div>
+
+<script src="script.js"></script>
+</body>
+</html>
+

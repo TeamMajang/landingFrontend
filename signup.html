@@ -1,0 +1,611 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>회원가입 - MAJANGDEAL</title>
+  <link href="https://fonts.googleapis.com/css?family=Inter&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      border: none !important;
+      background-color: #ffffff;
+      font-family: 'Inter', sans-serif;
+      overflow-y: auto;
+      scrollbar-gutter: stable; /* 스크롤바 공간을 항상 예약하여 레이아웃 시프트 방지 */
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
+    }
+    
+    .signup-main-content {
+      width: 100%;
+      flex: 1;
+      display: flex;
+      justify-content: center;
+      align-items: flex-start;
+      background-color: #ffffff;
+      padding: 80px 20px 40px 20px;
+    }
+    
+    .signup-agreement-container {
+      width: 480px;
+      height: 662px;
+      background-color: #ffffff;
+      border: 1px solid #e2e8f0;
+      border-radius: 16px;
+      padding: 48px;
+      display: flex;
+      flex-direction: column;
+      gap: 24px;
+      box-sizing: border-box;
+    }
+    
+    .signup-header-section {
+      display: flex;
+      flex-direction: column;
+      gap: 24px;
+    }
+    
+    .signup-progress {
+      display: flex;
+      flex-direction: row;
+      gap: 8px;
+      align-items: center;
+      height: 8px;
+    }
+    
+    .signup-step {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background-color: #e2e8f0;
+    }
+    
+    .signup-step-1 {
+      background-color: #3b82f6;
+    }
+    
+    .signup-title {
+      font-family: 'Inter', sans-serif;
+      font-weight: 700;
+      font-size: 28px;
+      line-height: 33.6px;
+      color: #1e293b;
+      margin: 0;
+    }
+    
+    .signup-description {
+      font-family: 'Inter', sans-serif;
+      font-weight: 500;
+      font-size: 20px;
+      line-height: 24px;
+      color: #6b7280;
+      margin: 0;
+    }
+    
+    .signup-terms-section {
+      display: flex;
+      flex-direction: column;
+      gap: 24px;
+    }
+    
+    .signup-select-all {
+      background-color: #f0f9ff;
+      border: 1px solid #e2e8f0;
+      border-radius: 8px;
+      padding: 16px;
+    }
+    
+    .signup-all-check-row {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+    }
+    
+    .signup-all-check {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      gap: 12px;
+    }
+    
+    .signup-check {
+      width: 20px;
+      height: 20px;
+      border-radius: 2px;
+      border: 2px solid #3b82f6;
+      background-color: transparent;
+      cursor: pointer;
+      position: relative;
+      flex-shrink: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    
+    .signup-check.checked {
+      background-color: #3b82f6;
+      border-color: #3b82f6;
+    }
+    
+    .signup-check.checked::after {
+      content: '';
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 12px;
+      height: 10px;
+      background-image: url("data:image/svg+xml,%3Csvg width='12' height='10' viewBox='0 0 12 10' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M1 5L4.5 8.5L11 1.5' stroke='white' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+      background-size: contain;
+      background-repeat: no-repeat;
+      background-position: center;
+      display: block;
+    }
+    
+    .signup-all-check-text {
+      font-family: 'Inter', sans-serif;
+      font-weight: 600;
+      font-size: 16px;
+      line-height: 19.2px;
+      color: #374151;
+      margin: 0;
+    }
+    
+    .signup-optional-text {
+      font-family: 'Inter', sans-serif;
+      font-weight: 400;
+      font-size: 12px;
+      line-height: 14.4px;
+      color: #3b82f6;
+      margin: 0;
+    }
+    
+    .signup-terms-list {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+    
+    .signup-age-check-row,
+    .signup-service-row,
+    .signup-privacy-req-row,
+    .signup-privacy-opt-row,
+    .signup-marketing-row {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+    }
+    
+    .signup-age-check,
+    .signup-service-check,
+    .signup-privacy-req-check,
+    .signup-privacy-opt-check,
+    .signup-marketing-check {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      gap: 12px;
+      flex: 1;
+    }
+    
+    .signup-age-label,
+    .signup-service-label,
+    .signup-privacy-req-label,
+    .signup-privacy-opt-label,
+    .signup-marketing-label {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      gap: 8px;
+    }
+    
+    .signup-required-label {
+      font-family: 'Inter', sans-serif;
+      font-weight: 600;
+      font-size: 14px;
+      line-height: 16.8px;
+      color: #ef4444;
+    }
+    
+    .signup-optional-label {
+      font-family: 'Inter', sans-serif;
+      font-weight: 600;
+      font-size: 14px;
+      line-height: 16.8px;
+      color: #6b7280;
+    }
+    
+    .signup-age-text,
+    .signup-service-text,
+    .signup-privacy-req-text,
+    .signup-privacy-opt-text,
+    .signup-marketing-text {
+      font-family: 'Inter', sans-serif;
+      font-weight: 500;
+      font-size: 14px;
+      line-height: 16.8px;
+      color: #374151;
+    }
+    
+    .signup-chevron-right {
+      width: 16px;
+      height: 16px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+    
+    .signup-notice-section {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+    
+    .signup-notice-item {
+      display: flex;
+      flex-direction: row;
+      gap: 8px;
+      align-items: flex-start;
+    }
+    
+    .signup-bullet {
+      font-family: 'Inter', sans-serif;
+      font-weight: 500;
+      font-size: 12px;
+      line-height: 14.4px;
+      color: #6b7280;
+      flex-shrink: 0;
+    }
+    
+    .signup-notice-text {
+      font-family: 'Inter', sans-serif;
+      font-weight: 400;
+      font-size: 12px;
+      line-height: 18px;
+      color: #6b7280;
+      flex: 1;
+    }
+    
+    .signup-submit-button {
+      width: 100%;
+      height: 56px;
+      background-color: #9ca3af;
+      border-radius: 8px;
+      border: none;
+      cursor: not-allowed;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: background-color 0.2s;
+    }
+    
+    .signup-submit-button:not(:disabled) {
+      background-color: #3b82f6;
+      cursor: pointer;
+    }
+    
+    .signup-submit-text {
+      font-family: 'Inter', sans-serif;
+      font-weight: 600;
+      font-size: 16px;
+      line-height: 19.2px;
+      color: #ffffff;
+      margin: 0;
+    }
+    
+    .signup-footer-section {
+      width: 100%;
+      background-color: #f8fafc;
+      padding: 40px 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-shrink: 0;
+    }
+    
+    .signup-footer-links {
+      display: flex;
+      flex-direction: row;
+      gap: 20px;
+      align-items: center;
+    }
+    
+    .signup-footer-link {
+      font-family: 'Inter', sans-serif;
+      font-weight: 400;
+      font-size: 14px;
+      line-height: 16.8px;
+      color: #9ca3af;
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+    
+    .signup-footer-link:hover {
+      color: #6b7280;
+    }
+  </style>
+</head>
+<body>
+  <div class="signup-main-content">
+    <div class="signup-agreement-container">
+      <div class="signup-header-section">
+        <div class="signup-progress">
+          <div class="signup-step signup-step-1"></div>
+          <div class="signup-step signup-step-2"></div>
+          <div class="signup-step signup-step-3"></div>
+          <div class="signup-step signup-step-4"></div>
+        </div>
+        <p class="signup-title">사업자 회원가입</p>
+        <p class="signup-description">이용약관을 확인하신 후 동의해주세요.</p>
+      </div>
+      <div class="signup-terms-section">
+        <div class="signup-select-all">
+          <div class="signup-all-check-row">
+            <div class="signup-all-check">
+              <div class="signup-check" id="signup-all-check"></div>
+              <p class="signup-all-check-text">모두 동의</p>
+            </div>
+            <p class="signup-optional-text">* 선택 항목 포함</p>
+          </div>
+        </div>
+        <div class="signup-terms-list">
+          <div class="signup-age-check-row">
+            <div class="signup-age-check">
+              <div class="signup-check" id="signup-age-check"></div>
+              <div class="signup-age-label">
+                <span class="signup-required-label">(필수)</span>
+                <span class="signup-age-text">만 14세 이상입니다.</span>
+              </div>
+            </div>
+          </div>
+          <div class="signup-service-row">
+            <div class="signup-service-check">
+              <div class="signup-check" id="signup-service-check"></div>
+              <div class="signup-service-label">
+                <span class="signup-required-label">(필수)</span>
+                <span class="signup-service-text">이용약관 동의</span>
+              </div>
+            </div>
+            <div class="signup-chevron-right">
+              <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M6 4L10 8L6 12" stroke="#9ca3af" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </div>
+          </div>
+          <div class="signup-privacy-req-row">
+            <div class="signup-privacy-req-check">
+              <div class="signup-check" id="signup-privacy-req-check"></div>
+              <div class="signup-privacy-req-label">
+                <span class="signup-required-label">(필수)</span>
+                <span class="signup-privacy-req-text">개인정보 수집 및 이용 동의</span>
+              </div>
+            </div>
+            <div class="signup-chevron-right">
+              <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M6 4L10 8L6 12" stroke="#9ca3af" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </div>
+          </div>
+          <div class="signup-privacy-opt-row">
+            <div class="signup-privacy-opt-check">
+              <div class="signup-check" id="signup-privacy-opt-check"></div>
+              <div class="signup-privacy-opt-label">
+                <span class="signup-optional-label">(선택)</span>
+                <span class="signup-privacy-opt-text">개인정보 수집 및 이용 동의</span>
+              </div>
+            </div>
+            <div class="signup-chevron-right">
+              <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M6 4L10 8L6 12" stroke="#9ca3af" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </div>
+          </div>
+          <div class="signup-marketing-row">
+            <div class="signup-marketing-check">
+              <div class="signup-check" id="signup-marketing-check"></div>
+              <div class="signup-marketing-label">
+                <span class="signup-optional-label">(선택)</span>
+                <span class="signup-marketing-text">광고성 정보 수신 동의</span>
+              </div>
+            </div>
+            <div class="signup-chevron-right">
+              <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M6 4L10 8L6 12" stroke="#9ca3af" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </div>
+          </div>
+        </div>
+        <div class="signup-notice-section">
+          <div class="signup-notice-item">
+            <span class="signup-bullet">•</span>
+            <span class="signup-notice-text">고객의 이용약관과 개인정보 수집 및 이용에 대한 동의를 거부할 권리가 있으며, 동의를 거부할 경우 사이트 가입 또는 일부 서비스 이용이 제한됩니다.</span>
+          </div>
+          <div class="signup-notice-item">
+            <span class="signup-bullet">•</span>
+            <span class="signup-notice-text">만 14세 미만은 가입이 제한됩니다.</span>
+          </div>
+        </div>
+        <button type="button" class="signup-submit-button" id="signup-submit-button" disabled>
+          <p class="signup-submit-text">다음 단계로</p>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // Signup page functionality
+    document.addEventListener('DOMContentLoaded', function() {
+      const allCheck = document.getElementById('signup-all-check');
+      const ageCheck = document.getElementById('signup-age-check');
+      const serviceCheck = document.getElementById('signup-service-check');
+      const privacyReqCheck = document.getElementById('signup-privacy-req-check');
+      const privacyOptCheck = document.getElementById('signup-privacy-opt-check');
+      const marketingCheck = document.getElementById('signup-marketing-check');
+      const submitButton = document.getElementById('signup-submit-button');
+      
+      const requiredChecks = [ageCheck, serviceCheck, privacyReqCheck];
+      const allChecks = [ageCheck, serviceCheck, privacyReqCheck, privacyOptCheck, marketingCheck];
+      
+      // Step 1 저장된 데이터 불러오기
+      const savedStep1Data = localStorage.getItem('signup_step1_data');
+      if (savedStep1Data) {
+        try {
+          const step1Data = JSON.parse(savedStep1Data);
+          if (step1Data.ageAgreed) {
+            ageCheck.classList.add('checked');
+          }
+          if (step1Data.serviceAgreed) {
+            serviceCheck.classList.add('checked');
+          }
+          if (step1Data.privacyRequiredAgreed) {
+            privacyReqCheck.classList.add('checked');
+          }
+          if (step1Data.privacyOptionalAgreed) {
+            privacyOptCheck.classList.add('checked');
+          }
+          if (step1Data.marketingAgreed) {
+            marketingCheck.classList.add('checked');
+          }
+          // 모두 체크되어 있으면 전체 동의도 체크
+          const allChecked = allChecks.every(check => check.classList.contains('checked'));
+          if (allChecked) {
+            allCheck.classList.add('checked');
+          }
+          // 데이터 로드 후 버튼 상태 업데이트
+          updateSubmitButton();
+        } catch (e) {
+          console.error('Error loading step 1 data:', e);
+        }
+      }
+      
+      // Toggle check state
+      function toggleCheck(element) {
+        if (element.classList.contains('checked')) {
+          element.classList.remove('checked');
+        } else {
+          element.classList.add('checked');
+        }
+      }
+      
+      // Update submit button state
+      function updateSubmitButton() {
+        const allRequiredChecked = requiredChecks.every(check => check.classList.contains('checked'));
+        if (allRequiredChecked) {
+          submitButton.disabled = false;
+        } else {
+          submitButton.disabled = true;
+        }
+      }
+      
+      // Update all check state
+      function updateAllCheck() {
+        const allChecked = allChecks.every(check => check.classList.contains('checked'));
+        if (allChecked) {
+          allCheck.classList.add('checked');
+        } else {
+          allCheck.classList.remove('checked');
+        }
+      }
+      
+      // All check click handler
+      if (allCheck) {
+        allCheck.addEventListener('click', function() {
+          const isChecked = allCheck.classList.contains('checked');
+          if (isChecked) {
+            // Uncheck all
+            allCheck.classList.remove('checked');
+            allChecks.forEach(check => {
+              check.classList.remove('checked');
+            });
+          } else {
+            // Check all
+            allCheck.classList.add('checked');
+            allChecks.forEach(check => {
+              check.classList.add('checked');
+            });
+          }
+          updateSubmitButton();
+        });
+      }
+      
+      // Individual check click handlers
+      if (ageCheck) {
+        ageCheck.addEventListener('click', function() {
+          toggleCheck(ageCheck);
+          updateSubmitButton();
+          updateAllCheck();
+        });
+      }
+      
+      if (serviceCheck) {
+        serviceCheck.addEventListener('click', function() {
+          toggleCheck(serviceCheck);
+          updateSubmitButton();
+          updateAllCheck();
+        });
+      }
+      
+      if (privacyReqCheck) {
+        privacyReqCheck.addEventListener('click', function() {
+          toggleCheck(privacyReqCheck);
+          updateSubmitButton();
+          updateAllCheck();
+        });
+      }
+      
+      if (privacyOptCheck) {
+        privacyOptCheck.addEventListener('click', function() {
+          toggleCheck(privacyOptCheck);
+          updateAllCheck();
+        });
+      }
+      
+      if (marketingCheck) {
+        marketingCheck.addEventListener('click', function() {
+          toggleCheck(marketingCheck);
+          updateAllCheck();
+        });
+      }
+      
+      // Submit button click handler
+      if (submitButton) {
+        submitButton.addEventListener('click', function() {
+          if (!submitButton.disabled) {
+            // Step 1 데이터 저장 (약관 동의)
+            const signupData = {
+              ageAgreed: ageCheck.classList.contains('checked'),
+              serviceAgreed: serviceCheck.classList.contains('checked'),
+              privacyRequiredAgreed: privacyReqCheck.classList.contains('checked'),
+              privacyOptionalAgreed: privacyOptCheck.classList.contains('checked'),
+              marketingAgreed: marketingCheck.classList.contains('checked')
+            };
+            localStorage.setItem('signup_step1_data', JSON.stringify(signupData));
+            
+            // Navigate to next step
+            window.location.href = 'signup-step2.html';
+          }
+        });
+      }
+    });
+  </script>
+
+  <!-- Footer -->
+  <div class="signup-footer-section">
+    <div class="signup-footer-links">
+      <a href="#" class="signup-footer-link">이용약관</a>
+      <a href="#" class="signup-footer-link">개인정보처리방침</a>
+      <a href="#" class="signup-footer-link">고객센터</a>
+    </div>
+  </div>
+</body>
+</html>
+

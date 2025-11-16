@@ -1,0 +1,623 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>회원가입 3단계 - MAJANGDEAL</title>
+  <link href="https://fonts.googleapis.com/css?family=Inter&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      border: none !important;
+      background-color: #ffffff;
+      font-family: 'Inter', sans-serif;
+      overflow-y: auto;
+      scrollbar-gutter: stable; /* 스크롤바 공간을 항상 예약하여 레이아웃 시프트 방지 */
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
+    }
+    
+    .signup-main-content {
+      width: 100%;
+      flex: 1;
+      display: flex;
+      justify-content: center;
+      align-items: flex-start;
+      background-color: #ffffff;
+      padding: 80px 20px 40px 20px;
+    }
+    
+    .signup-container {
+      width: 480px;
+      height: 865px;
+      background-color: #ffffff;
+      border: 1px solid #e2e8f0;
+      border-radius: 16px;
+      padding: 48px;
+      display: flex;
+      flex-direction: column;
+      gap: 24px;
+      box-sizing: border-box;
+    }
+    
+    .signup-header-section {
+      display: flex;
+      flex-direction: column;
+      gap: 24px;
+    }
+    
+    .signup-progress {
+      display: flex;
+      flex-direction: row;
+      gap: 8px;
+      align-items: center;
+      height: 8px;
+    }
+    
+    .signup-step {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background-color: #e2e8f0;
+    }
+    
+    .signup-step-1 {
+      background-color: #10b981;
+    }
+    
+    .signup-step-2 {
+      background-color: #10b981;
+    }
+    
+    .signup-step-3 {
+      background-color: #3b82f6;
+    }
+    
+    .signup-title {
+      font-family: 'Inter', sans-serif;
+      font-weight: 700;
+      font-size: 28px;
+      line-height: 33.6px;
+      color: #1e293b;
+      margin: 0;
+    }
+    
+    .signup-description {
+      font-family: 'Inter', sans-serif;
+      font-weight: 500;
+      font-size: 20px;
+      line-height: 24px;
+      color: #6b7280;
+      margin: 0;
+    }
+    
+    .signup-form-section {
+      display: flex;
+      flex-direction: column;
+      gap: 24px;
+      flex: 1;
+    }
+    
+    .signup-input-group {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+    
+    .signup-label-row {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      justify-content: space-between;
+    }
+    
+    .signup-label {
+      font-family: 'Inter', sans-serif;
+      font-weight: 600;
+      font-size: 14px;
+      line-height: 16.8px;
+      color: #374151;
+      margin: 0;
+    }
+    
+    .signup-verify-button {
+      background-color: #f3f4f6;
+      border: 1px solid #d1d5db;
+      border-radius: 6px;
+      padding: 8px 12px;
+      cursor: pointer;
+      font-family: 'Inter', sans-serif;
+      font-weight: 500;
+      font-size: 12px;
+      line-height: 14.4px;
+      color: #6b7280;
+      transition: background-color 0.2s, border-color 0.2s, color 0.2s;
+    }
+    
+    .signup-verify-button:hover {
+      background-color: #e5e7eb;
+    }
+    
+    .signup-verify-button.active {
+      background-color: #3b82f6;
+      border-color: #3b82f6;
+      color: #ffffff;
+    }
+    
+    .signup-verify-button.active:hover {
+      background-color: #2563eb;
+    }
+    
+    .signup-verify-button.verified {
+      background-color: transparent;
+      border: none;
+      padding: 8px 12px;
+      cursor: default;
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      min-width: 69px;
+      height: 32px;
+      box-sizing: border-box;
+    }
+    
+    .signup-verify-button.verified .verify-check-icon {
+      width: 28px;
+      height: 28px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    
+    .signup-verify-button.verified .verify-text {
+      font-family: 'Inter', sans-serif;
+      font-weight: 500;
+      font-size: 12px;
+      line-height: 14.4px;
+      color: #3b82f6;
+    }
+    
+    .signup-input {
+      width: 100%;
+      height: 48px;
+      background-color: #ffffff;
+      border: 1px solid #d1d5db;
+      border-radius: 8px;
+      padding: 0 16px;
+      font-family: 'Inter', sans-serif;
+      font-weight: 400;
+      font-size: 16px;
+      line-height: 19.2px;
+      color: #111827;
+      box-sizing: border-box;
+    }
+    
+    .signup-input::placeholder {
+      color: #9ca3af;
+    }
+    
+    .signup-input:focus {
+      outline: none;
+      border-color: #3b82f6;
+    }
+    
+    .signup-input.verified {
+      background-color: #f3f4f6;
+      border-color: #d1d5db;
+      color: #6b7280;
+      cursor: not-allowed;
+    }
+    
+    .signup-input.verified:focus {
+      outline: none;
+      border-color: #d1d5db;
+    }
+    
+    .signup-error-message {
+      font-family: 'Inter', sans-serif;
+      font-weight: 500;
+      font-size: 14px;
+      line-height: 16.8px;
+      color: #dc2626;
+      margin: 0;
+      height: 16.8px;
+      min-height: 16.8px;
+      visibility: hidden;
+      opacity: 0;
+      transition: opacity 0.2s;
+    }
+    
+    .signup-error-message.visible {
+      visibility: visible;
+      opacity: 1;
+    }
+    
+    .signup-submit-button {
+      width: 100%;
+      height: 56px;
+      background-color: #9ca3af;
+      border-radius: 8px;
+      border: none;
+      cursor: not-allowed;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: background-color 0.2s;
+      font-family: 'Inter', sans-serif;
+      font-weight: 600;
+      font-size: 16px;
+      line-height: 19.2px;
+      color: #ffffff;
+      margin-top: 24px;
+    }
+    
+    .signup-submit-button:not(:disabled) {
+      background-color: #3b82f6;
+      cursor: pointer;
+    }
+    
+    .signup-submit-button:disabled {
+      cursor: not-allowed;
+    }
+    
+    .signup-footer-section {
+      width: 100%;
+      background-color: #f8fafc;
+      padding: 40px 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-shrink: 0;
+    }
+    
+    .signup-footer-links {
+      display: flex;
+      flex-direction: row;
+      gap: 20px;
+      align-items: center;
+    }
+    
+    .signup-footer-link {
+      font-family: 'Inter', sans-serif;
+      font-weight: 400;
+      font-size: 14px;
+      line-height: 16.8px;
+      color: #9ca3af;
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+    
+    .signup-footer-link:hover {
+      color: #6b7280;
+    }
+  </style>
+</head>
+<body>
+  <div class="signup-main-content">
+    <div class="signup-container">
+      <div class="signup-header-section">
+        <div class="signup-progress">
+          <div class="signup-step signup-step-1"></div>
+          <div class="signup-step signup-step-2"></div>
+          <div class="signup-step signup-step-3"></div>
+          <div class="signup-step signup-step-4"></div>
+        </div>
+        <p class="signup-title">사업자 회원가입</p>
+        <p class="signup-description">개인정보와 회원정보를 입력해주세요.</p>
+      </div>
+      
+      <div class="signup-form-section">
+        <div class="signup-input-group">
+          <p class="signup-label">이름</p>
+          <input type="text" class="signup-input" id="name-input" placeholder="이름을 입력해주세요.">
+        </div>
+        
+        <div class="signup-input-group">
+          <p class="signup-label">전화번호</p>
+          <input type="tel" class="signup-input" id="phone-input" placeholder="번호만 입력해주세요.">
+        </div>
+        
+        <div class="signup-input-group">
+          <div class="signup-label-row">
+            <p class="signup-label">아이디</p>
+            <button type="button" class="signup-verify-button" id="verify-id-btn">인증하기</button>
+          </div>
+          <input type="text" class="signup-input" id="login-id-input" placeholder=" 5~20자, 영문 소문자, 숫자, ( _ ), ( - ) 만 가능">
+          <p class="signup-error-message" id="id-error-message"></p>
+        </div>
+        
+        <div class="signup-input-group">
+          <p class="signup-label">비밀번호</p>
+          <input type="password" class="signup-input" id="password-input" placeholder="8~16자의 영문 대/소문자, 숫자, 특수문자">
+          <p class="signup-error-message" id="password-error-message"></p>
+        </div>
+        
+        <div class="signup-input-group">
+          <p class="signup-label">비밀번호 확인</p>
+          <input type="password" class="signup-input" id="password-confirm-input" placeholder="번호만 입력해주세요.">
+          <p class="signup-error-message" id="password-confirm-error-message"></p>
+        </div>
+        
+        <button type="button" class="signup-submit-button" id="signup-submit-button" disabled>
+          다음 단계로
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      const nameInput = document.getElementById('name-input');
+      const phoneInput = document.getElementById('phone-input');
+      const loginIdInput = document.getElementById('login-id-input');
+      const passwordInput = document.getElementById('password-input');
+      const passwordConfirmInput = document.getElementById('password-confirm-input');
+      const submitButton = document.getElementById('signup-submit-button');
+      const verifyIdButton = document.getElementById('verify-id-btn');
+      
+      const idErrorMessage = document.getElementById('id-error-message');
+      const passwordErrorMessage = document.getElementById('password-error-message');
+      const passwordConfirmErrorMessage = document.getElementById('password-confirm-error-message');
+      
+      let isIdVerified = false;
+      let isIdAvailable = false;
+      
+      // Step 3 저장된 데이터 불러오기
+      const savedStep3Data = localStorage.getItem('signup_step3_data');
+      if (savedStep3Data) {
+        try {
+          const step3Data = JSON.parse(savedStep3Data);
+          if (step3Data.name) {
+            nameInput.value = step3Data.name;
+          }
+          if (step3Data.phoneNumber) {
+            phoneInput.value = step3Data.phoneNumber;
+          }
+          if (step3Data.loginId) {
+            loginIdInput.value = step3Data.loginId;
+            // 인증된 상태로 복원
+            loginIdInput.classList.add('verified');
+            loginIdInput.disabled = true;
+            verifyIdButton.classList.remove('active');
+            verifyIdButton.classList.add('verified');
+            verifyIdButton.innerHTML = `
+              <div class="verify-check-icon">
+                <svg width="28" height="28" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M9 14L12.5 17.5L19 11" stroke="#3b82f6" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+              </div>
+              <span class="verify-text">인증완료</span>
+            `;
+            verifyIdButton.disabled = true;
+            isIdVerified = true;
+            isIdAvailable = true;
+          }
+          if (step3Data.password) {
+            passwordInput.value = step3Data.password;
+            passwordConfirmInput.value = step3Data.password;
+          }
+          // 데이터 로드 후 버튼 상태 업데이트
+          updateSubmitButton();
+        } catch (e) {
+          console.error('Error loading step 3 data:', e);
+        }
+      }
+      
+      function updateSubmitButton() {
+        const name = nameInput.value.trim();
+        const phone = phoneInput.value.trim();
+        const loginId = loginIdInput.value.trim();
+        const password = passwordInput.value.trim();
+        const passwordConfirm = passwordConfirmInput.value.trim();
+        
+        if (name && phone && loginId && password && passwordConfirm && isIdVerified && isIdAvailable) {
+          submitButton.disabled = false;
+        } else {
+          submitButton.disabled = true;
+        }
+      }
+      
+      function updateVerifyButton() {
+        const loginId = loginIdInput.value.trim();
+        if (loginId.length > 0) {
+          verifyIdButton.classList.add('active');
+        } else {
+          verifyIdButton.classList.remove('active');
+        }
+      }
+      
+      function validateLoginId(id) {
+        // 5~20자, 영문 소문자, 숫자, _, - 만 가능
+        const regex = /^[a-z0-9_-]{5,20}$/;
+        return regex.test(id);
+      }
+      
+      function validatePassword(password) {
+        // 8~16자의 영문 대/소문자, 숫자, 특수문자
+        const regex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,16}$/;
+        return regex.test(password);
+      }
+      
+      nameInput.addEventListener('input', updateSubmitButton);
+      phoneInput.addEventListener('input', updateSubmitButton);
+      
+      loginIdInput.addEventListener('input', function() {
+        const loginId = this.value.trim();
+        updateSubmitButton();
+        updateVerifyButton();
+        
+        // Check for invalid characters in real-time
+        if (loginId.length > 0) {
+          // Check if contains invalid characters
+          const invalidChars = /[^a-z0-9_-]/;
+          if (invalidChars.test(loginId)) {
+            idErrorMessage.textContent = '5~20자, 영문 소문자, 숫자, ( _ ), ( - ) 만 가능';
+            idErrorMessage.classList.add('visible');
+            isIdVerified = false;
+            isIdAvailable = false;
+          } else if (loginId.length < 5 || loginId.length > 20) {
+            idErrorMessage.textContent = '5~20자, 영문 소문자, 숫자, ( _ ), ( - ) 만 가능';
+            idErrorMessage.classList.add('visible');
+            isIdVerified = false;
+            isIdAvailable = false;
+          } else {
+            idErrorMessage.classList.remove('visible');
+            isIdVerified = false;
+            isIdAvailable = false;
+          }
+        } else {
+          idErrorMessage.classList.remove('visible');
+          isIdVerified = false;
+          isIdAvailable = false;
+        }
+      });
+      
+      passwordInput.addEventListener('input', function() {
+        updateSubmitButton();
+        if (passwordInput.value.trim() && !validatePassword(passwordInput.value.trim())) {
+          passwordErrorMessage.textContent = '비밀번호 양식을 확인해주세요.';
+          passwordErrorMessage.classList.add('visible');
+        } else {
+          passwordErrorMessage.classList.remove('visible');
+        }
+      });
+      
+      passwordConfirmInput.addEventListener('input', function() {
+        updateSubmitButton();
+        if (passwordConfirmInput.value.trim() && passwordConfirmInput.value.trim() !== passwordInput.value.trim()) {
+          passwordConfirmErrorMessage.textContent = '비밀번호와 일치하지 않습니다.';
+          passwordConfirmErrorMessage.classList.add('visible');
+        } else {
+          passwordConfirmErrorMessage.classList.remove('visible');
+        }
+      });
+      
+      updateVerifyButton();
+      
+      verifyIdButton.addEventListener('click', async function() {
+        const loginId = loginIdInput.value.trim();
+        
+        if (!loginId) {
+          alert('아이디를 입력해주세요.');
+          return;
+        }
+        
+        if (!validateLoginId(loginId)) {
+          idErrorMessage.textContent = '5~20자, 영문 소문자, 숫자, ( _ ), ( - ) 만 가능';
+          idErrorMessage.classList.add('visible');
+          return;
+        }
+        
+        const originalButtonHTML = verifyIdButton.innerHTML;
+        verifyIdButton.disabled = true;
+        verifyIdButton.innerHTML = '인증 중...';
+        
+        try {
+          const API_BASE_URL = 'http://localhost:8080';
+          console.log('Calling API:', `${API_BASE_URL}/api/v1/members/check-login-id`);
+          console.log('Request body:', { loginId: loginId });
+          
+          const response = await fetch(`${API_BASE_URL}/api/v1/members/check-login-id`, {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+              loginId: loginId
+            }),
+            credentials: 'include'
+          });
+          
+          console.log('Response status:', response.status);
+          console.log('Response ok:', response.ok);
+          
+          if (response.status === 200) {
+            let data;
+            try {
+              data = await response.json();
+              console.log('Response data:', data);
+            } catch (e) {
+              console.log('Response is not JSON, treating as success');
+              data = {};
+            }
+            
+            // 아이디 사용 가능 (200 OK)
+            isIdVerified = true;
+            isIdAvailable = true;
+            idErrorMessage.classList.remove('visible');
+            
+            // Change input to gray and disable
+            loginIdInput.classList.add('verified');
+            loginIdInput.disabled = true;
+            
+            verifyIdButton.classList.remove('active');
+            verifyIdButton.classList.add('verified');
+            verifyIdButton.innerHTML = `
+              <div class="verify-check-icon">
+                <svg width="28" height="28" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M9 14L12.5 17.5L19 11" stroke="#3b82f6" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+              </div>
+              <span class="verify-text">인증완료</span>
+            `;
+            verifyIdButton.disabled = true;
+            updateSubmitButton();
+          } else {
+            // 200이 아닌 경우 (이미 사용중인 아이디 등)
+            let errorMessage = '이미 사용중인 아이디입니다.';
+            try {
+              const errorData = await response.json();
+              console.log('Error response data:', errorData);
+              errorMessage = errorData.message || errorMessage;
+            } catch (e) {
+              console.log('Error response is not JSON');
+              errorMessage = `아이디 확인에 실패했습니다. (상태 코드: ${response.status})`;
+            }
+            
+            idErrorMessage.textContent = errorMessage;
+            idErrorMessage.classList.add('visible');
+            verifyIdButton.disabled = false;
+            verifyIdButton.innerHTML = originalButtonHTML;
+            updateVerifyButton();
+          }
+        } catch (error) {
+          console.error('Error verifying login ID:', error);
+          alert(`인증 중 오류가 발생했습니다: ${error.message}`);
+          verifyIdButton.disabled = false;
+          verifyIdButton.innerHTML = originalButtonHTML;
+          updateVerifyButton();
+        }
+      });
+      
+      submitButton.addEventListener('click', function() {
+        if (!submitButton.disabled) {
+          // Step 3 데이터 저장
+          const signupData = {
+            name: nameInput.value.trim(),
+            phoneNumber: phoneInput.value.trim(),
+            loginId: loginIdInput.value.trim(),
+            password: passwordInput.value.trim()
+          };
+          localStorage.setItem('signup_step3_data', JSON.stringify(signupData));
+          
+          // Navigate to notification settings page (step 4)
+          window.location.href = 'signup-step4.html';
+        }
+      });
+    });
+  </script>
+
+  <!-- Footer -->
+  <div class="signup-footer-section">
+    <div class="signup-footer-links">
+      <a href="#" class="signup-footer-link">이용약관</a>
+      <a href="#" class="signup-footer-link">개인정보처리방침</a>
+      <a href="#" class="signup-footer-link">고객센터</a>
+    </div>
+  </div>
+</body>
+</html>
+

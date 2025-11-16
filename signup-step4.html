@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>회원가입 4단계 - 알림 설정 - MAJANGDEAL</title>
+  <link href="https://fonts.googleapis.com/css?family=Inter&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+  <style>
+    html {
+      overflow-y: scroll; /* 항상 스크롤바 공간 확보 */
+    }
+    
+    body {
+      margin: 0;
+      padding: 0;
+      border: none !important;
+      background-color: #ffffff;
+      font-family: 'Inter', sans-serif;
+      overflow-x: hidden; /* 가로 스크롤 방지 */
+      overflow-y: scroll; /* 항상 스크롤바 공간 확보 */
+      scrollbar-gutter: stable; /* 스크롤바 공간을 항상 예약하여 레이아웃 시프트 방지 */
+    }
+    
+    .signup-main-content {
+      width: 100%;
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: flex-start;
+      background-color: #ffffff;
+      padding: 80px 20px 40px 20px;
+      box-sizing: border-box;
+    }
+    
+    .signup-container {
+      width: 480px;
+      max-width: 100%;
+      background-color: #ffffff;
+      border: 1px solid #e2e8f0;
+      border-radius: 16px;
+      padding: 48px;
+      display: flex;
+      flex-direction: column;
+      gap: 24px;
+      box-sizing: border-box;
+    }
+    
+    .signup-header-section {
+      display: flex;
+      flex-direction: column;
+      gap: 24px;
+    }
+    
+    .signup-progress {
+      display: flex;
+      flex-direction: row;
+      gap: 8px;
+      align-items: center;
+      height: 8px;
+    }
+    
+    .signup-step {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background-color: #e2e8f0;
+    }
+    
+    .signup-step-1 {
+      background-color: #10b981;
+    }
+    
+    .signup-step-2 {
+      background-color: #10b981;
+    }
+    
+    .signup-step-3 {
+      background-color: #10b981;
+    }
+    
+    .signup-step-4 {
+      background-color: #3b82f6;
+    }
+    
+    .signup-title {
+      font-family: 'Inter', sans-serif;
+      font-weight: 700;
+      font-size: 28px;
+      line-height: 33.6px;
+      color: #1e293b;
+      margin: 0;
+    }
+    
+    .signup-description {
+      font-family: 'Inter', sans-serif;
+      font-weight: 500;
+      font-size: 20px;
+      line-height: 24px;
+      color: #6b7280;
+      margin: 0;
+    }
+    
+    .signup-footer-section {
+      width: 100%;
+      background-color: #f8fafc;
+      padding: 40px 0;
+      margin-top: 40px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+    
+    .signup-footer-links {
+      display: flex;
+      flex-direction: row;
+      gap: 20px;
+      align-items: center;
+    }
+    
+    .signup-footer-link {
+      font-family: 'Inter', sans-serif;
+      font-weight: 400;
+      font-size: 14px;
+      line-height: 16.799999237060547px;
+      color: #9ca3af;
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+    
+    .signup-footer-link:hover {
+      color: #6b7280;
+    }
+  </style>
+</head>
+<body>
+  <div class="signup-main-content">
+    <div class="signup-container">
+      <!-- Signup Progress (회원가입 플로우인 경우에만 표시) -->
+      <div class="signup-header-section" id="signup-progress-section" style="display: none;">
+        <div class="signup-progress">
+          <div class="signup-step signup-step-1"></div>
+          <div class="signup-step signup-step-2"></div>
+          <div class="signup-step signup-step-3"></div>
+          <div class="signup-step signup-step-4"></div>
+        </div>
+        <p class="signup-title">사업자 회원가입</p>
+        <p class="signup-description">관심있는 상품의 알림을 받아보세요.</p>
+      </div>
+      
+      <!-- Header Section -->
+      <div class="notification-header-section" id="notification-header-section">
+        <div class="notification-title-section">
+          <h1 class="notification-main-title">관심있는 상품의 알림을 받아보세요.</h1>
+          <p class="notification-description">맞춤 알림 서비스</p>
+        </div>
+        <div class="notification-info-message">
+          <div class="notification-info-header">
+            <p class="notification-info-title">맞춤 알림 서비스</p>
+          </div>
+          <p class="notification-info-text">선택하신 상품에 대한 판매 정보를 알려드려요.</p>
+        </div>
+      </div>
+
+      <!-- Categories Section -->
+      <div class="notification-categories-section" id="notification-categories-section">
+        <!-- 카테고리 데이터가 동적으로 로드됩니다 -->
+        <div class="notification-loading" id="notification-loading" style="text-align: center; padding: 40px;">
+          <p style="color: rgba(107, 114, 128, 1);">카테고리 정보를 불러오는 중...</p>
+        </div>
+      </div>
+
+      <!-- Save Button -->
+      <div class="notification-save-section">
+        <button type="button" class="notification-save-button" id="notification-save-btn">
+          <p class="notification-save-text">완료</p>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <div class="signup-footer-section">
+    <div class="signup-footer-links">
+      <a href="#" class="signup-footer-link">이용약관</a>
+      <a href="#" class="signup-footer-link">개인정보처리방침</a>
+      <a href="#" class="signup-footer-link">고객센터</a>
+    </div>
+  </div>
+
+<script src="config.js"></script>
+<script src="script.js"></script>
+<script src="notification-settings.js"></script>
+</body>
+</html>
