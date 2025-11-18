@@ -723,16 +723,16 @@
                 return;
               }
               
-              // ProductUnit 변환 (kg -> KG, box -> BOX)
-              const unit = unitValue.toUpperCase();
+              // ProductUnit 변환 (kg -> PIECE, box -> BOX)
+              const unit = unitValue === 'kg' ? 'PIECE' : 'BOX';
               
-              // StorageType 변환 (냉동 -> FROZEN, 냉장 -> REFRIGERATED)
+              // StorageType 변환 (냉동 -> FROZEN, 냉장 -> CHILLED)
               let storageTypeEnum = null;
               if (storageType) {
                 if (storageType === '냉동') {
                   storageTypeEnum = 'FROZEN';
                 } else if (storageType === '냉장') {
-                  storageTypeEnum = 'REFRIGERATED';
+                  storageTypeEnum = 'CHILLED';
                 }
               }
               
@@ -829,7 +829,7 @@
             return;
           }
           
-          const API_BASE_URL = window.CONFIG?.API_BASE_URL || 'http://localhost:8080/api/v1';
+          const API_BASE_URL = window.CONFIG.API_BASE_URL;
           
           try {
             if (loginErrorMessage) {
@@ -909,8 +909,8 @@
       
       try {
         // API 호출
-        const API_BASE_URL = window.CONFIG?.API_BASE_URL || 'http://localhost:8080/api/v1';
-        const productsEndpoint = window.CONFIG?.ENDPOINT?.PRODUCTS || '/products';
+        const API_BASE_URL = window.CONFIG.API_BASE_URL;
+        const productsEndpoint = window.CONFIG.ENDPOINT.PRODUCTS;
         
         const response = await fetch(`${API_BASE_URL}${productsEndpoint}`, {
           method: 'POST',

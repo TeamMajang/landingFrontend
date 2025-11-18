@@ -333,8 +333,8 @@
         return;
       }
       
-      const API_BASE_URL = window.CONFIG?.API_BASE_URL || 'http://localhost:8080/api/v1';
-      const categoriesEndpoint = window.CONFIG?.ENDPOINT?.CATEGORIES || '/categories';
+      const API_BASE_URL = window.CONFIG.API_BASE_URL;
+      const categoriesEndpoint = window.CONFIG.ENDPOINT.CATEGORIES;
       
       try {
         const response = await fetch(`${API_BASE_URL}${categoriesEndpoint}`, {

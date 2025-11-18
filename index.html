@@ -57,7 +57,7 @@
       <div class="find-id-logo-section">
         <p class="login-logo-text">MAJANGDEAL</p>
       </div>
-      <div class="find-id-error-message" id="find-id-error-message" style="display: none;">
+      <div class="find-id-error-message" id="find-id-error-message">
         <p class="text-9" style="color: rgba(255, 29, 25, 1); margin: 0;"><span>사업자 등록번호를 정확히 입력해주세요.</span></p>
       </div>
       <div class="find-id-user-actions">
@@ -118,8 +118,37 @@
   </div>
 </div>
 
-<!-- Reset Password Modal -->
+<!-- Reset Password Modal (Input) -->
 <div id="reset-password-modal" class="modal" style="display: none;">
+  <div class="modal-overlay"></div>
+  <div class="modal-content find-id-modal-content">
+    <div class="find-id-header-content">
+      <div class="find-id-logo-section">
+        <p class="login-logo-text">MAJANGDEAL</p>
+      </div>
+      <div class="find-id-error-message" id="reset-password-error-message">
+        <p class="text-9" style="color: rgba(255, 29, 25, 1); margin: 0;"><span>아이디를 정확히 입력해 주세요.</span></p>
+      </div>
+      <div class="find-id-user-actions">
+        <div class="find-id-business-info">
+          <div class="find-id-representative">
+            <p class="find-id-label">아이디</p>
+            <div class="find-id-name-input">
+              <input type="text" id="reset-password-id" name="id" placeholder="아이디를 입력해주세요." required style="border: none; outline: none; background: transparent; width: 100%; font-family: var(--font-family-inter); font-weight: 400; font-size: 16px; line-height: 19.200000762939453px; color: var(--text-rgb-55-65-81);">
+            </div>
+          </div>
+        </div>
+        <button type="button" class="find-id-submit-button" id="reset-password-submit-btn">
+          <p class="text-16"><span class="text-white">비밀번호 재설정</span></p>
+        </button>
+      </div>
+    </div>
+    <button class="modal-close" id="close-reset-password-modal">&times;</button>
+  </div>
+</div>
+
+<!-- Reset Password Info Modal (Success Message) -->
+<div id="reset-password-info-modal" class="modal" style="display: none;">
   <div class="modal-overlay"></div>
   <div class="modal-content reset-password-modal-content">
     <div class="reset-password-header-content">
@@ -149,12 +178,12 @@
           </div>
           <p class="reset-password-hours">운영시간: 평일 09:00 ~ 18:00</p>
         </div>
-        <button type="button" class="reset-password-close-button" id="reset-password-close-btn">
+        <button type="button" class="reset-password-close-button" id="reset-password-info-close-btn">
           <p class="text-16"><span class="text-white">닫기</span></p>
         </button>
       </div>
     </div>
-    <button class="modal-close" id="close-reset-password-modal">&times;</button>
+    <button class="modal-close" id="close-reset-password-info-modal">&times;</button>
   </div>
 </div>
 
@@ -518,6 +547,7 @@
 </div>
 </div>
 
+<script src="config.js"></script>
 <script src="script.js"></script>
 </body>
 </html>

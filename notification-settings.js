@@ -33,8 +33,8 @@ function checkSignupFlow() {
 
 // API에서 카테고리 데이터 로드
 async function loadCategories() {
-  const API_BASE_URL = window.CONFIG?.API_BASE_URL || 'http://localhost:8080/api/v1';
-  const categoriesEndpoint = window.CONFIG?.ENDPOINT?.CATEGORIES || '/categories';
+  const API_BASE_URL = window.CONFIG.API_BASE_URL;
+  const categoriesEndpoint = window.CONFIG.ENDPOINT.CATEGORIES;
   
   try {
     const response = await fetch(`${API_BASE_URL}${categoriesEndpoint}`, {
@@ -308,8 +308,8 @@ function submitSignup(categoryIds) {
     console.log('Signup request:', signupRequest);
     
     // 회원가입 API 호출
-    const API_BASE_URL = window.CONFIG?.API_BASE_URL || 'http://localhost:8080/api/v1';
-    const signupEndpoint = window.CONFIG?.ENDPOINT?.SIGNUP || '/members/signup';
+    const API_BASE_URL = window.CONFIG.API_BASE_URL;
+    const signupEndpoint = window.CONFIG.ENDPOINT.SIGNUP;
     
     fetch(`${API_BASE_URL}${signupEndpoint}`, {
       method: 'POST',
@@ -356,7 +356,7 @@ function submitSignup(categoryIds) {
 
 // Send settings to API (일반 알림 설정용)
 function sendSettingsToAPI(selectedItemIds) {
-  const API_BASE_URL = window.CONFIG?.API_BASE_URL || 'http://localhost:8080/api/v1';
+  const API_BASE_URL = window.CONFIG.API_BASE_URL;
   
   fetch(`${API_BASE_URL}/notifications/settings`, {
     method: 'POST',

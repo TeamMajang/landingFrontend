@@ -442,6 +442,19 @@
                 <path d="M8 5V8M8 11H8.01" stroke="#dc2626" stroke-width="1.5" stroke-linecap="round"/>
               </svg>
             </div>
+            <p class="signup-notice-title">사업자 등록번호 안내</p>
+          </div>
+          <p class="signup-notice-text">국가 데이터센터 화재로 인증 기능이 간헐적으로 지연될 수 있습니다.</p>
+        </div>
+        
+        <div class="signup-notice-box">
+          <div class="signup-notice-header">
+            <div class="signup-info-icon">
+              <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <circle cx="8" cy="8" r="7" stroke="#dc2626" stroke-width="1.5"/>
+                <path d="M8 5V8M8 11H8.01" stroke="#dc2626" stroke-width="1.5" stroke-linecap="round"/>
+              </svg>
+            </div>
             <p class="signup-notice-title">주의사항</p>
           </div>
           <p class="signup-notice-text">사업자 정보를 도용하거나 허위 기재 시, 조세범 처벌법 제11조 제1항에 따라 처벌받을 수 있습니다.</p>
@@ -454,6 +467,7 @@
     </div>
   </div>
 
+  <script src="config.js"></script>
   <script>
     // Form validation
     document.addEventListener('DOMContentLoaded', function() {
@@ -464,8 +478,21 @@
       const submitButton = document.getElementById('signup-submit-button');
       const verifyButton = document.getElementById('verify-business-btn');
       
+      // 회원가입 페이지가 아닌 곳에서 온 경우 데이터 삭제
+      const referrer = document.referrer;
+      const isFromSignupPage = referrer.includes('signup') || referrer.includes('notification-settings');
+      
+      if (!isFromSignupPage && referrer) {
+        // 회원가입 페이지가 아닌 곳에서 온 경우 모든 회원가입 데이터 삭제
+        localStorage.removeItem('signup_step1_data');
+        localStorage.removeItem('signup_step2_data');
+        localStorage.removeItem('signup_step3_data');
+        localStorage.removeItem('notificationSettings');
+      }
+      
       // Step 2 저장된 데이터 불러오기
       const savedStep2Data = localStorage.getItem('signup_step2_data');
+      
       if (savedStep2Data) {
         try {
           const step2Data = JSON.parse(savedStep2Data);
@@ -553,11 +580,18 @@
         verifyButton.innerHTML = '인증 중...';
         
         try {
-          const API_BASE_URL = 'http://localhost:8080';
-          console.log('Calling API:', `${API_BASE_URL}/api/v1/members/business-number/verify`);
+          if (!window.CONFIG || !window.CONFIG.API_BASE_URL) {
+            console.error('CONFIG is not loaded! window.CONFIG:', window.CONFIG);
+            alert('설정 파일을 불러오지 못했습니다. 페이지를 새로고침해주세요.');
+            return;
+          }
+          const API_BASE_URL = window.CONFIG.API_BASE_URL;
+          const registrationEndpoint = window.CONFIG.ENDPOINT.REGISTRATION_NUMBER;
+          console.log('CONFIG loaded:', window.CONFIG);
+          console.log('Calling API:', `${API_BASE_URL}${registrationEndpoint}`);
           console.log('Request body:', { businessNumber: businessNumber });
           
-          const response = await fetch(`${API_BASE_URL}/api/v1/members/business-number/verify`, {
+          const response = await fetch(`${API_BASE_URL}${registrationEndpoint}`, {
             method: 'POST',
             headers: {
               'Content-Type': 'application/json',

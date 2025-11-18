@@ -1,5 +1,5 @@
-// API Configuration
-const API_BASE_URL = 'http://localhost:8080';
+// API Configuration - Use common config from config.js
+const API_BASE_URL = window.CONFIG.API_BASE_URL;
 
 // Update header after login
 function updateHeaderAfterLogin(userInfo) {
@@ -21,11 +21,12 @@ function updateHeaderAfterLogin(userInfo) {
     newLoginButton.addEventListener('click', async function() {
       try {
         // Call logout API
-        const response = await fetch(`${API_BASE_URL}/api/v1/members/logout`, {
+        const response = await fetch(`${API_BASE_URL}/members/logout`, {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
-          }
+          },
+          credentials: window.CONFIG?.USE_CREDENTIALS ? 'include' : 'omit',
         });
         
         console.log('Logout API Response:', response);
@@ -217,13 +218,43 @@ document.addEventListener('DOMContentLoaded', function() {
   // Reset Password Modal functionality
   const resetPasswordModal = document.getElementById('reset-password-modal');
   const closeResetPasswordModal = document.getElementById('close-reset-password-modal');
-  const resetPasswordCloseBtn = document.getElementById('reset-password-close-btn');
   const resetPasswordModalOverlay = resetPasswordModal ? resetPasswordModal.querySelector('.modal-overlay') : null;
+  const resetPasswordSubmitBtn = document.getElementById('reset-password-submit-btn');
+  const resetPasswordIdInput = document.getElementById('reset-password-id');
+  const resetPasswordErrorMessage = document.getElementById('reset-password-error-message');
+  
+  // Reset Password Info Modal (Success Message)
+  const resetPasswordInfoModal = document.getElementById('reset-password-info-modal');
+  const closeResetPasswordInfoModal = document.getElementById('close-reset-password-info-modal');
+  const resetPasswordInfoCloseBtn = document.getElementById('reset-password-info-close-btn');
+  const resetPasswordInfoModalOverlay = resetPasswordInfoModal ? resetPasswordInfoModal.querySelector('.modal-overlay') : null;
   
   function closeResetPasswordModalFunc() {
     if (resetPasswordModal) {
       resetPasswordModal.style.display = 'none';
       document.body.style.overflowY = 'scroll'; /* 스크롤바 공간 유지 */
+      // 입력 필드 초기화
+      if (resetPasswordIdInput) {
+        resetPasswordIdInput.value = '';
+      }
+      // 에러 메시지 숨기기
+      if (resetPasswordErrorMessage) {
+        resetPasswordErrorMessage.classList.remove('visible');
+      }
+    }
+  }
+  
+  function closeResetPasswordInfoModalFunc() {
+    if (resetPasswordInfoModal) {
+      resetPasswordInfoModal.style.display = 'none';
+      document.body.style.overflowY = 'scroll'; /* 스크롤바 공간 유지 */
+    }
+  }
+  
+  function openResetPasswordInfoModal() {
+    if (resetPasswordInfoModal) {
+      resetPasswordInfoModal.style.display = 'flex';
+      document.body.style.overflowY = 'hidden'; /* overflow-y만 숨김, 스크롤바 공간은 유지 */
     }
   }
   
@@ -231,12 +262,103 @@ document.addEventListener('DOMContentLoaded', function() {
     closeResetPasswordModal.addEventListener('click', closeResetPasswordModalFunc);
   }
   
-  if (resetPasswordCloseBtn) {
-    resetPasswordCloseBtn.addEventListener('click', closeResetPasswordModalFunc);
-  }
-  
   if (resetPasswordModalOverlay) {
     resetPasswordModalOverlay.addEventListener('click', closeResetPasswordModalFunc);
+  }
+
+  if (closeResetPasswordInfoModal) {
+    closeResetPasswordInfoModal.addEventListener('click', closeResetPasswordInfoModalFunc);
+  }
+  
+  if (resetPasswordInfoCloseBtn) {
+    resetPasswordInfoCloseBtn.addEventListener('click', closeResetPasswordInfoModalFunc);
+  }
+  
+  if (resetPasswordInfoModalOverlay) {
+    resetPasswordInfoModalOverlay.addEventListener('click', closeResetPasswordInfoModalFunc);
+  }
+
+  // Hide error message when user starts typing in reset password input
+  if (resetPasswordIdInput) {
+    resetPasswordIdInput.addEventListener('input', function() {
+      if (resetPasswordErrorMessage) {
+        resetPasswordErrorMessage.classList.remove('visible');
+      }
+    });
+  }
+
+  // 비밀번호 재설정 버튼 클릭 핸들러
+  if (resetPasswordSubmitBtn) {
+    resetPasswordSubmitBtn.addEventListener('click', async function() {
+      const id = resetPasswordIdInput ? resetPasswordIdInput.value.trim() : '';
+      
+      // 아이디 입력 검증
+      if (!id) {
+        if (resetPasswordErrorMessage) {
+          const errorText = resetPasswordErrorMessage.querySelector('span');
+          if (errorText) {
+            errorText.textContent = '아이디를 정확히 입력해 주세요.';
+          }
+          resetPasswordErrorMessage.classList.add('visible');
+        }
+        return;
+      }
+      
+      // 에러 메시지 숨기기
+      if (resetPasswordErrorMessage) {
+        resetPasswordErrorMessage.classList.remove('visible');
+      }
+      
+      try {
+        const resetPasswordEndpoint = window.CONFIG.ENDPOINT.RESET_PASSWORD;
+        console.log('Calling API:', `${API_BASE_URL}${resetPasswordEndpoint}`);
+        // API 호출: /api/v1/members/reset-password
+        const response = await fetch(`${API_BASE_URL}${resetPasswordEndpoint}`, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          credentials: window.CONFIG?.USE_CREDENTIALS ? 'include' : 'omit',
+          body: JSON.stringify({
+            loginId: id
+          })
+        });
+        
+        console.log('Reset Password API Response:', response);
+        console.log('Response status:', response.status);
+        
+        if (!response.ok) {
+          const errorText = await response.text();
+          console.error('API Error Response:', errorText);
+          let errorData;
+          try {
+            errorData = JSON.parse(errorText);
+          } catch (e) {
+            errorData = { message: errorText || '비밀번호 재설정에 실패했습니다.' };
+          }
+          throw new Error(errorData.message || '비밀번호 재설정에 실패했습니다.');
+        }
+        
+        const data = await response.json();
+        console.log('Response data:', data);
+        
+        // 입력 모달 닫기
+        closeResetPasswordModalFunc();
+        
+        // 성공 모달 표시
+        openResetPasswordInfoModal();
+      } catch (error) {
+        // Network error or other error
+        console.error('Reset Password error:', error);
+        if (resetPasswordErrorMessage) {
+          const errorText = resetPasswordErrorMessage.querySelector('span');
+          if (errorText) {
+            errorText.textContent = '아이디를 정확히 입력해 주세요.';
+          }
+          resetPasswordErrorMessage.classList.add('visible');
+        }
+      }
+    });
   }
 
   // Signup page navigation
@@ -284,6 +406,8 @@ document.addEventListener('DOMContentLoaded', function() {
     if (e.key === 'Escape') {
       if (findIdSuccessModal && findIdSuccessModal.style.display === 'flex') {
         closeFindIdSuccessModalFunc();
+      } else if (resetPasswordInfoModal && resetPasswordInfoModal.style.display === 'flex') {
+        closeResetPasswordInfoModalFunc();
       } else if (resetPasswordModal && resetPasswordModal.style.display === 'flex') {
         closeResetPasswordModalFunc();
       } else {
@@ -322,11 +446,12 @@ document.addEventListener('DOMContentLoaded', function() {
       
       try {
         // API 호출: /api/v1/members/login
-        const response = await fetch(`${API_BASE_URL}/api/v1/members/login`, {
+        const response = await fetch(`${API_BASE_URL}/members/login`, {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
           },
+          credentials: window.CONFIG?.USE_CREDENTIALS ? 'include' : 'omit',
           body: JSON.stringify({
             loginId: loginId,
             password: loginPassword
@@ -484,76 +609,83 @@ document.addEventListener('DOMContentLoaded', function() {
       
       // Hide error message when user tries again
       if (findIdErrorMessage) {
-        findIdErrorMessage.style.display = 'none';
         findIdErrorMessage.classList.remove('visible');
       }
       
       if (!businessNumber) {
         console.log('Business number is empty');
         if (findIdErrorMessage) {
-          findIdErrorMessage.style.display = 'block';
           findIdErrorMessage.classList.add('visible');
         }
         return;
       }
       
       try {
-        console.log('Calling API:', `${API_BASE_URL}/api/v1/members/business-number/verify`);
-        // API 호출: /api/v1/members/business-number/verify
-        const response = await fetch(`${API_BASE_URL}/api/v1/members/business-number/verify`, {
+        const findLoginIdEndpoint = window.CONFIG.ENDPOINT.FIND_LOGIN_ID;
+        console.log('Calling API:', `${API_BASE_URL}${findLoginIdEndpoint}`);
+        // API 호출: /api/v1/members/find-login-id
+        const response = await fetch(`${API_BASE_URL}${findLoginIdEndpoint}`, {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
           },
+          credentials: window.CONFIG?.USE_CREDENTIALS ? 'include' : 'omit',
           body: JSON.stringify({
-            businessNumber: businessNumber
+            businessRegistrationNumber: businessNumber
           })
         });
         
         console.log('Find ID API Response:', response);
         console.log('Response status:', response.status);
+        
+        if (!response.ok) {
+          const errorText = await response.text();
+          console.error('API Error Response:', errorText);
+          let errorData;
+          try {
+            errorData = JSON.parse(errorText);
+          } catch (e) {
+            errorData = { message: errorText || '아이디 찾기에 실패했습니다.' };
+          }
+          throw new Error(errorData.message || '아이디 찾기에 실패했습니다.');
+        }
+        
         const data = await response.json();
         console.log('Response data:', data);
       
         // Hide error message first
         if (findIdErrorMessage) {
-          findIdErrorMessage.style.display = 'none';
           findIdErrorMessage.classList.remove('visible');
         }
         
-        if (response.ok && (data.success !== false)) {
-          // Find ID successful
-          console.log('Find ID successful:', data);
-          
-          // Close the find ID input modal
-          const findIdModal = document.getElementById('find-id-modal');
-          if (findIdModal) {
-            findIdModal.style.display = 'none';
-          }
-          
-          // Show success modal with the found ID
-          const findIdSuccessModal = document.getElementById('find-id-success-modal');
-          const findIdResult = document.getElementById('find-id-result');
-          
-          if (findIdSuccessModal && findIdResult) {
-            // Display the found ID (assuming the API returns loginId or similar)
-            const foundId = data.loginId || data.id || data.username || '알 수 없음';
-            findIdResult.textContent = foundId;
-            findIdSuccessModal.style.display = 'flex';
-            document.body.style.overflowY = 'hidden'; /* overflow-y만 숨김, 스크롤바 공간은 유지 */
-          }
-        } else {
-          // Find ID failed - show error message
-          if (findIdErrorMessage) {
-            findIdErrorMessage.style.display = 'block';
-            findIdErrorMessage.classList.add('visible');
-          }
+        // Find ID successful
+        console.log('Find ID successful:', data);
+        
+        // Close the find ID input modal
+        const findIdModal = document.getElementById('find-id-modal');
+        if (findIdModal) {
+          findIdModal.style.display = 'none';
+        }
+        
+        // Show success modal with the found ID
+        const findIdSuccessModal = document.getElementById('find-id-success-modal');
+        const findIdResult = document.getElementById('find-id-result');
+        
+        if (findIdSuccessModal && findIdResult) {
+          // Display the found ID (assuming the API returns loginId or similar)
+          const foundId = data.loginId || data.id || data.username || '알 수 없음';
+          findIdResult.textContent = foundId;
+          findIdSuccessModal.style.display = 'flex';
+          document.body.style.overflowY = 'hidden'; /* overflow-y만 숨김, 스크롤바 공간은 유지 */
         }
       } catch (error) {
         // Network error or other error
         console.error('Find ID error:', error);
         if (findIdErrorMessage) {
-          findIdErrorMessage.style.display = 'block';
+          const errorText = findIdErrorMessage.querySelector('span');
+          if (errorText) {
+            errorText.textContent = error.message || '사업자 등록번호를 정확히 입력해주세요.';
+          }
           findIdErrorMessage.classList.add('visible');
         }
       }
@@ -565,7 +697,6 @@ document.addEventListener('DOMContentLoaded', function() {
       findIdBusinessNumberInput.addEventListener('input', function() {
         const findIdErrorMessage = document.getElementById('find-id-error-message');
         if (findIdErrorMessage) {
-          findIdErrorMessage.style.display = 'none';
           findIdErrorMessage.classList.remove('visible');
         }
       });

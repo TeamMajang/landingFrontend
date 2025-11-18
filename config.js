@@ -1,5 +1,6 @@
 window.CONFIG = {
     API_BASE_URL: 'http://localhost:8080/api/v1',
+    // API_BASE_URL: '/api/v1',
 
     ENDPOINT: {
         LOGIN: '/members/login',
@@ -10,8 +11,18 @@ window.CONFIG = {
         SIGNUP_FORM: 'signup.html',
         REGISTRATION_NUMBER: '/members/business-number/verify',
         CHECK_LOGIN_ID: '/members/check-login-id',
+        FIND_LOGIN_ID: '/members/find-login-id',
+        RESET_PASSWORD: '/members/reset-password',
         CATEGORIES: '/categories',
-        MYPAGE: '/members',
+        MYPAGE: '/members/my-page',
+        STORE_NAME: '/members/store-name',
+        BUSINESS_ADDRESS: '/members/business-address',
+        BUSINESS_ADDRESS_DETAIL: '/members/business-address-detail',
+        NAME: '/members/name',
+        PHONE_NUMBER: '/members/phone-number',
+        PASSWORD: '/members/password',
+        PHONE_VERIFICATION_SEND: '/verification/phone/send',
+        PHONE_VERIFICATION_CONFIRM: '/verification/phone/confirm',
         AUCTION_PRICE: '/auction-price', // 경락가격 조회 프록시 API
         PRODUCTS: '/products', // 상품 등록 API
     },

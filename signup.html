@@ -455,6 +455,18 @@
       const requiredChecks = [ageCheck, serviceCheck, privacyReqCheck];
       const allChecks = [ageCheck, serviceCheck, privacyReqCheck, privacyOptCheck, marketingCheck];
       
+      // 회원가입 첫 페이지 진입 시 이전 데이터 삭제 (다른 페이지에서 돌아온 경우)
+      const referrer = document.referrer;
+      const isFromSignupPage = referrer.includes('signup') || referrer.includes('notification-settings');
+      
+      if (!isFromSignupPage && referrer) {
+        // 회원가입 페이지가 아닌 곳에서 온 경우 모든 회원가입 데이터 삭제
+        localStorage.removeItem('signup_step1_data');
+        localStorage.removeItem('signup_step2_data');
+        localStorage.removeItem('signup_step3_data');
+        localStorage.removeItem('notificationSettings');
+      }
+      
       // Step 1 저장된 데이터 불러오기
       const savedStep1Data = localStorage.getItem('signup_step1_data');
       if (savedStep1Data) {

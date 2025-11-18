@@ -5,6 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>회원가입 3단계 - MAJANGDEAL</title>
   <link href="https://fonts.googleapis.com/css?family=Inter&display=swap" rel="stylesheet">
+  <link href="https://spoqa.github.io/spoqa-han-sans/css/SpoqaHanSansNeo.css" rel="stylesheet">
   <link rel="stylesheet" href="style.css">
   <style>
     body {
@@ -204,6 +205,12 @@
       border-color: #3b82f6;
     }
     
+    #phone-input:focus {
+      outline: none;
+      border-color: #d1d5db;
+      background-color: #ffffff;
+    }
+    
     .signup-input.verified {
       background-color: #f3f4f6;
       border-color: #d1d5db;
@@ -233,6 +240,46 @@
     .signup-error-message.visible {
       visibility: visible;
       opacity: 1;
+    }
+    
+    .phone-verification-code-section {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      margin-top: 8px;
+    }
+    
+    .phone-verification-timer-row {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      gap: 8px;
+      height: 18px;
+    }
+    
+    .phone-verification-timer {
+      font-family: 'Spoqa Han Sans Neo', 'Inter', sans-serif;
+      font-weight: 500;
+      font-size: 14px;
+      line-height: 17.528px;
+      color: #6b7280;
+    }
+    
+    .phone-verification-resend {
+      font-family: 'Spoqa Han Sans Neo', 'Inter', sans-serif;
+      font-weight: 500;
+      font-size: 14px;
+      line-height: 17.528px;
+      color: #6b7280;
+      background: none;
+      border: none;
+      padding: 0;
+      cursor: pointer;
+      text-decoration: none;
+    }
+    
+    .phone-verification-resend:hover {
+      text-decoration: underline;
     }
     
     .signup-submit-button {
@@ -316,8 +363,23 @@
         </div>
         
         <div class="signup-input-group">
-          <p class="signup-label">전화번호</p>
+          <div class="signup-label-row">
+            <p class="signup-label">전화번호</p>
+            <button type="button" class="signup-verify-button" id="verify-phone-btn">인증하기</button>
+          </div>
           <input type="tel" class="signup-input" id="phone-input" placeholder="번호만 입력해주세요.">
+          <div class="phone-verification-code-section" id="phone-verification-code-section" style="display: none;">
+            <div class="signup-label-row">
+              <p class="signup-label">인증번호</p>
+              <button type="button" class="signup-verify-button" id="verify-code-btn">확인</button>
+            </div>
+            <input type="text" class="signup-input" id="phone-verification-code-input" placeholder="번호만 입력해주세요." maxlength="6">
+            <div class="phone-verification-timer-row">
+              <span class="phone-verification-timer" id="phone-verification-timer">3:00</span>
+              <button type="button" class="phone-verification-resend" id="phone-verification-resend">재전송</button>
+            </div>
+          </div>
+          <p class="signup-error-message" id="phone-error-message"></p>
         </div>
         
         <div class="signup-input-group">
@@ -348,6 +410,7 @@
     </div>
   </div>
 
+  <script src="config.js"></script>
   <script>
     document.addEventListener('DOMContentLoaded', function() {
       const nameInput = document.getElementById('name-input');
@@ -357,13 +420,35 @@
       const passwordConfirmInput = document.getElementById('password-confirm-input');
       const submitButton = document.getElementById('signup-submit-button');
       const verifyIdButton = document.getElementById('verify-id-btn');
+      const verifyPhoneButton = document.getElementById('verify-phone-btn');
+      const verifyCodeButton = document.getElementById('verify-code-btn');
+      const phoneVerificationCodeSection = document.getElementById('phone-verification-code-section');
+      const phoneVerificationCodeInput = document.getElementById('phone-verification-code-input');
+      const phoneVerificationTimer = document.getElementById('phone-verification-timer');
+      const phoneVerificationResend = document.getElementById('phone-verification-resend');
       
       const idErrorMessage = document.getElementById('id-error-message');
       const passwordErrorMessage = document.getElementById('password-error-message');
       const passwordConfirmErrorMessage = document.getElementById('password-confirm-error-message');
+      const phoneErrorMessage = document.getElementById('phone-error-message');
       
       let isIdVerified = false;
       let isIdAvailable = false;
+      let isPhoneVerified = false;
+      let phoneVerificationTimerInterval = null;
+      let phoneVerificationTimeLeft = 180; // 3분 = 180초
+      
+      // 회원가입 페이지가 아닌 곳에서 온 경우 데이터 삭제
+      const referrer = document.referrer;
+      const isFromSignupPage = referrer.includes('signup') || referrer.includes('notification-settings');
+      
+      if (!isFromSignupPage && referrer) {
+        // 회원가입 페이지가 아닌 곳에서 온 경우 모든 회원가입 데이터 삭제
+        localStorage.removeItem('signup_step1_data');
+        localStorage.removeItem('signup_step2_data');
+        localStorage.removeItem('signup_step3_data');
+        localStorage.removeItem('notificationSettings');
+      }
       
       // Step 3 저장된 데이터 불러오기
       const savedStep3Data = localStorage.getItem('signup_step3_data');
@@ -378,20 +463,10 @@
           }
           if (step3Data.loginId) {
             loginIdInput.value = step3Data.loginId;
-            // 인증된 상태로 복원
-            loginIdInput.classList.add('verified');
-            loginIdInput.disabled = true;
-            verifyIdButton.classList.remove('active');
-            verifyIdButton.classList.add('verified');
-            verifyIdButton.innerHTML = `
-              <div class="verify-check-icon">
-                <svg width="28" height="28" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg">
-                  <path d="M9 14L12.5 17.5L19 11" stroke="#3b82f6" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                </svg>
-              </div>
-              <span class="verify-text">인증완료</span>
-            `;
-            verifyIdButton.disabled = true;
+            // 인증된 상태로 복원 (메시지만 표시)
+            idErrorMessage.textContent = '사용 가능한 아이디입니다.';
+            idErrorMessage.style.color = '#10b981'; // 초록색
+            idErrorMessage.classList.add('visible');
             isIdVerified = true;
             isIdAvailable = true;
           }
@@ -413,7 +488,7 @@
         const password = passwordInput.value.trim();
         const passwordConfirm = passwordConfirmInput.value.trim();
         
-        if (name && phone && loginId && password && passwordConfirm && isIdVerified && isIdAvailable) {
+        if (name && phone && loginId && password && passwordConfirm && isIdVerified && isIdAvailable && isPhoneVerified) {
           submitButton.disabled = false;
         } else {
           submitButton.disabled = true;
@@ -429,6 +504,24 @@
         }
       }
       
+      function updatePhoneVerifyButton() {
+        const phone = phoneInput.value.trim();
+        if (phone.length > 0) {
+          verifyPhoneButton.classList.add('active');
+        } else {
+          verifyPhoneButton.classList.remove('active');
+        }
+      }
+      
+      function updateCodeVerifyButton() {
+        const code = phoneVerificationCodeInput.value.trim();
+        if (code.length > 0) {
+          verifyCodeButton.classList.add('active');
+        } else {
+          verifyCodeButton.classList.remove('active');
+        }
+      }
+      
       function validateLoginId(id) {
         // 5~20자, 영문 소문자, 숫자, _, - 만 가능
         const regex = /^[a-z0-9_-]{5,20}$/;
@@ -441,13 +534,87 @@
         return regex.test(password);
       }
       
+      // 전화번호를 하이픈 형식으로 변환하는 함수
+      function formatPhoneNumber(phoneNumber) {
+        // 숫자만 추출
+        const numbers = phoneNumber.replace(/[^0-9]/g, '');
+        
+        // 길이가 10자리 또는 11자리인지 확인
+        if (numbers.length === 10) {
+          // 10자리: 010-1234-5678 형식
+          return numbers.replace(/(\d{3})(\d{3,4})(\d{4})/, '$1-$2-$3');
+        } else if (numbers.length === 11) {
+          // 11자리: 010-1234-5678 형식
+          return numbers.replace(/(\d{3})(\d{4})(\d{4})/, '$1-$2-$3');
+        }
+        
+        // 이미 하이픈이 포함되어 있으면 그대로 반환
+        if (phoneNumber.includes('-')) {
+          return phoneNumber;
+        }
+        
+        // 형식이 맞지 않으면 원본 반환 (서버에서 검증)
+        return phoneNumber;
+      }
+      
+      // 타이머 시작 함수
+      function startPhoneVerificationTimer() {
+        // 기존 타이머가 있으면 정리
+        if (phoneVerificationTimerInterval) {
+          clearInterval(phoneVerificationTimerInterval);
+        }
+        
+        phoneVerificationTimeLeft = 180; // 3분 = 180초
+        updatePhoneVerificationTimer();
+        
+        phoneVerificationTimerInterval = setInterval(() => {
+          phoneVerificationTimeLeft--;
+          updatePhoneVerificationTimer();
+          
+          if (phoneVerificationTimeLeft <= 0) {
+            clearInterval(phoneVerificationTimerInterval);
+            phoneVerificationTimerInterval = null;
+          }
+        }, 1000);
+      }
+      
+      // 타이머 업데이트 함수
+      function updatePhoneVerificationTimer() {
+        const minutes = Math.floor(phoneVerificationTimeLeft / 60);
+        const seconds = phoneVerificationTimeLeft % 60;
+        const formattedTime = `${minutes}:${seconds.toString().padStart(2, '0')}`;
+        phoneVerificationTimer.textContent = formattedTime;
+      }
+      
+      // 타이머 정리 함수
+      function clearPhoneVerificationTimer() {
+        if (phoneVerificationTimerInterval) {
+          clearInterval(phoneVerificationTimerInterval);
+          phoneVerificationTimerInterval = null;
+        }
+        phoneVerificationTimeLeft = 180;
+        phoneVerificationTimer.textContent = '3:00';
+      }
+      
       nameInput.addEventListener('input', updateSubmitButton);
-      phoneInput.addEventListener('input', updateSubmitButton);
+      phoneInput.addEventListener('input', function() {
+        updateSubmitButton();
+        updatePhoneVerifyButton();
+      });
+      
+      // 인증코드 입력 시 확인 버튼 활성화
+      phoneVerificationCodeInput.addEventListener('input', function() {
+        updateCodeVerifyButton();
+      });
       
       loginIdInput.addEventListener('input', function() {
         const loginId = this.value.trim();
         updateSubmitButton();
         updateVerifyButton();
+        
+        // 인증 상태 초기화
+        isIdVerified = false;
+        isIdAvailable = false;
         
         // Check for invalid characters in real-time
         if (loginId.length > 0) {
@@ -455,23 +622,17 @@
           const invalidChars = /[^a-z0-9_-]/;
           if (invalidChars.test(loginId)) {
             idErrorMessage.textContent = '5~20자, 영문 소문자, 숫자, ( _ ), ( - ) 만 가능';
+            idErrorMessage.style.color = '#ef4444'; // 빨간색
             idErrorMessage.classList.add('visible');
-            isIdVerified = false;
-            isIdAvailable = false;
           } else if (loginId.length < 5 || loginId.length > 20) {
             idErrorMessage.textContent = '5~20자, 영문 소문자, 숫자, ( _ ), ( - ) 만 가능';
+            idErrorMessage.style.color = '#ef4444'; // 빨간색
             idErrorMessage.classList.add('visible');
-            isIdVerified = false;
-            isIdAvailable = false;
           } else {
             idErrorMessage.classList.remove('visible');
-            isIdVerified = false;
-            isIdAvailable = false;
           }
         } else {
           idErrorMessage.classList.remove('visible');
-          isIdVerified = false;
-          isIdAvailable = false;
         }
       });
       
@@ -496,6 +657,8 @@
       });
       
       updateVerifyButton();
+      updatePhoneVerifyButton();
+      updateCodeVerifyButton();
       
       verifyIdButton.addEventListener('click', async function() {
         const loginId = loginIdInput.value.trim();
@@ -511,16 +674,13 @@
           return;
         }
         
-        const originalButtonHTML = verifyIdButton.innerHTML;
-        verifyIdButton.disabled = true;
-        verifyIdButton.innerHTML = '인증 중...';
-        
         try {
-          const API_BASE_URL = 'http://localhost:8080';
-          console.log('Calling API:', `${API_BASE_URL}/api/v1/members/check-login-id`);
+          const API_BASE_URL = window.CONFIG.API_BASE_URL;
+          const checkLoginIdEndpoint = window.CONFIG.ENDPOINT.CHECK_LOGIN_ID;
+          console.log('Calling API:', `${API_BASE_URL}${checkLoginIdEndpoint}`);
           console.log('Request body:', { loginId: loginId });
           
-          const response = await fetch(`${API_BASE_URL}/api/v1/members/check-login-id`, {
+          const response = await fetch(`${API_BASE_URL}${checkLoginIdEndpoint}`, {
             method: 'POST',
             headers: {
               'Content-Type': 'application/json',
@@ -534,28 +694,278 @@
           console.log('Response status:', response.status);
           console.log('Response ok:', response.ok);
           
-          if (response.status === 200) {
-            let data;
-            try {
-              data = await response.json();
-              console.log('Response data:', data);
-            } catch (e) {
-              console.log('Response is not JSON, treating as success');
-              data = {};
-            }
-            
-            // 아이디 사용 가능 (200 OK)
+          // 응답 본문 파싱
+          let responseData;
+          try {
+            responseData = await response.json();
+            console.log('Response data:', responseData);
+          } catch (e) {
+            console.log('Response is not JSON');
+            responseData = {};
+          }
+          
+          // available 필드 확인
+          const isAvailable = responseData.available === true;
+          
+          if (response.ok && isAvailable) {
+            // 아이디 사용 가능 (200 OK && available: true)
             isIdVerified = true;
             isIdAvailable = true;
-            idErrorMessage.classList.remove('visible');
             
-            // Change input to gray and disable
-            loginIdInput.classList.add('verified');
-            loginIdInput.disabled = true;
+            // 성공 메시지 표시 (초록색)
+            idErrorMessage.textContent = '사용 가능한 아이디입니다.';
+            idErrorMessage.style.color = '#10b981'; // 초록색
+            idErrorMessage.classList.add('visible');
             
-            verifyIdButton.classList.remove('active');
-            verifyIdButton.classList.add('verified');
-            verifyIdButton.innerHTML = `
+            // 텍스트 박스와 버튼은 그대로 유지
+            updateSubmitButton();
+          } else {
+            // available: false이거나 200이 아닌 경우 (이미 사용중인 아이디 등)
+            let errorMessage = '이미 사용중인 아이디입니다.';
+            if (responseData.message) {
+              errorMessage = responseData.message;
+            }
+            
+            idErrorMessage.textContent = errorMessage;
+            idErrorMessage.style.color = '#ef4444'; // 빨간색
+            idErrorMessage.classList.add('visible');
+          }
+        } catch (error) {
+          console.error('Error verifying login ID:', error);
+          alert(`인증 중 오류가 발생했습니다: ${error.message}`);
+        }
+      });
+      
+      // 전화번호 인증하기 버튼 클릭 이벤트
+      verifyPhoneButton.addEventListener('click', async function() {
+        const phone = phoneInput.value.trim();
+        
+        if (!phone) {
+          phoneErrorMessage.textContent = '전화번호를 입력해주세요.';
+          phoneErrorMessage.classList.add('visible');
+          return;
+        }
+        
+        // 전화번호를 하이픈 형식으로 변환
+        const formattedPhone = formatPhoneNumber(phone);
+        
+        const originalButtonHTML = verifyPhoneButton.innerHTML;
+        verifyPhoneButton.disabled = true;
+        verifyPhoneButton.innerHTML = '인증 중...';
+        phoneErrorMessage.classList.remove('visible');
+        
+        try {
+          const API_BASE_URL = window.CONFIG.API_BASE_URL;
+          const phoneVerificationSendEndpoint = window.CONFIG.ENDPOINT.PHONE_VERIFICATION_SEND;
+          console.log('Calling API:', `${API_BASE_URL}${phoneVerificationSendEndpoint}`);
+          console.log('Request body:', { phoneNumber: formattedPhone });
+          
+          const response = await fetch(`${API_BASE_URL}${phoneVerificationSendEndpoint}`, {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+              phoneNumber: formattedPhone
+            }),
+            credentials: window.CONFIG?.USE_CREDENTIALS ? 'include' : 'omit'
+          });
+          
+          console.log('Response status:', response.status);
+          
+          if (response.ok) {
+            // 인증번호 전송 성공
+            phoneInput.value = formattedPhone; // 하이픈 형식으로 업데이트
+            phoneInput.disabled = false; // 인증번호 확인 전까지는 수정 가능
+            
+            // 인증번호 입력 필드 표시
+            phoneVerificationCodeSection.style.display = 'flex';
+            phoneVerificationCodeInput.focus();
+            
+            // 타이머 시작
+            startPhoneVerificationTimer();
+            
+            // 인증번호 전송 성공 시 버튼은 그대로 유지 (인증번호 확인 성공 시에만 인증완료로 변경)
+            verifyPhoneButton.disabled = false;
+            updatePhoneVerifyButton();
+          } else {
+            // 에러 처리
+            let errorMessage = '인증번호 전송에 실패했습니다.';
+            try {
+              const errorData = await response.json();
+              console.log('Error response data:', errorData);
+              errorMessage = errorData.message || errorMessage;
+            } catch (e) {
+              console.log('Error response is not JSON');
+              errorMessage = `인증번호 전송에 실패했습니다. (상태 코드: ${response.status})`;
+            }
+            
+            phoneErrorMessage.textContent = errorMessage;
+            phoneErrorMessage.classList.add('visible');
+            verifyPhoneButton.disabled = false;
+            verifyPhoneButton.innerHTML = originalButtonHTML;
+            updatePhoneVerifyButton();
+          }
+        } catch (error) {
+          console.error('Error sending phone verification:', error);
+          phoneErrorMessage.textContent = `인증번호 전송 중 오류가 발생했습니다: ${error.message}`;
+          phoneErrorMessage.classList.add('visible');
+          verifyPhoneButton.disabled = false;
+          verifyPhoneButton.innerHTML = originalButtonHTML;
+          updatePhoneVerifyButton();
+        }
+      });
+      
+      // 다시 받기 버튼 클릭 이벤트
+      phoneVerificationResend.addEventListener('click', async function() {
+        const phone = phoneInput.value.trim();
+        
+        if (!phone) {
+          phoneErrorMessage.textContent = '전화번호를 입력해주세요.';
+          phoneErrorMessage.classList.add('visible');
+          return;
+        }
+        
+        // 전화번호를 하이픈 형식으로 변환
+        const formattedPhone = formatPhoneNumber(phone);
+        
+        phoneVerificationResend.disabled = true;
+        phoneVerificationResend.textContent = '전송 중...';
+        phoneErrorMessage.classList.remove('visible');
+        
+        try {
+          const API_BASE_URL = window.CONFIG.API_BASE_URL;
+          const phoneVerificationSendEndpoint = window.CONFIG.ENDPOINT.PHONE_VERIFICATION_SEND;
+          
+          const response = await fetch(`${API_BASE_URL}${phoneVerificationSendEndpoint}`, {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+              phoneNumber: formattedPhone
+            }),
+            credentials: window.CONFIG?.USE_CREDENTIALS ? 'include' : 'omit'
+          });
+          
+          if (response.ok) {
+            // 타이머 재시작
+            startPhoneVerificationTimer();
+            phoneVerificationCodeInput.value = '';
+            phoneVerificationCodeInput.focus();
+            phoneVerificationResend.disabled = false;
+            phoneVerificationResend.textContent = '재전송';
+          } else {
+            let errorMessage = '인증번호 전송에 실패했습니다.';
+            try {
+              const errorData = await response.json();
+              errorMessage = errorData.message || errorMessage;
+            } catch (e) {
+              errorMessage = `인증번호 전송에 실패했습니다. (상태 코드: ${response.status})`;
+            }
+            
+            phoneErrorMessage.textContent = errorMessage;
+            phoneErrorMessage.classList.add('visible');
+            phoneVerificationResend.disabled = false;
+            phoneVerificationResend.textContent = '재전송';
+          }
+        } catch (error) {
+          console.error('Error resending phone verification:', error);
+          phoneErrorMessage.textContent = `인증번호 전송 중 오류가 발생했습니다: ${error.message}`;
+          phoneErrorMessage.classList.add('visible');
+          phoneVerificationResend.disabled = false;
+          phoneVerificationResend.textContent = '재전송';
+        }
+      });
+      
+      // 인증번호 확인 버튼 클릭 이벤트
+      verifyCodeButton.addEventListener('click', async function() {
+        const phone = phoneInput.value.trim();
+        const verificationCode = phoneVerificationCodeInput.value.trim();
+        
+        if (!phone) {
+          phoneErrorMessage.textContent = '전화번호를 입력해주세요.';
+          phoneErrorMessage.classList.add('visible');
+          return;
+        }
+        
+        if (!verificationCode) {
+          phoneErrorMessage.textContent = '인증번호를 입력해주세요.';
+          phoneErrorMessage.classList.add('visible');
+          return;
+        }
+        
+        // 인증번호는 6자리 숫자여야 함
+        if (!/^[0-9]{6}$/.test(verificationCode)) {
+          phoneErrorMessage.textContent = '인증번호는 6자리 숫자입니다.';
+          phoneErrorMessage.classList.add('visible');
+          return;
+        }
+        
+        // 전화번호를 하이픈 형식으로 변환
+        const formattedPhone = formatPhoneNumber(phone);
+        
+        const originalButtonHTML = verifyCodeButton.innerHTML;
+        verifyCodeButton.disabled = true;
+        verifyCodeButton.innerHTML = '확인 중...';
+        phoneErrorMessage.classList.remove('visible');
+        
+        try {
+          const API_BASE_URL = window.CONFIG.API_BASE_URL;
+          const phoneVerificationConfirmEndpoint = window.CONFIG.ENDPOINT.PHONE_VERIFICATION_CONFIRM;
+          console.log('Calling API:', `${API_BASE_URL}${phoneVerificationConfirmEndpoint}`);
+          console.log('Request body:', { phoneNumber: formattedPhone, verificationCode: verificationCode });
+          
+          const response = await fetch(`${API_BASE_URL}${phoneVerificationConfirmEndpoint}`, {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+              phoneNumber: formattedPhone,
+              verificationCode: verificationCode
+            }),
+            credentials: window.CONFIG?.USE_CREDENTIALS ? 'include' : 'omit'
+          });
+          
+          console.log('Response status:', response.status);
+          
+          // 응답 본문 파싱
+          let responseData;
+          try {
+            responseData = await response.json();
+            console.log('Response data:', responseData);
+          } catch (e) {
+            console.log('Response is not JSON');
+            responseData = {};
+          }
+          
+          // verified 필드 확인 (응답 본문에 verified 필드가 있으면 우선 확인)
+          const isVerified = responseData.verified === true;
+          
+          if (response.ok && isVerified) {
+            // 인증번호 확인 성공
+            isPhoneVerified = true;
+            phoneVerificationCodeInput.classList.add('verified');
+            phoneVerificationCodeInput.disabled = true;
+            
+            // 전화번호 입력 필드도 인증완료 상태로 변경 (회색 배경)
+            phoneInput.classList.add('verified');
+            phoneInput.disabled = true;
+            
+            // 타이머 정리
+            clearPhoneVerificationTimer();
+            
+            // 타이머와 재전송 버튼 숨기기
+            const timerRow = document.querySelector('.phone-verification-timer-row');
+            if (timerRow) {
+              timerRow.style.display = 'none';
+            }
+            
+            // 인증번호 확인 버튼 상태 변경
+            verifyCodeButton.classList.remove('active');
+            verifyCodeButton.classList.add('verified');
+            verifyCodeButton.innerHTML = `
               <div class="verify-check-icon">
                 <svg width="28" height="28" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg">
                   <path d="M9 14L12.5 17.5L19 11" stroke="#3b82f6" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
@@ -563,32 +973,49 @@
               </div>
               <span class="verify-text">인증완료</span>
             `;
-            verifyIdButton.disabled = true;
-            updateSubmitButton();
-          } else {
-            // 200이 아닌 경우 (이미 사용중인 아이디 등)
-            let errorMessage = '이미 사용중인 아이디입니다.';
-            try {
-              const errorData = await response.json();
-              console.log('Error response data:', errorData);
-              errorMessage = errorData.message || errorMessage;
-            } catch (e) {
-              console.log('Error response is not JSON');
-              errorMessage = `아이디 확인에 실패했습니다. (상태 코드: ${response.status})`;
+            verifyCodeButton.disabled = true;
+            
+            // 전화번호 인증하기 버튼도 인증완료 상태로 변경
+            if (!verifyPhoneButton.classList.contains('verified')) {
+              verifyPhoneButton.classList.remove('active');
+              verifyPhoneButton.classList.add('verified');
+              verifyPhoneButton.innerHTML = `
+                <div class="verify-check-icon">
+                  <svg width="28" height="28" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M9 14L12.5 17.5L19 11" stroke="#3b82f6" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                  </svg>
+                </div>
+                <span class="verify-text">인증완료</span>
+              `;
+              verifyPhoneButton.disabled = true;
             }
             
-            idErrorMessage.textContent = errorMessage;
-            idErrorMessage.classList.add('visible');
-            verifyIdButton.disabled = false;
-            verifyIdButton.innerHTML = originalButtonHTML;
-            updateVerifyButton();
+            // 성공 메시지는 표시하지 않음
+            phoneErrorMessage.textContent = '';
+            phoneErrorMessage.classList.remove('visible');
+            updateSubmitButton();
+          } else {
+            // 실패 메시지 표시
+            let errorMessage = '인증번호가 일치하지 않습니다.';
+            if (responseData.message) {
+              errorMessage = responseData.message;
+            }
+            
+            phoneErrorMessage.textContent = errorMessage;
+            phoneErrorMessage.style.color = '#dc2626'; // 에러 색상 (빨간색)
+            phoneErrorMessage.classList.add('visible');
+            verifyCodeButton.disabled = false;
+            verifyCodeButton.innerHTML = originalButtonHTML;
+            updateCodeVerifyButton();
           }
         } catch (error) {
-          console.error('Error verifying login ID:', error);
-          alert(`인증 중 오류가 발생했습니다: ${error.message}`);
-          verifyIdButton.disabled = false;
-          verifyIdButton.innerHTML = originalButtonHTML;
-          updateVerifyButton();
+          console.error('Error confirming phone verification:', error);
+          phoneErrorMessage.textContent = '인증번호 확인에 실패했습니다.';
+          phoneErrorMessage.style.color = '#dc2626'; // 에러 색상 (빨간색)
+          phoneErrorMessage.classList.add('visible');
+          verifyCodeButton.disabled = false;
+          verifyCodeButton.innerHTML = originalButtonHTML;
+          updateCodeVerifyButton();
         }
       });
       

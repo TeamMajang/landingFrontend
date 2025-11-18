@@ -674,19 +674,24 @@ img {
 }
 
 .features-section-1 {
+  width: 100%;
+  background-color: rgba(241, 245, 249, 1);
+  padding: 79.99999237060547px 0;
   display: flex;
   flex-direction: column;
-  justify-content: flex-start;
   align-items: center;
-  gap: 47.99999237060547px;
-  padding: 79.99999237060547px 39.999996185302734px 79.99999237060547px 39.999996185302734px;
+}
+
+.features-section-1 > .features-header-2,
+.features-section-1 > .features-grid-5 {
   width: 100%;
-  margin: 0 auto;
   max-width: 1200px;
-  flex-grow: 0;
-  flex-shrink: 1;
-  flex-basis: auto;
-  background-color: rgba(241, 245, 249, 1);
+  padding: 0 39.999996185302734px;
+  box-sizing: border-box;
+}
+
+.features-section-1 > .features-header-2 {
+  margin-bottom: 47.99999237060547px;
 }
 
 /* Price Section */
@@ -1183,7 +1188,7 @@ img {
   flex-direction: column;
   align-items: center;
   width: 100%;
-  padding: 40px 40px 0px 40px;
+  padding: 24px 40px 0px 40px;
   gap: 0px;
   box-sizing: border-box;
 }
@@ -1238,8 +1243,7 @@ img {
   gap: 12px;
 }
 
-.login-error-message,
-.find-id-error-message {
+.login-error-message {
   font-family: var(--font-family-inter);
   font-weight: 500;
   font-size: 13.999998092651367px;
@@ -1256,17 +1260,31 @@ img {
   box-sizing: border-box;
 }
 
-.login-error-message.visible,
-.find-id-error-message.visible {
+.login-error-message.visible {
   visibility: visible;
 }
 
 .find-id-error-message {
-  display: none;
+  font-family: var(--font-family-inter);
+  font-weight: 500;
+  font-size: 13.999998092651367px;
+  line-height: 16.799997329711914px;
+  color: rgba(255, 29, 25, 1);
+  text-align: center;
+  height: 17px;
+  min-height: 17px;
+  max-height: 17px;
+  margin-top: 3.225px;
+  margin-bottom: 3.225px;
+  flex-shrink: 0;
+  visibility: hidden;
+  width: 100%;
+  box-sizing: border-box;
+  overflow: hidden;
 }
 
 .find-id-error-message.visible {
-  display: block;
+  visibility: visible;
 }
 
 
@@ -1352,7 +1370,7 @@ img {
   align-items: stretch;
   width: 100%;
   gap: 24px;
-  margin-top: 40px;
+  margin-top: 24px;
   flex-shrink: 0;
 }
 

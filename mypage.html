@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>개인정보보기</title>
     <link href="https://fonts.googleapis.com/css?family=Inter&display=swap" rel="stylesheet">
+    <link href="https://spoqa.github.io/spoqa-han-sans/css/SpoqaHanSansNeo.css" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
     <style>
         * {
@@ -166,17 +167,37 @@
         .input-field.editing:focus {
             border-color: #3b82f6;
         }
+        
+        .input-field.verified {
+            background: #f9fafb;
+            color: #9ca3af;
+        }
+        
+        .input-field.verified:focus {
+            border-color: #d1d5db;
+        }
 
         .reset-btn {
             background: #3b82f6;
             color: #ffffff;
             border: 1px solid #d1d5db;
             border-radius: 8px;
-            padding: 14px 20px;
+            padding: 0;
             font-size: 16px;
             cursor: pointer;
             white-space: nowrap;
-            min-width: 80px;
+            width: 80px;
+            height: 48px;
+            box-sizing: border-box;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            line-height: 1;
+        }
+        
+        .reset-btn * {
+            text-align: center;
         }
 
         .reset-btn:hover {
@@ -185,6 +206,49 @@
         
         .reset-btn.complete-btn {
             background: #3b82f6;
+        }
+        
+        .reset-btn.active {
+            background: #3b82f6;
+        }
+        
+        .phone-verification-code-section {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+        
+        .phone-verification-timer-row {
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            gap: 8px;
+            height: 18px;
+        }
+        
+        .phone-verification-timer {
+            font-family: 'Spoqa Han Sans Neo', 'Inter', sans-serif;
+            font-weight: 500;
+            font-size: 14px;
+            line-height: 17.528px;
+            color: #6b7280;
+        }
+        
+        .phone-verification-resend {
+            font-family: 'Spoqa Han Sans Neo', 'Inter', sans-serif;
+            font-weight: 500;
+            font-size: 14px;
+            line-height: 17.528px;
+            color: #6b7280;
+            background: none;
+            border: none;
+            padding: 0;
+            cursor: pointer;
+            text-decoration: none;
+        }
+        
+        .phone-verification-resend:hover {
+            text-decoration: underline;
         }
         
         .input-field.editing {
@@ -328,6 +392,143 @@
         .footer-link-group a:hover {
             color: #ffffff;
         }
+
+        /* 비밀번호 재설정 완료 모달 */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+        }
+
+        .password-reset-modal {
+            width: 320px;
+            background-color: #ffffff;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0px 4px 16px rgba(0, 0, 0, 0.2);
+        }
+
+        .password-modal-header {
+            height: 46px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            border-bottom: 1px solid #e2e8f0;
+        }
+
+        .password-modal-header h2 {
+            font-family: 'Inter', sans-serif;
+            font-weight: 600;
+            font-size: 18px;
+            line-height: 21.6px;
+            color: #111827;
+            margin: 0;
+        }
+
+        .password-modal-content {
+            padding: 0 40px 24px 40px;
+        }
+
+        .password-info-section {
+            background-color: #f8f9fa;
+            border-radius: 8px;
+            padding: 20px;
+            margin-top: 24px;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            align-items: flex-start;
+        }
+
+        .password-info-section svg {
+            width: 24px;
+            height: 24px;
+        }
+
+        .password-success-title {
+            font-family: 'Inter', sans-serif;
+            font-weight: 600;
+            font-size: 14px;
+            line-height: 16.8px;
+            color: #111827;
+            margin: 0;
+        }
+
+        .password-contact-info {
+            margin-top: 20px;
+        }
+
+        .password-phone-section {
+            margin-bottom: 16px;
+        }
+
+        .password-contact-label {
+            font-family: 'Inter', sans-serif;
+            font-weight: 600;
+            font-size: 14px;
+            line-height: 16.8px;
+            color: #111827;
+            margin: 0 0 8px 0;
+        }
+
+        .password-phone-number {
+            background-color: #f3f4f6;
+            border-radius: 8px;
+            padding: 16px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .password-phone-number svg {
+            width: 20px;
+            height: 20px;
+        }
+
+        .password-phone-number span {
+            font-family: 'Inter', sans-serif;
+            font-weight: 600;
+            font-size: 16px;
+            line-height: 19.2px;
+            color: #111827;
+        }
+
+        .password-hours {
+            font-family: 'Inter', sans-serif;
+            font-weight: 400;
+            font-size: 12px;
+            line-height: 14.4px;
+            color: #111827;
+            text-align: center;
+            margin: 0;
+        }
+
+        .password-close-btn {
+            width: 100%;
+            height: 44px;
+            background-color: #3b82f6;
+            border: none;
+            border-radius: 8px;
+            margin-top: 20px;
+            cursor: pointer;
+            font-family: 'Inter', sans-serif;
+            font-weight: 500;
+            font-size: 14px;
+            line-height: 16.8px;
+            color: #ffffff;
+            transition: background-color 0.2s;
+        }
+
+        .password-close-btn:hover {
+            background-color: #2563eb;
+        }
     </style>
 </head>
 <body>
@@ -401,7 +602,7 @@
                             <span>인증완료</span>
                         </div>
                     </div>
-                    <input type="text" class="input-field full-width" value="0000000000 수정 불가" readonly>
+                    <input type="text" id="business-number" class="input-field full-width" value="" readonly>
                 </div>
 
                 <div class="form-field">
@@ -409,7 +610,7 @@
                         <label class="label">상호</label>
                     </div>
                     <div class="input-wrapper">
-                        <input type="text" class="input-field" value="상호명 블라블라" readonly>
+                        <input type="text" id="company-name" class="input-field" value="" readonly>
                         <button class="reset-btn">재설정</button>
                     </div>
                 </div>
@@ -419,7 +620,7 @@
                         <label class="label">사업장 주소</label>
                     </div>
                     <div class="input-wrapper">
-                        <input type="text" class="input-field" value="사업장 주소 블라블라" readonly>
+                        <input type="text" id="business-address" class="input-field" value="" readonly>
                         <button class="reset-btn">재설정</button>
                     </div>
                 </div>
@@ -429,7 +630,7 @@
                         <label class="label">상세주소</label>
                     </div>
                     <div class="input-wrapper">
-                        <input type="text" class="input-field" value="상세주소 블라블라" readonly>
+                        <input type="text" id="business-address-detail" class="input-field" value="" readonly>
                         <button class="reset-btn">재설정</button>
                     </div>
                 </div>
@@ -446,7 +647,7 @@
                         <label class="label">이름</label>
                     </div>
                     <div class="input-wrapper">
-                        <input type="text" class="input-field" value="이름 블라블라" readonly>
+                        <input type="text" id="name" class="input-field" value="" readonly>
                         <button class="reset-btn">재설정</button>
                     </div>
                 </div>
@@ -456,16 +657,47 @@
                         <label class="label">전화번호</label>
                     </div>
                     <div class="input-wrapper">
-                        <input type="text" class="input-field" value="전화번호 블라블라" readonly>
-                        <button class="reset-btn">재설정</button>
+                        <input type="tel" id="phone-number" class="input-field" value="" readonly>
+                        <button class="reset-btn" id="phone-reset-btn">재설정</button>
                     </div>
+                    
+                    <!-- 새 전화번호 필드 (재설정 버튼 클릭 시 표시) -->
+                    <div class="new-phone-section" id="new-phone-section" style="display: none; margin-top: 25px;">
+                        <div class="form-field" style="margin-bottom: 0;">
+                            <div class="label-row">
+                                <label class="label">새 전화번호</label>
+                            </div>
+                            <div class="input-wrapper">
+                                <input type="tel" id="new-phone-number" class="input-field" placeholder="번호만 입력해주세요." readonly>
+                                <button type="button" class="reset-btn" id="verify-phone-btn">인증하기</button>
+                            </div>
+                        </div>
+                        
+                        <!-- 인증번호 입력 섹션 (인증하기 버튼 클릭 시 표시) -->
+                        <div class="phone-verification-code-section" id="phone-verification-code-section" style="display: none; margin-top: 25px;">
+                            <div class="form-field" style="margin-bottom: 0;">
+                                <div class="label-row">
+                                    <label class="label">인증번호</label>
+                                </div>
+                                <div class="input-wrapper">
+                                    <input type="text" id="phone-verification-code-input" class="input-field" placeholder="번호만 입력해주세요." maxlength="6" readonly>
+                                    <button type="button" class="reset-btn" id="verify-code-btn">확인</button>
+                                </div>
+                                <div class="phone-verification-timer-row" style="display: flex; flex-direction: row; align-items: center; gap: 8px; height: 18px; margin-top: 8px;">
+                                    <span class="phone-verification-timer" id="phone-verification-timer" style="font-family: 'Spoqa Han Sans Neo', 'Inter', sans-serif; font-weight: 500; font-size: 14px; line-height: 17.528px; color: #6b7280;">3:00</span>
+                                    <button type="button" class="phone-verification-resend" id="phone-verification-resend" style="font-family: 'Spoqa Han Sans Neo', 'Inter', sans-serif; font-weight: 500; font-size: 14px; line-height: 17.528px; color: #6b7280; background: none; border: none; padding: 0; cursor: pointer; text-decoration: none;">재전송</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="error-message" id="phone-error-message" style="display: none;"></div>
                 </div>
 
                 <div class="form-field">
                     <div class="label-row">
                         <label class="label">아이디</label>
                     </div>
-                    <input type="text" class="input-field full-width" value="아이디 블라블라" readonly>
+                    <input type="text" id="login-id" class="input-field full-width" value="" readonly>
                 </div>
             </div>
         </div>
@@ -488,7 +720,7 @@
                         <label class="label">현재 비밀번호</label>
                     </div>
                     <div>
-                        <input type="password" id="current-password" class="input-field full-width" placeholder="아이디 블라블라" readonly>
+                        <input type="password" id="current-password" class="input-field full-width" placeholder="현재 비밀번호를 입력해주세요." readonly>
                         <div class="error-message" id="current-password-error">비밀번호가 맞지 않습니다.</div>
                     </div>
                 </div>
@@ -499,7 +731,7 @@
                             <label class="label">새 비밀번호</label>
                         </div>
                         <div>
-                            <input type="password" id="new-password" class="input-field" placeholder="아이디 블라블라" readonly>
+                            <input type="password" id="new-password" class="input-field" placeholder="새 비밀번호를 입력해주세요." readonly>
                             <div class="error-message" id="new-password-error">비밀번호 양식을 확인해주세요.</div>
                         </div>
                     </div>
@@ -510,7 +742,7 @@
                         </div>
                         <div class="input-wrapper">
                             <div style="flex: 1;">
-                                <input type="password" id="confirm-password" class="input-field" placeholder="아이디 블라블라" readonly>
+                                <input type="password" id="confirm-password" class="input-field" placeholder="새 비밀번호를 다시 입력해주세요." readonly>
                                 <div class="error-message" id="confirm-password-error">새 비밀번호와 일치하는지 확인해주세요.</div>
                             </div>
                             <button class="reset-btn">재설정</button>
@@ -522,6 +754,38 @@
     </div>
 
     <!-- Footer -->
+    <!-- 비밀번호 재설정 완료 모달 -->
+    <div id="password-reset-success-modal" class="modal-overlay" style="display: none;">
+        <div class="password-reset-modal">
+            <div class="password-modal-header">
+                <h2>MAJANGDEAL</h2>
+            </div>
+            <div class="password-modal-content">
+                <div class="password-info-section">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M17 11H7C5.89543 11 5 11.8954 5 13V19C5 20.1046 5.89543 21 7 21H17C18.1046 21 19 20.1046 19 19V13C19 11.8954 18.1046 11 17 11Z" stroke="#4F46E5" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        <path d="M12 17C12.5523 17 13 16.5523 13 16C13 15.4477 12.5523 15 12 15C11.4477 15 11 15.4477 11 16C11 16.5523 11.4477 17 12 17Z" fill="#4F46E5"/>
+                        <path d="M7 11V7C7 5.67392 7.52678 4.40215 8.46447 3.46447C9.40215 2.52678 10.6739 2 12 2C13.3261 2 14.5979 2.52678 15.5355 3.46447C16.4732 4.40215 17 5.67392 17 7V11" stroke="#4F46E5" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                    <p class="password-success-title">비밀번호 재설정 완료!</p>
+                </div>
+                <div class="password-contact-info">
+                    <div class="password-phone-section">
+                        <p class="password-contact-label">고객센터 번호</p>
+                        <div class="password-phone-number">
+                            <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M18.3333 14.1V16.6C18.3343 16.8321 18.2867 17.0618 18.1937 17.2745C18.1008 17.4871 17.9644 17.678 17.7934 17.8349C17.6224 17.9918 17.4205 18.1112 17.2006 18.1856C16.9808 18.26 16.7478 18.288 16.5167 18.2683C13.9524 17.9893 11.489 17.1114 9.32499 15.7083C7.31151 14.4289 5.60443 12.7218 4.32499 10.7083C2.91663 8.53435 2.03863 6.05916 1.76666 3.48334C1.74699 3.25288 1.77482 3.02065 1.84895 2.80136C1.92308 2.58206 2.04206 2.38062 2.19831 2.20973C2.35457 2.03884 2.54464 1.90225 2.75655 1.8089C2.96847 1.71554 3.19752 1.66721 3.42916 1.66667H5.92916C6.32581 1.66286 6.71177 1.80582 7.01449 2.06953C7.31721 2.33324 7.5186 2.699 7.57499 3.09167C7.68013 3.87667 7.88099 4.64754 8.17416 5.38334C8.28696 5.67044 8.31125 5.98395 8.24413 6.28526C8.177 6.58657 8.02134 6.86217 7.79999 7.07667L6.74166 8.135C7.92795 10.2286 9.6047 11.9053 11.6983 13.0917L12.7567 12.0333C12.9712 11.812 13.2468 11.6563 13.5481 11.5892C13.8494 11.5221 14.1629 11.5464 14.45 11.6592C15.1858 11.9523 15.9567 12.1532 16.7417 12.2583C17.1387 12.3151 17.5082 12.5193 17.7733 12.8263C18.0385 13.1333 18.1796 13.5235 18.1733 13.9242L18.3333 14.1Z" stroke="#4F46E5" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                            </svg>
+                            <span>1588-1234</span>
+                        </div>
+                    </div>
+                    <p class="password-hours">운영시간: 평일 09:00 ~ 18:00</p>
+                </div>
+                <button class="password-close-btn" id="password-reset-close-btn">닫기</button>
+            </div>
+        </div>
+    </div>
+
     <footer class="footer">
             <div class="footer-content">
                 <div class="company-info">
@@ -546,7 +810,603 @@
             </div>
         </footer>
     </div>
+    <script src="config.js"></script>
     <script>
+        // API에서 마이페이지 데이터 로드
+        async function loadMyPageData() {
+            try {
+                // CONFIG 로드 대기
+                if (!window.CONFIG) {
+                    console.warn('CONFIG not loaded yet, waiting...');
+                    await new Promise(resolve => {
+                        const checkConfig = setInterval(() => {
+                            if (window.CONFIG) {
+                                clearInterval(checkConfig);
+                                resolve();
+                            }
+                        }, 100);
+                        // 최대 3초 대기
+                        setTimeout(() => {
+                            clearInterval(checkConfig);
+                            resolve();
+                        }, 3000);
+                    });
+                }
+                
+                if (!window.CONFIG || !window.CONFIG.API_BASE_URL) {
+                    console.error('CONFIG is not loaded after waiting!');
+                    console.error('window.CONFIG:', window.CONFIG);
+                    // CONFIG가 없어도 페이지는 표시되도록 함
+                    return;
+                }
+                
+                const API_BASE_URL = window.CONFIG.API_BASE_URL;
+                const myPageEndpoint = window.CONFIG.ENDPOINT.MYPAGE;
+                
+                // 쿠키 확인
+                const sessionCookie = document.cookie.split(';').find(c => c.trim().startsWith('MAJANG_SESSION='));
+                console.log('Session cookie:', sessionCookie ? 'Found' : 'Not found');
+                console.log('All cookies:', document.cookie);
+                
+                console.log('Loading my page data from:', `${API_BASE_URL}${myPageEndpoint}`);
+                
+                const response = await fetch(`${API_BASE_URL}${myPageEndpoint}`, {
+                    method: 'GET',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    credentials: 'include', // 쿠키 전송을 위해 필수
+                }).catch(fetchError => {
+                    console.error('Fetch error:', fetchError);
+                    throw fetchError;
+                });
+                
+                console.log('Response status:', response.status);
+                console.log('Response headers:', Object.fromEntries(response.headers.entries()));
+                
+                if (!response.ok) {
+                    let errorText = '';
+                    try {
+                        errorText = await response.text();
+                        console.error('API Error Response Text:', errorText);
+                    } catch (e) {
+                        errorText = 'Could not read error response';
+                        console.error('Could not read error response:', e);
+                    }
+                    console.error('API Error:', response.status, errorText);
+                    // 에러가 발생해도 페이지는 표시되도록 함 (리다이렉트 제거)
+                    return;
+                }
+                
+                // 응답 본문을 텍스트로 먼저 읽기
+                const responseText = await response.text();
+                console.log('Response text:', responseText);
+                
+                let data;
+                try {
+                    // 빈 응답 체크
+                    if (!responseText || responseText.trim() === '') {
+                        console.warn('Empty response received');
+                        return;
+                    }
+                    data = JSON.parse(responseText);
+                } catch (jsonError) {
+                    console.error('JSON parse error:', jsonError);
+                    console.error('Response text that failed to parse:', responseText);
+                    // JSON 파싱 실패해도 페이지는 표시되도록 함
+                    return;
+                }
+                
+                console.log('API Response data:', data);
+                
+                // 데이터를 각 필드에 채우기 (API 응답 스펙에 맞춰서)
+                if (data.businessRegistrationNumber) {
+                    const businessNumberInput = document.getElementById('business-number');
+                    if (businessNumberInput) {
+                        businessNumberInput.value = data.businessRegistrationNumber;
+                        businessNumberInput.removeAttribute('placeholder');
+                    }
+                }
+                
+                if (data.storeName) {
+                    const companyNameInput = document.getElementById('company-name');
+                    if (companyNameInput) {
+                        companyNameInput.value = data.storeName;
+                        companyNameInput.removeAttribute('placeholder');
+                    }
+                }
+                
+                if (data.businessAddress) {
+                    const businessAddressInput = document.getElementById('business-address');
+                    if (businessAddressInput) {
+                        businessAddressInput.value = data.businessAddress;
+                        businessAddressInput.removeAttribute('placeholder');
+                    }
+                }
+                
+                if (data.businessAddressDetail) {
+                    const businessAddressDetailInput = document.getElementById('business-address-detail');
+                    if (businessAddressDetailInput) {
+                        businessAddressDetailInput.value = data.businessAddressDetail;
+                        businessAddressDetailInput.removeAttribute('placeholder');
+                    }
+                }
+                
+                if (data.name) {
+                    const nameInput = document.getElementById('name');
+                    if (nameInput) {
+                        nameInput.value = data.name;
+                        nameInput.removeAttribute('placeholder');
+                    }
+                }
+                
+                if (data.phoneNumber) {
+                    const phoneNumberInput = document.getElementById('phone-number');
+                    if (phoneNumberInput) {
+                        phoneNumberInput.value = data.phoneNumber;
+                        phoneNumberInput.removeAttribute('placeholder');
+                    }
+                }
+                
+                if (data.loginId) {
+                    const loginIdInput = document.getElementById('login-id');
+                    if (loginIdInput) {
+                        loginIdInput.value = data.loginId;
+                        loginIdInput.removeAttribute('placeholder');
+                    }
+                }
+                
+            } catch (error) {
+                console.error('Error loading my page data:', error);
+                console.error('Error details:', {
+                    message: error.message,
+                    stack: error.stack,
+                    name: error.name
+                });
+                // 에러 발생 시에도 페이지는 표시되도록 함 (리다이렉트 제거)
+            }
+        }
+        
+        // 상호명 업데이트 함수
+        async function updateStoreName(storeName) {
+            try {
+                const API_BASE_URL = window.CONFIG.API_BASE_URL;
+                const storeNameEndpoint = window.CONFIG.ENDPOINT.STORE_NAME;
+                
+                console.log('Updating store name to:', storeName);
+                console.log('API endpoint:', `${API_BASE_URL}${storeNameEndpoint}`);
+                
+                const requestBody = {
+                    storeName: storeName
+                };
+                console.log('Request body:', requestBody);
+                
+                const response = await fetch(`${API_BASE_URL}${storeNameEndpoint}`, {
+                    method: 'PATCH',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    credentials: 'include',
+                    body: JSON.stringify(requestBody)
+                });
+                
+                console.log('Response status:', response.status);
+                
+                if (!response.ok) {
+                    let errorText = '';
+                    try {
+                        errorText = await response.text();
+                        console.error('API Error Response:', errorText);
+                        // JSON 형식이면 파싱해서 표시
+                        try {
+                            const errorJson = JSON.parse(errorText);
+                            console.error('API Error JSON:', errorJson);
+                            alert(`업데이트 실패: ${errorJson.message || errorText}`);
+                        } catch (e) {
+                            alert(`업데이트 실패: ${errorText || '알 수 없는 오류'}`);
+                        }
+                    } catch (e) {
+                        errorText = 'Could not read error response';
+                        console.error('Could not read error response:', e);
+                    }
+                    throw new Error(`HTTP error! status: ${response.status}, message: ${errorText}`);
+                }
+                
+                const data = await response.json();
+                console.log('Store name updated successfully:', data);
+                return true;
+            } catch (error) {
+                console.error('Error updating store name:', error);
+                throw error;
+            }
+        }
+        
+        // 사업장 주소 업데이트 함수
+        async function updateBusinessAddress(businessAddress) {
+            try {
+                const API_BASE_URL = window.CONFIG.API_BASE_URL;
+                const businessAddressEndpoint = window.CONFIG.ENDPOINT.BUSINESS_ADDRESS;
+                
+                console.log('Updating business address to:', businessAddress);
+                console.log('API endpoint:', `${API_BASE_URL}${businessAddressEndpoint}`);
+                
+                const requestBody = {
+                    businessAddress: businessAddress
+                };
+                console.log('Request body:', requestBody);
+                
+                const response = await fetch(`${API_BASE_URL}${businessAddressEndpoint}`, {
+                    method: 'PATCH',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    credentials: 'include',
+                    body: JSON.stringify(requestBody)
+                });
+                
+                console.log('Response status:', response.status);
+                
+                if (!response.ok) {
+                    let errorText = '';
+                    try {
+                        errorText = await response.text();
+                        console.error('API Error Response:', errorText);
+                        try {
+                            const errorJson = JSON.parse(errorText);
+                            console.error('API Error JSON:', errorJson);
+                            alert(`업데이트 실패: ${errorJson.message || errorText}`);
+                        } catch (e) {
+                            alert(`업데이트 실패: ${errorText || '알 수 없는 오류'}`);
+                        }
+                    } catch (e) {
+                        errorText = 'Could not read error response';
+                        console.error('Could not read error response:', e);
+                    }
+                    throw new Error(`HTTP error! status: ${response.status}, message: ${errorText}`);
+                }
+                
+                const data = await response.json();
+                console.log('Business address updated successfully:', data);
+                return true;
+            } catch (error) {
+                console.error('Error updating business address:', error);
+                throw error;
+            }
+        }
+        
+        // 상세주소 업데이트 함수
+        async function updateBusinessAddressDetail(businessAddressDetail) {
+            try {
+                const API_BASE_URL = window.CONFIG.API_BASE_URL;
+                const businessAddressDetailEndpoint = window.CONFIG.ENDPOINT.BUSINESS_ADDRESS_DETAIL;
+                
+                console.log('Updating business address detail to:', businessAddressDetail);
+                console.log('API endpoint:', `${API_BASE_URL}${businessAddressDetailEndpoint}`);
+                
+                const requestBody = {
+                    businessAddressDetail: businessAddressDetail
+                };
+                console.log('Request body:', requestBody);
+                
+                const response = await fetch(`${API_BASE_URL}${businessAddressDetailEndpoint}`, {
+                    method: 'PATCH',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    credentials: 'include',
+                    body: JSON.stringify(requestBody)
+                });
+                
+                console.log('Response status:', response.status);
+                
+                if (!response.ok) {
+                    let errorText = '';
+                    try {
+                        errorText = await response.text();
+                        console.error('API Error Response:', errorText);
+                        try {
+                            const errorJson = JSON.parse(errorText);
+                            console.error('API Error JSON:', errorJson);
+                            alert(`업데이트 실패: ${errorJson.message || errorText}`);
+                        } catch (e) {
+                            alert(`업데이트 실패: ${errorText || '알 수 없는 오류'}`);
+                        }
+                    } catch (e) {
+                        errorText = 'Could not read error response';
+                        console.error('Could not read error response:', e);
+                    }
+                    throw new Error(`HTTP error! status: ${response.status}, message: ${errorText}`);
+                }
+                
+                const data = await response.json();
+                console.log('Business address detail updated successfully:', data);
+                return true;
+            } catch (error) {
+                console.error('Error updating business address detail:', error);
+                throw error;
+            }
+        }
+        
+        // 이름 업데이트 함수
+        async function updateName(name) {
+            try {
+                const API_BASE_URL = window.CONFIG.API_BASE_URL;
+                const nameEndpoint = window.CONFIG.ENDPOINT.NAME;
+                
+                console.log('Updating name to:', name);
+                console.log('API endpoint:', `${API_BASE_URL}${nameEndpoint}`);
+                
+                const requestBody = {
+                    name: name
+                };
+                console.log('Request body:', requestBody);
+                
+                const response = await fetch(`${API_BASE_URL}${nameEndpoint}`, {
+                    method: 'PATCH',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    credentials: 'include',
+                    body: JSON.stringify(requestBody)
+                });
+                
+                console.log('Response status:', response.status);
+                
+                if (!response.ok) {
+                    let errorText = '';
+                    try {
+                        errorText = await response.text();
+                        console.error('API Error Response:', errorText);
+                        try {
+                            const errorJson = JSON.parse(errorText);
+                            console.error('API Error JSON:', errorJson);
+                            alert(`업데이트 실패: ${errorJson.message || errorText}`);
+                        } catch (e) {
+                            alert(`업데이트 실패: ${errorText || '알 수 없는 오류'}`);
+                        }
+                    } catch (e) {
+                        errorText = 'Could not read error response';
+                        console.error('Could not read error response:', e);
+                    }
+                    throw new Error(`HTTP error! status: ${response.status}, message: ${errorText}`);
+                }
+                
+                const data = await response.json();
+                console.log('Name updated successfully:', data);
+                return true;
+            } catch (error) {
+                console.error('Error updating name:', error);
+                throw error;
+            }
+        }
+        
+        // 전화번호를 하이픈 형식으로 변환하는 함수
+        function formatPhoneNumber(phoneNumber) {
+            // 숫자만 추출
+            const numbers = phoneNumber.replace(/[^0-9]/g, '');
+            
+            // 길이가 10자리 또는 11자리인지 확인
+            if (numbers.length === 10) {
+                // 10자리: 010-1234-5678 형식
+                return numbers.replace(/(\d{3})(\d{3,4})(\d{4})/, '$1-$2-$3');
+            } else if (numbers.length === 11) {
+                // 11자리: 010-1234-5678 형식
+                return numbers.replace(/(\d{3})(\d{4})(\d{4})/, '$1-$2-$3');
+            }
+            
+            // 이미 하이픈이 포함되어 있으면 그대로 반환
+            if (phoneNumber.includes('-')) {
+                return phoneNumber;
+            }
+            
+            // 형식이 맞지 않으면 원본 반환 (서버에서 검증)
+            return phoneNumber;
+        }
+        
+        // 전화번호 인증 관련 변수
+        let phoneVerificationTimerInterval = null;
+        let phoneVerificationTimeLeft = 180; // 3분 = 180초
+        let isPhoneVerified = false;
+        
+        // 전화번호 인증하기 버튼 활성화 함수
+        function updatePhoneVerifyButton() {
+            const newPhoneInput = document.getElementById('new-phone-number');
+            const verifyPhoneButton = document.getElementById('verify-phone-btn');
+            if (newPhoneInput && verifyPhoneButton) {
+                const phone = newPhoneInput.value.trim();
+                if (phone.length > 0) {
+                    verifyPhoneButton.classList.add('active');
+                } else {
+                    verifyPhoneButton.classList.remove('active');
+                }
+            }
+        }
+        
+        // 인증번호 확인 버튼 활성화 함수
+        function updateCodeVerifyButton() {
+            const phoneVerificationCodeInput = document.getElementById('phone-verification-code-input');
+            const verifyCodeButton = document.getElementById('verify-code-btn');
+            if (phoneVerificationCodeInput && verifyCodeButton) {
+                const code = phoneVerificationCodeInput.value.trim();
+                if (code.length > 0) {
+                    verifyCodeButton.classList.add('active');
+                } else {
+                    verifyCodeButton.classList.remove('active');
+                }
+            }
+        }
+        
+        // 타이머 시작 함수
+        function startPhoneVerificationTimer() {
+            const phoneVerificationTimer = document.getElementById('phone-verification-timer');
+            if (!phoneVerificationTimer) return;
+            
+            // 기존 타이머가 있으면 정리
+            if (phoneVerificationTimerInterval) {
+                clearInterval(phoneVerificationTimerInterval);
+            }
+            
+            phoneVerificationTimeLeft = 180; // 3분 = 180초
+            updatePhoneVerificationTimer();
+            
+            phoneVerificationTimerInterval = setInterval(() => {
+                phoneVerificationTimeLeft--;
+                updatePhoneVerificationTimer();
+                
+                if (phoneVerificationTimeLeft <= 0) {
+                    clearInterval(phoneVerificationTimerInterval);
+                    phoneVerificationTimerInterval = null;
+                }
+            }, 1000);
+        }
+        
+        // 타이머 업데이트 함수
+        function updatePhoneVerificationTimer() {
+            const phoneVerificationTimer = document.getElementById('phone-verification-timer');
+            if (!phoneVerificationTimer) return;
+            
+            const minutes = Math.floor(phoneVerificationTimeLeft / 60);
+            const seconds = phoneVerificationTimeLeft % 60;
+            const formattedTime = `${minutes}:${seconds.toString().padStart(2, '0')}`;
+            phoneVerificationTimer.textContent = formattedTime;
+        }
+        
+        // 타이머 정리 함수
+        function clearPhoneVerificationTimer() {
+            if (phoneVerificationTimerInterval) {
+                clearInterval(phoneVerificationTimerInterval);
+                phoneVerificationTimerInterval = null;
+            }
+            phoneVerificationTimeLeft = 180;
+            const phoneVerificationTimer = document.getElementById('phone-verification-timer');
+            if (phoneVerificationTimer) {
+                phoneVerificationTimer.textContent = '3:00';
+            }
+        }
+        
+        // 전화번호 업데이트 함수
+        async function updatePhoneNumber(phoneNumber) {
+            try {
+                const API_BASE_URL = window.CONFIG.API_BASE_URL;
+                const phoneNumberEndpoint = window.CONFIG.ENDPOINT.PHONE_NUMBER;
+                
+                // 전화번호를 하이픈 형식으로 변환
+                const formattedPhoneNumber = formatPhoneNumber(phoneNumber);
+                console.log('Original phone number:', phoneNumber);
+                console.log('Formatted phone number:', formattedPhoneNumber);
+                console.log('API endpoint:', `${API_BASE_URL}${phoneNumberEndpoint}`);
+                
+                const requestBody = {
+                    phoneNumber: formattedPhoneNumber
+                };
+                console.log('Request body:', requestBody);
+                
+                const response = await fetch(`${API_BASE_URL}${phoneNumberEndpoint}`, {
+                    method: 'PATCH',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    credentials: 'include',
+                    body: JSON.stringify(requestBody)
+                });
+                
+                console.log('Response status:', response.status);
+                
+                if (!response.ok) {
+                    let errorText = '';
+                    try {
+                        errorText = await response.text();
+                        console.error('API Error Response:', errorText);
+                        try {
+                            const errorJson = JSON.parse(errorText);
+                            console.error('API Error JSON:', errorJson);
+                            alert(`업데이트 실패: ${errorJson.message || errorText}`);
+                        } catch (e) {
+                            alert(`업데이트 실패: ${errorText || '알 수 없는 오류'}`);
+                        }
+                    } catch (e) {
+                        errorText = 'Could not read error response';
+                        console.error('Could not read error response:', e);
+                    }
+                    throw new Error(`HTTP error! status: ${response.status}, message: ${errorText}`);
+                }
+                
+                const data = await response.json();
+                console.log('Phone number updated successfully:', data);
+                return true;
+            } catch (error) {
+                console.error('Error updating phone number:', error);
+                throw error;
+            }
+        }
+        
+        // 비밀번호 업데이트 함수
+        async function updatePassword(currentPassword, newPassword) {
+            try {
+                const API_BASE_URL = window.CONFIG.API_BASE_URL;
+                const passwordEndpoint = window.CONFIG.ENDPOINT.PASSWORD;
+                
+                console.log('Updating password...');
+                console.log('API URL:', `${API_BASE_URL}${passwordEndpoint}`);
+                
+                const requestBody = {
+                    currentPassword: currentPassword,
+                    newPassword: newPassword
+                };
+                console.log('Request body:', { currentPassword: '***', newPassword: '***' });
+                
+                const response = await fetch(`${API_BASE_URL}${passwordEndpoint}`, {
+                    method: 'PATCH',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    credentials: 'include',
+                    body: JSON.stringify(requestBody)
+                });
+                
+                console.log('Response status:', response.status);
+                
+                if (!response.ok) {
+                    let errorMessage = '알 수 없는 오류';
+                    try {
+                        const errorText = await response.text();
+                        console.error('API Error Response:', errorText);
+                        try {
+                            const errorJson = JSON.parse(errorText);
+                            console.error('API Error JSON:', errorJson);
+                            errorMessage = errorJson.message || errorText;
+                        } catch (e) {
+                            errorMessage = errorText;
+                        }
+                    } catch (e) {
+                        console.error('Could not read error response:', e);
+                    }
+                    // 에러 객체 반환 (message 포함)
+                    const error = new Error(errorMessage);
+                    error.status = response.status;
+                    error.message = errorMessage;
+                    throw error;
+                }
+                
+                // 성공 응답 처리 - 응답 본문이 없을 수 있음
+                try {
+                    const responseText = await response.text();
+                    if (responseText) {
+                        const data = JSON.parse(responseText);
+                        console.log('Password updated successfully:', data);
+                    } else {
+                        console.log('Password updated successfully (no response body)');
+                    }
+                } catch (e) {
+                    console.log('Password updated successfully (response parsing skipped)');
+                }
+                return true;
+            } catch (error) {
+                console.error('Error updating password:', error);
+                throw error;
+            }
+        }
+        
         // 비밀번호 검증 함수
         function validatePassword(password) {
             // 8~16자 길이 확인
@@ -594,6 +1454,9 @@
         }
         
         document.addEventListener('DOMContentLoaded', function() {
+            // 페이지 로드 시 마이페이지 데이터 가져오기
+            loadMyPageData();
+            
             const resetButtons = document.querySelectorAll('.reset-btn');
             
             // 비밀번호 입력 필드들
@@ -604,17 +1467,14 @@
             const newPasswordError = document.getElementById('new-password-error');
             const confirmPasswordError = document.getElementById('confirm-password-error');
             
-            // 현재 비밀번호 검증 (실제로는 서버에서 기존 비밀번호와 비교해야 함)
-            // 여기서는 예시로 특정 비밀번호와 비교 (예: "password123")
-            const correctCurrentPassword = "password123";
-            
+            // 현재 비밀번호 형식 검증
             if (currentPasswordInput) {
                 currentPasswordInput.addEventListener('blur', function() {
                     const password = this.value;
                     if (password.length > 0) {
-                        // 실제로는 서버 API를 통해 기존 비밀번호와 비교해야 함
-                        if (password !== correctCurrentPassword) {
-                            showError(currentPasswordError, '비밀번호가 맞지 않습니다.');
+                        const validation = validatePassword(password);
+                        if (!validation.valid) {
+                            showError(currentPasswordError, validation.message);
                         } else {
                             hideError(currentPasswordError);
                         }
@@ -670,11 +1530,24 @@
             }
             
             resetButtons.forEach(button => {
-                button.addEventListener('click', function() {
+                button.addEventListener('click', async function() {
+                    // 전화번호 인증하기 버튼은 제외
+                    if (this.id === 'verify-phone-btn' || this.id === 'verify-code-btn') {
+                        return;
+                    }
+                    
                     const inputWrapper = this.closest('.input-wrapper');
                     const formField = this.closest('.form-field');
                     const input = inputWrapper ? inputWrapper.querySelector('.input-field') : formField.querySelector('.input-field');
                     const isEditing = input.classList.contains('editing');
+                    
+                    // 전화번호 필드인 경우 인증하기 버튼 활성화
+                    if (input && input.id === 'phone-number' && !isEditing) {
+                        const verifyPhoneButton = document.getElementById('verify-phone-btn');
+                        if (verifyPhoneButton) {
+                            verifyPhoneButton.style.display = 'block';
+                        }
+                    }
                     
                     if (!isEditing) {
                         // 수정 모드로 전환
@@ -684,6 +1557,21 @@
                         input.focus();
                         this.textContent = '완료';
                         this.classList.add('complete-btn');
+                        
+                        // 전화번호 필드인 경우 새 전화번호 섹션 표시
+                        if (input.id === 'phone-number') {
+                            const newPhoneSection = document.getElementById('new-phone-section');
+                            if (newPhoneSection) {
+                                newPhoneSection.style.display = 'block';
+                                const newPhoneInput = document.getElementById('new-phone-number');
+                                if (newPhoneInput) {
+                                    newPhoneInput.classList.add('editing');
+                                    newPhoneInput.classList.add('white');
+                                    newPhoneInput.removeAttribute('readonly');
+                                    newPhoneInput.focus();
+                                }
+                            }
+                        }
                         
                         // 비밀번호 변경 섹션인 경우 모든 입력 필드를 활성화
                         const passwordSection = this.closest('.password-section');
@@ -701,17 +1589,17 @@
                         let hasError = false;
                         
                         if (passwordSection) {
-                            // 현재 비밀번호 검증
+                            // 현재 비밀번호 형식 검증
                             if (currentPasswordInput && currentPasswordInput.value.length > 0) {
-                                // 실제로는 서버 API를 통해 기존 비밀번호와 비교해야 함
-                                if (currentPasswordInput.value !== correctCurrentPassword) {
-                                    showError(currentPasswordError, '비밀번호가 맞지 않습니다.');
+                                const validation = validatePassword(currentPasswordInput.value);
+                                if (!validation.valid) {
+                                    showError(currentPasswordError, validation.message);
                                     hasError = true;
                                 } else {
                                     hideError(currentPasswordError);
                                 }
                             } else if (currentPasswordInput && currentPasswordInput.value.length === 0) {
-                                showError(currentPasswordError, '비밀번호가 맞지 않습니다.');
+                                showError(currentPasswordError, '현재 비밀번호를 입력해주세요.');
                                 hasError = true;
                             }
                             
@@ -741,6 +1629,40 @@
                                 return;
                             }
                             
+                            // 비밀번호 변경 API 호출
+                            if (currentPasswordInput && newPasswordInput && 
+                                currentPasswordInput.value.length > 0 && newPasswordInput.value.length > 0) {
+                                try {
+                                    await updatePassword(currentPasswordInput.value, newPasswordInput.value);
+                                    
+                                    // 비밀번호 재설정 성공 모달 표시
+                                    const passwordResetModal = document.getElementById('password-reset-success-modal');
+                                    if (passwordResetModal) {
+                                        passwordResetModal.style.display = 'flex';
+                                    }
+                                    
+                                    // 입력 필드 초기화
+                                    currentPasswordInput.value = '';
+                                    newPasswordInput.value = '';
+                                    confirmPasswordInput.value = '';
+                                } catch (error) {
+                                    console.error('비밀번호 변경 실패:', error);
+                                    
+                                    // 에러 메시지 확인
+                                    const errorMessage = error.message || '비밀번호 변경에 실패했습니다.';
+                                    
+                                    // 400 에러면 현재 비밀번호 필드 아래에 표시
+                                    if (error.status === 400) {
+                                        showError(currentPasswordError, errorMessage);
+                                    } else {
+                                        // 그 외의 에러는 alert로 표시
+                                        alert(`비밀번호 변경 실패: ${errorMessage}`);
+                                    }
+                                    
+                                    return; // 실패 시 원래 상태로 복귀하지 않음
+                                }
+                            }
+                            
                             // 모든 에러 메시지 숨김
                             const allErrors = passwordSection.querySelectorAll('.error-message');
                             allErrors.forEach(err => hideError(err));
@@ -753,7 +1675,163 @@
                                 inp.setAttribute('readonly', 'readonly');
                             });
                         } else {
-                            // 일반 필드는 바로 복귀
+                            // 일반 필드 처리
+                            // 상호 필드인 경우 API 호출
+                            if (input.id === 'company-name') {
+                                const storeName = input.value.trim();
+                                if (!storeName) {
+                                    alert('상호명을 입력해주세요.');
+                                    return;
+                                }
+                                
+                                // API 호출
+                                updateStoreName(storeName).then(success => {
+                                    if (success) {
+                                        input.classList.remove('editing');
+                                        input.classList.remove('white');
+                                        input.setAttribute('readonly', 'readonly');
+                                        this.textContent = '재설정';
+                                        this.classList.remove('complete-btn');
+                                    }
+                                }).catch(error => {
+                                    console.error('Failed to update store name:', error);
+                                    alert('상호명 업데이트에 실패했습니다. 다시 시도해주세요.');
+                                });
+                                return; // API 호출 중이므로 여기서 종료
+                            }
+                            
+                            // 사업장 주소 필드인 경우 API 호출
+                            if (input.id === 'business-address') {
+                                const businessAddress = input.value.trim();
+                                if (!businessAddress) {
+                                    alert('사업장 주소를 입력해주세요.');
+                                    return;
+                                }
+                                
+                                // API 호출
+                                updateBusinessAddress(businessAddress).then(success => {
+                                    if (success) {
+                                        input.classList.remove('editing');
+                                        input.classList.remove('white');
+                                        input.setAttribute('readonly', 'readonly');
+                                        this.textContent = '재설정';
+                                        this.classList.remove('complete-btn');
+                                    }
+                                }).catch(error => {
+                                    console.error('Failed to update business address:', error);
+                                    alert('사업장 주소 업데이트에 실패했습니다. 다시 시도해주세요.');
+                                });
+                                return; // API 호출 중이므로 여기서 종료
+                            }
+                            
+                            // 상세주소 필드인 경우 API 호출
+                            if (input.id === 'business-address-detail') {
+                                const businessAddressDetail = input.value.trim();
+                                if (!businessAddressDetail) {
+                                    alert('상세주소를 입력해주세요.');
+                                    return;
+                                }
+                                
+                                // API 호출
+                                updateBusinessAddressDetail(businessAddressDetail).then(success => {
+                                    if (success) {
+                                        input.classList.remove('editing');
+                                        input.classList.remove('white');
+                                        input.setAttribute('readonly', 'readonly');
+                                        this.textContent = '재설정';
+                                        this.classList.remove('complete-btn');
+                                    }
+                                }).catch(error => {
+                                    console.error('Failed to update business address detail:', error);
+                                    alert('상세주소 업데이트에 실패했습니다. 다시 시도해주세요.');
+                                });
+                                return; // API 호출 중이므로 여기서 종료
+                            }
+                            
+                            // 이름 필드인 경우 API 호출
+                            if (input.id === 'name') {
+                                const name = input.value.trim();
+                                if (!name) {
+                                    alert('이름을 입력해주세요.');
+                                    return;
+                                }
+                                
+                                // API 호출
+                                updateName(name).then(success => {
+                                    if (success) {
+                                        input.classList.remove('editing');
+                                        input.classList.remove('white');
+                                        input.setAttribute('readonly', 'readonly');
+                                        this.textContent = '재설정';
+                                        this.classList.remove('complete-btn');
+                                    }
+                                }).catch(error => {
+                                    console.error('Failed to update name:', error);
+                                    alert('이름 업데이트에 실패했습니다. 다시 시도해주세요.');
+                                });
+                                return; // API 호출 중이므로 여기서 종료
+                            }
+                            
+                            // 전화번호 필드는 인증 완료 후에만 업데이트 가능
+                            if (input.id === 'phone-number') {
+                                // 전화번호 인증이 완료되지 않았으면 복귀하지 않음
+                                if (!isPhoneVerified) {
+                                    alert('전화번호 인증을 완료해주세요.');
+                                    return;
+                                }
+                                
+                                // 인증 완료 후 새 전화번호로 업데이트
+                                const newPhoneNumber = newPhoneInput ? newPhoneInput.value.trim() : '';
+                                if (!newPhoneNumber) {
+                                    alert('전화번호를 입력해주세요.');
+                                    return;
+                                }
+                                
+                                const formattedPhone = formatPhoneNumber(newPhoneNumber);
+                                
+                                // API 호출
+                                updatePhoneNumber(formattedPhone).then(success => {
+                                    if (success) {
+                                        // 기존 전화번호 필드 업데이트
+                                        input.value = formattedPhone;
+                                        input.classList.remove('editing');
+                                        input.classList.remove('white');
+                                        input.setAttribute('readonly', 'readonly');
+                                        this.textContent = '재설정';
+                                        this.classList.remove('complete-btn');
+                                        
+                                        // 새 전화번호 섹션 숨기기
+                                        const newPhoneSection = document.getElementById('new-phone-section');
+                                        if (newPhoneSection) {
+                                            newPhoneSection.style.display = 'none';
+                                        }
+                                        
+                                        // 인증 관련 UI 초기화
+                                        isPhoneVerified = false;
+                                        if (newPhoneInput) {
+                                            newPhoneInput.value = '';
+                                            newPhoneInput.classList.remove('verified');
+                                            newPhoneInput.disabled = false;
+                                            newPhoneInput.removeAttribute('readonly');
+                                        }
+                                        if (phoneVerificationCodeSection) {
+                                            phoneVerificationCodeSection.style.display = 'none';
+                                        }
+                                        if (phoneVerificationCodeInput) {
+                                            phoneVerificationCodeInput.value = '';
+                                            phoneVerificationCodeInput.classList.remove('verified');
+                                            phoneVerificationCodeInput.disabled = false;
+                                            phoneVerificationCodeInput.removeAttribute('readonly');
+                                        }
+                                    }
+                                }).catch(error => {
+                                    console.error('Failed to update phone number:', error);
+                                    alert('전화번호 업데이트에 실패했습니다. 다시 시도해주세요.');
+                                });
+                                return; // API 호출 중이므로 여기서 종료
+                            }
+                            
+                            // 다른 일반 필드는 바로 복귀
                             input.classList.remove('editing');
                             input.classList.remove('white');
                             input.setAttribute('readonly', 'readonly');
@@ -764,6 +1842,392 @@
                     }
                 });
             });
+            
+            // 전화번호 인증 관련 요소
+            const phoneInput = document.getElementById('phone-number');
+            const newPhoneInput = document.getElementById('new-phone-number');
+            const verifyPhoneButton = document.getElementById('verify-phone-btn');
+            const verifyCodeButton = document.getElementById('verify-code-btn');
+            const phoneVerificationCodeSection = document.getElementById('phone-verification-code-section');
+            const phoneVerificationCodeInput = document.getElementById('phone-verification-code-input');
+            const phoneVerificationTimer = document.getElementById('phone-verification-timer');
+            const phoneVerificationResend = document.getElementById('phone-verification-resend');
+            const phoneErrorMessage = document.getElementById('phone-error-message');
+            
+            // 새 전화번호 입력 시 인증하기 버튼 활성화
+            if (newPhoneInput) {
+                newPhoneInput.addEventListener('input', function() {
+                    updatePhoneVerifyButton();
+                });
+            }
+            
+            // 인증코드 입력 시 확인 버튼 활성화
+            if (phoneVerificationCodeInput) {
+                phoneVerificationCodeInput.addEventListener('input', function() {
+                    updateCodeVerifyButton();
+                });
+            }
+            
+            // 전화번호 인증하기 버튼 클릭 이벤트
+            if (verifyPhoneButton) {
+                verifyPhoneButton.addEventListener('click', async function() {
+                    const phone = newPhoneInput ? newPhoneInput.value.trim() : '';
+                    
+                    if (!phone) {
+                        if (phoneErrorMessage) {
+                            phoneErrorMessage.textContent = '전화번호를 입력해주세요.';
+                            phoneErrorMessage.style.display = 'block';
+                            phoneErrorMessage.style.color = '#dc2626';
+                        }
+                        return;
+                    }
+                    
+                    // 전화번호를 하이픈 형식으로 변환
+                    const formattedPhone = formatPhoneNumber(phone);
+                    
+                    const originalButtonHTML = verifyPhoneButton.innerHTML;
+                    verifyPhoneButton.disabled = true;
+                    verifyPhoneButton.innerHTML = '인증 중...';
+                    if (phoneErrorMessage) {
+                        phoneErrorMessage.style.display = 'none';
+                    }
+                    
+                    try {
+                        const API_BASE_URL = window.CONFIG.API_BASE_URL;
+                        const phoneVerificationSendEndpoint = window.CONFIG.ENDPOINT.PHONE_VERIFICATION_SEND;
+                        console.log('Calling API:', `${API_BASE_URL}${phoneVerificationSendEndpoint}`);
+                        console.log('Request body:', { phoneNumber: formattedPhone });
+                        
+                        const response = await fetch(`${API_BASE_URL}${phoneVerificationSendEndpoint}`, {
+                            method: 'POST',
+                            headers: {
+                                'Content-Type': 'application/json',
+                            },
+                            body: JSON.stringify({
+                                phoneNumber: formattedPhone
+                            }),
+                            credentials: window.CONFIG?.USE_CREDENTIALS ? 'include' : 'omit'
+                        });
+                        
+                        console.log('Response status:', response.status);
+                        
+                        if (response.ok) {
+                            // 인증번호 전송 성공
+                            if (newPhoneInput) {
+                                newPhoneInput.value = formattedPhone; // 하이픈 형식으로 업데이트
+                                newPhoneInput.disabled = false; // 인증번호 확인 전까지는 수정 가능
+                            }
+                            
+                            // 인증번호 입력 필드 표시 및 활성화
+                            if (phoneVerificationCodeSection) {
+                                phoneVerificationCodeSection.style.display = 'block';
+                            }
+                            if (phoneVerificationCodeInput) {
+                                phoneVerificationCodeInput.classList.add('editing');
+                                phoneVerificationCodeInput.classList.add('white');
+                                phoneVerificationCodeInput.removeAttribute('readonly');
+                                phoneVerificationCodeInput.focus();
+                            }
+                            
+                            // 타이머 시작
+                            startPhoneVerificationTimer();
+                            
+                            // 인증번호 전송 성공 시 버튼은 그대로 유지 (인증번호 확인 성공 시에만 인증완료로 변경)
+                            verifyPhoneButton.disabled = false;
+                            updatePhoneVerifyButton();
+                        } else {
+                            // 에러 처리
+                            let errorMessage = '인증번호 전송에 실패했습니다.';
+                            try {
+                                const errorData = await response.json();
+                                console.log('Error response data:', errorData);
+                                errorMessage = errorData.message || errorMessage;
+                            } catch (e) {
+                                console.log('Error response is not JSON');
+                                errorMessage = `인증번호 전송에 실패했습니다. (상태 코드: ${response.status})`;
+                            }
+                            
+                            if (phoneErrorMessage) {
+                                phoneErrorMessage.textContent = errorMessage;
+                                phoneErrorMessage.style.display = 'block';
+                                phoneErrorMessage.style.color = '#dc2626';
+                            }
+                            verifyPhoneButton.disabled = false;
+                            verifyPhoneButton.innerHTML = originalButtonHTML;
+                            updatePhoneVerifyButton();
+                        }
+                    } catch (error) {
+                        console.error('Error sending phone verification:', error);
+                        if (phoneErrorMessage) {
+                            phoneErrorMessage.textContent = `인증번호 전송 중 오류가 발생했습니다: ${error.message}`;
+                            phoneErrorMessage.style.display = 'block';
+                            phoneErrorMessage.style.color = '#dc2626';
+                        }
+                        verifyPhoneButton.disabled = false;
+                        verifyPhoneButton.innerHTML = originalButtonHTML;
+                        updatePhoneVerifyButton();
+                    }
+                });
+            }
+            
+            // 인증번호 확인 버튼 클릭 이벤트
+            if (verifyCodeButton) {
+                verifyCodeButton.addEventListener('click', async function() {
+                    const phone = newPhoneInput ? newPhoneInput.value.trim() : '';
+                    const verificationCode = phoneVerificationCodeInput ? phoneVerificationCodeInput.value.trim() : '';
+                    
+                    if (!phone) {
+                        if (phoneErrorMessage) {
+                            phoneErrorMessage.textContent = '전화번호를 입력해주세요.';
+                            phoneErrorMessage.style.display = 'block';
+                            phoneErrorMessage.style.color = '#dc2626';
+                        }
+                        return;
+                    }
+                    
+                    if (!verificationCode) {
+                        if (phoneErrorMessage) {
+                            phoneErrorMessage.textContent = '인증번호를 입력해주세요.';
+                            phoneErrorMessage.style.display = 'block';
+                            phoneErrorMessage.style.color = '#dc2626';
+                        }
+                        return;
+                    }
+                    
+                    // 인증번호는 6자리 숫자여야 함
+                    if (!/^[0-9]{6}$/.test(verificationCode)) {
+                        if (phoneErrorMessage) {
+                            phoneErrorMessage.textContent = '인증번호는 6자리 숫자입니다.';
+                            phoneErrorMessage.style.display = 'block';
+                            phoneErrorMessage.style.color = '#dc2626';
+                        }
+                        return;
+                    }
+                    
+                    // 전화번호를 하이픈 형식으로 변환
+                    const formattedPhone = formatPhoneNumber(phone);
+                    
+                    const originalButtonHTML = verifyCodeButton.innerHTML;
+                    verifyCodeButton.disabled = true;
+                    verifyCodeButton.innerHTML = '확인 중...';
+                    if (phoneErrorMessage) {
+                        phoneErrorMessage.style.display = 'none';
+                    }
+                    
+                    try {
+                        const API_BASE_URL = window.CONFIG.API_BASE_URL;
+                        const phoneVerificationConfirmEndpoint = window.CONFIG.ENDPOINT.PHONE_VERIFICATION_CONFIRM;
+                        console.log('Calling API:', `${API_BASE_URL}${phoneVerificationConfirmEndpoint}`);
+                        console.log('Request body:', { phoneNumber: formattedPhone, verificationCode: verificationCode });
+                        
+                        const response = await fetch(`${API_BASE_URL}${phoneVerificationConfirmEndpoint}`, {
+                            method: 'POST',
+                            headers: {
+                                'Content-Type': 'application/json',
+                            },
+                            body: JSON.stringify({
+                                phoneNumber: formattedPhone,
+                                verificationCode: verificationCode
+                            }),
+                            credentials: window.CONFIG?.USE_CREDENTIALS ? 'include' : 'omit'
+                        });
+                        
+                        console.log('Response status:', response.status);
+                        
+                        // 응답 본문 파싱
+                        let responseData;
+                        try {
+                            responseData = await response.json();
+                            console.log('Response data:', responseData);
+                        } catch (e) {
+                            console.log('Response is not JSON');
+                            responseData = {};
+                        }
+                        
+                        // verified 필드 확인
+                        const isVerified = responseData.verified === true;
+                        
+                        if (response.ok && isVerified) {
+                            // 인증번호 확인 성공
+                            isPhoneVerified = true;
+                            
+                            // 전화번호 업데이트 API 호출
+                            updatePhoneNumber(formattedPhone).then(success => {
+                                if (success) {
+                                    console.log('Phone number updated successfully');
+                                    
+                                    // 기존 전화번호 필드를 새 전화번호 값으로 업데이트
+                                    if (phoneInput && newPhoneInput) {
+                                        phoneInput.value = formattedPhone;
+                                        // 텍스트 박스를 회색으로 되돌리기
+                                        phoneInput.classList.remove('editing');
+                                        phoneInput.classList.remove('white');
+                                        phoneInput.setAttribute('readonly', 'readonly');
+                                    }
+                                    
+                                    // 완료 버튼을 재설정으로 변경
+                                    const phoneResetBtn = document.getElementById('phone-reset-btn');
+                                    if (phoneResetBtn) {
+                                        phoneResetBtn.textContent = '재설정';
+                                        phoneResetBtn.classList.remove('complete-btn');
+                                    }
+                                    
+                                    // 새 전화번호 섹션 숨기기
+                                    const newPhoneSection = document.getElementById('new-phone-section');
+                                    if (newPhoneSection) {
+                                        newPhoneSection.style.display = 'none';
+                                    }
+                                    
+                                    // 인증번호 입력 섹션 숨기기
+                                    if (phoneVerificationCodeSection) {
+                                        phoneVerificationCodeSection.style.display = 'none';
+                                    }
+                                    
+                                    // 타이머 정리
+                                    clearPhoneVerificationTimer();
+                                    
+                                    // 인증 상태 초기화
+                                    isPhoneVerified = false;
+                                    
+                                    // 성공 메시지 모달 표시
+                                    const successMessage = responseData.message || '인증이 완료되었습니다.';
+                                    alert(successMessage);
+                                }
+                            }).catch(error => {
+                                console.error('Failed to update phone number:', error);
+                                alert('전화번호 업데이트에 실패했습니다.');
+                            });
+                        } else {
+                            // 실패 메시지 표시
+                            let errorMessage = '인증번호가 일치하지 않습니다.';
+                            if (responseData.message) {
+                                errorMessage = responseData.message;
+                            }
+                            
+                            if (phoneErrorMessage) {
+                                phoneErrorMessage.textContent = errorMessage;
+                                phoneErrorMessage.style.color = '#dc2626';
+                                phoneErrorMessage.style.display = 'block';
+                            }
+                            verifyCodeButton.disabled = false;
+                            verifyCodeButton.innerHTML = originalButtonHTML;
+                            updateCodeVerifyButton();
+                        }
+                    } catch (error) {
+                        console.error('Error confirming phone verification:', error);
+                        if (phoneErrorMessage) {
+                            phoneErrorMessage.textContent = '인증번호 확인에 실패했습니다.';
+                            phoneErrorMessage.style.color = '#dc2626';
+                            phoneErrorMessage.style.display = 'block';
+                        }
+                        verifyCodeButton.disabled = false;
+                        verifyCodeButton.innerHTML = originalButtonHTML;
+                        updateCodeVerifyButton();
+                    }
+                });
+            }
+            
+            // 다시 받기 버튼 클릭 이벤트
+            if (phoneVerificationResend) {
+                phoneVerificationResend.addEventListener('click', async function() {
+                    const phone = newPhoneInput ? newPhoneInput.value.trim() : '';
+                    
+                    if (!phone) {
+                        if (phoneErrorMessage) {
+                            phoneErrorMessage.textContent = '전화번호를 입력해주세요.';
+                            phoneErrorMessage.style.display = 'block';
+                            phoneErrorMessage.style.color = '#dc2626';
+                        }
+                        return;
+                    }
+                    
+                    // 전화번호를 하이픈 형식으로 변환
+                    const formattedPhone = formatPhoneNumber(phone);
+                    
+                    phoneVerificationResend.disabled = true;
+                    phoneVerificationResend.textContent = '전송 중...';
+                    if (phoneErrorMessage) {
+                        phoneErrorMessage.style.display = 'none';
+                    }
+                    
+                    try {
+                        const API_BASE_URL = window.CONFIG.API_BASE_URL;
+                        const phoneVerificationSendEndpoint = window.CONFIG.ENDPOINT.PHONE_VERIFICATION_SEND;
+                        
+                        const response = await fetch(`${API_BASE_URL}${phoneVerificationSendEndpoint}`, {
+                            method: 'POST',
+                            headers: {
+                                'Content-Type': 'application/json',
+                            },
+                            body: JSON.stringify({
+                                phoneNumber: formattedPhone
+                            }),
+                            credentials: window.CONFIG?.USE_CREDENTIALS ? 'include' : 'omit'
+                        });
+                        
+                        if (response.ok) {
+                            // 타이머 재시작
+                            startPhoneVerificationTimer();
+                            if (phoneVerificationCodeInput) {
+                                phoneVerificationCodeInput.value = '';
+                                phoneVerificationCodeInput.focus();
+                            }
+                            phoneVerificationResend.disabled = false;
+                            phoneVerificationResend.textContent = '재전송';
+                        } else {
+                            let errorMessage = '인증번호 전송에 실패했습니다.';
+                            try {
+                                const errorData = await response.json();
+                                errorMessage = errorData.message || errorMessage;
+                            } catch (e) {
+                                errorMessage = `인증번호 전송에 실패했습니다. (상태 코드: ${response.status})`;
+                            }
+                            
+                            if (phoneErrorMessage) {
+                                phoneErrorMessage.textContent = errorMessage;
+                                phoneErrorMessage.style.display = 'block';
+                                phoneErrorMessage.style.color = '#dc2626';
+                            }
+                            phoneVerificationResend.disabled = false;
+                            phoneVerificationResend.textContent = '재전송';
+                        }
+                    } catch (error) {
+                        console.error('Error resending phone verification:', error);
+                        if (phoneErrorMessage) {
+                            phoneErrorMessage.textContent = `인증번호 전송 중 오류가 발생했습니다: ${error.message}`;
+                            phoneErrorMessage.style.display = 'block';
+                            phoneErrorMessage.style.color = '#dc2626';
+                        }
+                        phoneVerificationResend.disabled = false;
+                        phoneVerificationResend.textContent = '재전송';
+                    }
+                });
+            }
+            
+            // 초기 버튼 상태 설정
+            updatePhoneVerifyButton();
+            updateCodeVerifyButton();
+            
+            // 비밀번호 재설정 완료 모달 닫기
+            const passwordResetModal = document.getElementById('password-reset-success-modal');
+            const passwordResetCloseBtn = document.getElementById('password-reset-close-btn');
+            
+            if (passwordResetCloseBtn) {
+                passwordResetCloseBtn.addEventListener('click', function() {
+                    if (passwordResetModal) {
+                        passwordResetModal.style.display = 'none';
+                    }
+                });
+            }
+            
+            // 모달 오버레이 클릭 시 닫기
+            if (passwordResetModal) {
+                passwordResetModal.addEventListener('click', function(e) {
+                    if (e.target === passwordResetModal) {
+                        passwordResetModal.style.display = 'none';
+                    }
+                });
+            }
         });
     </script>
 </body>
