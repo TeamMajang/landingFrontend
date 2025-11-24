@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>판매하기 - 부위 선택 - MAJANGDEAL</title>
+  <title>majangdeal</title>
   <link href="https://fonts.googleapis.com/css?family=Inter&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="style.css">
   <style>
@@ -157,6 +157,11 @@
       opacity: 0.7;
     }
     
+    /* 하나만 선택 가능하므로 전체선택/해제 버튼 숨김 */
+    .sell-select-actions {
+      display: none;
+    }
+    
     .sell-divider {
       font-family: 'Inter', sans-serif;
       font-weight: 500;
@@ -282,7 +287,7 @@
           <div class="sell-step"></div>
         </div>
         <p class="sell-title">판매하기</p>
-        <p class="sell-description" id="sell-description">판매를 원하시는 부위를 선택해주세요.</p>
+        <p class="sell-description" id="sell-description">판매를 원하시는 부위 하나를 선택해주세요.</p>
       </div>
       
       <!-- Categories Section -->
@@ -455,7 +460,18 @@
     }
     
     function toggleCheckbox(checkbox) {
-      checkbox.classList.toggle('checked');
+      // 하나만 선택 가능하도록 변경
+      const allCheckboxes = document.querySelectorAll('.sell-check');
+      
+      // 이미 선택된 상태면 선택 해제
+      if (checkbox.classList.contains('checked')) {
+        checkbox.classList.remove('checked');
+      } else {
+        // 모든 체크박스 선택 해제
+        allCheckboxes.forEach(cb => cb.classList.remove('checked'));
+        // 현재 체크박스만 선택
+        checkbox.classList.add('checked');
+      }
     }
     
     function setupEventListeners() {
@@ -515,7 +531,8 @@
       const submitButton = document.getElementById('sell-submit-button');
       const checkedItems = document.querySelectorAll('.sell-check.checked[data-item-id]');
       
-      if (checkedItems.length > 0) {
+      // 하나만 선택 가능하므로 정확히 1개 선택되었을 때만 활성화
+      if (checkedItems.length === 1) {
         submitButton.disabled = false;
       } else {
         submitButton.disabled = true;

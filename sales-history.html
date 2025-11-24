@@ -1,0 +1,423 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>majangdeal</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            height: 100%;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #ffffff;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+            margin: 0;
+            padding: 0;
+        }
+
+        .main-container {
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            flex: 1;
+        }
+
+        .sales-history-content {
+            width: 100%;
+            max-width: 1120px;
+            padding: 10px 20px 40px 20px;
+            margin: 0 auto;
+        }
+
+        .sales-history-header {
+            text-align: center;
+            margin-bottom: 32px;
+        }
+
+        .sales-history-title {
+            font-family: 'Inter', sans-serif;
+            font-weight: 700;
+            font-size: 32px;
+            line-height: 38.64px;
+            color: #111827;
+            margin-bottom: 16px;
+        }
+
+        .sales-history-notice {
+            font-family: 'Inter', sans-serif;
+            font-weight: 500;
+            font-size: 20px;
+            line-height: 24px;
+            color: #6b7280;
+        }
+
+        .sales-list {
+            display: flex;
+            flex-direction: column;
+            gap: 40px;
+            align-items: center;
+        }
+
+        .sales-card {
+            width: 600px;
+            background-color: #ffffff;
+            border: 1px solid #e5e7eb;
+            border-radius: 12px;
+            padding: 24px;
+            box-sizing: border-box;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .sales-card-header {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            margin-bottom: 0;
+        }
+
+        .sales-card-top {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+        }
+
+        .sales-card-category {
+            font-family: 'Inter', sans-serif;
+            font-weight: 700;
+            font-size: 28px;
+            line-height: 33.89px;
+            color: #111827;
+            margin: 0;
+        }
+
+        .sales-card-date {
+            font-family: 'Inter', sans-serif;
+            font-weight: 400;
+            font-size: 16px;
+            line-height: 19.36px;
+            color: #6b7280;
+            margin: 0;
+        }
+
+        .sales-card-part {
+            font-family: 'Inter', sans-serif;
+            font-weight: 500;
+            font-size: 24px;
+            line-height: 29.05px;
+            color: #1e40af;
+            margin: 0;
+        }
+
+        .sales-card-divider {
+            width: 100%;
+            height: 1px;
+            background-color: #e5e7eb;
+            margin: 16px 0;
+        }
+
+        .sales-card-details {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+
+        .sales-detail-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .sales-detail-label {
+            font-family: 'Inter', sans-serif;
+            font-weight: 500;
+            font-size: 18px;
+            line-height: 21.78px;
+            color: #666666;
+            margin: 0;
+        }
+
+        .sales-detail-value {
+            font-family: 'Inter', sans-serif;
+            font-weight: 500;
+            font-size: 18px;
+            line-height: 21.78px;
+            color: #1e40af;
+            margin: 0;
+        }
+
+        .empty-state {
+            text-align: center;
+            padding: 80px 20px;
+        }
+
+        .empty-state-text {
+            font-family: 'Inter', sans-serif;
+            font-weight: 500;
+            font-size: 18px;
+            line-height: 21.78px;
+            color: #9ca3af;
+        }
+
+        /* 푸터를 페이지 하단에 고정 */
+        .footer-section {
+            margin-top: auto;
+        }
+    </style>
+</head>
+<body>
+    <div class="main-container">
+        <!-- Hero Section with Header -->
+        <div class="hero-section-1">
+            <div class="header-2">
+                <div class="header-content-3">
+                    <div class="logo-section-4">
+                        <a href="index.html" style="text-decoration: none; color: inherit;">
+                            <p class="text-5"><span class="text-black">MAJANGDEAL</span></p>
+                        </a>
+                    </div>
+                    <div class="user-actions-6">
+                        <div class="login-button-7">
+                            <p class="text-8"><span class="text-rgb-55-65-81">로그인</span></p>
+                        </div>
+                        <div class="signup-button-9">
+                            <p class="text-10"><span class="text-white">회원가입</span></p>
+                        </div>
+                        <div class="mypage-dropdown-container" id="mypage-dropdown-container" style="display: none;">
+                            <div class="profile-dropdown-menu">
+                                <div class="dropdown-menu-items">
+                                    <div class="dropdown-menu-item personal-info-item">
+                                        <div class="dropdown-icon user-icon">
+                                            <svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                <path d="M9 9C11.0711 9 12.75 7.32107 12.75 5.25C12.75 3.17893 11.0711 1.5 9 1.5C6.92893 1.5 5.25 3.17893 5.25 5.25C5.25 7.32107 6.92893 9 9 9Z" stroke="#6b7280" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                                                <path d="M15.75 16.5C15.75 13.5147 12.7279 11.25 9 11.25C5.27208 11.25 2.25 13.5147 2.25 16.5" stroke="#6b7280" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                                            </svg>
+                                        </div>
+                                        <p class="dropdown-menu-text">개인정보 보기</p>
+                                        <div class="dropdown-chevron">
+                                            <svg width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                <path d="M5.25 3.5L8.75 7L5.25 10.5" stroke="#9ca3af" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                                            </svg>
+                                        </div>
+                                    </div>
+                                    <div class="dropdown-divider"></div>
+                                    <div class="dropdown-menu-item sales-history-item">
+                                        <div class="dropdown-icon file-icon">
+                                            <svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                <path d="M10.5 1.5H4.5C4.10218 1.5 3.72064 1.65804 3.43934 1.93934C3.15804 2.22064 3 2.60218 3 3V15C3 15.3978 3.15804 15.7794 3.43934 16.0607C3.72064 16.342 4.10218 16.5 4.5 16.5H13.5C13.8978 16.5 14.2794 16.342 14.5607 16.0607C14.842 15.7794 15 15.3978 15 15V6L10.5 1.5Z" stroke="#6b7280" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                                                <path d="M10.5 1.5V6H15" stroke="#6b7280" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                                                <path d="M12 9.75H6" stroke="#6b7280" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                                                <path d="M12 12.75H6" stroke="#6b7280" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                                                <path d="M7.5 6.75H6.75H6" stroke="#6b7280" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                                            </svg>
+                                        </div>
+                                        <p class="dropdown-menu-text">판매이력 보기</p>
+                                        <div class="dropdown-chevron">
+                                            <svg width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                <path d="M5.25 3.5L8.75 7L5.25 10.5" stroke="#9ca3af" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                                            </svg>
+                                        </div>
+                                    </div>
+                                    <div class="dropdown-divider"></div>
+                                    <div class="dropdown-menu-item notification-item">
+                                        <div class="dropdown-icon bell-icon">
+                                            <svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                <path d="M13.5 6.75C13.5 5.55653 13.0259 4.41193 12.182 3.56802C11.3381 2.72411 10.1935 2.25 9 2.25C7.80653 2.25 6.66193 2.72411 5.81802 3.56802C4.97411 4.41193 4.5 5.55653 4.5 6.75C4.5 11.25 2.25 12.75 2.25 12.75H15.75C15.75 12.75 13.5 11.25 13.5 6.75Z" stroke="#6b7280" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                                                <path d="M10.8184 15.75C10.6561 15.9773 10.437 16.166 10.1791 16.3009C9.92118 16.4358 9.63179 16.5128 9.33643 16.5257C9.04108 16.5386 8.74778 16.4871 8.47945 16.3753C8.21112 16.2635 7.9755 16.0945 7.79182 15.8821C7.60813 15.6697 7.48168 15.4202 7.42288 15.1538C7.36408 14.8874 7.37449 14.6118 7.45318 14.35" stroke="#6b7280" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                                            </svg>
+                                        </div>
+                                        <p class="dropdown-menu-text">알림설정</p>
+                                        <div class="dropdown-chevron">
+                                            <svg width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                <path d="M5.25 3.5L8.75 7L5.25 10.5" stroke="#9ca3af" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                                            </svg>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Sales History Content -->
+        <div class="sales-history-content">
+            <div class="sales-history-header">
+                <h1 class="sales-history-title">판매 이력</h1>
+                <p class="sales-history-notice">최신순으로 5개까지만 보여집니다.</p>
+            </div>
+
+            <div class="sales-list" id="sales-list">
+                <!-- Empty state - will be replaced by API data -->
+                <div class="empty-state">
+                    <div class="empty-state-icon">📦</div>
+                    <p class="empty-state-text">아직 판매 이력이 없습니다.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <div class="footer-section">
+        <div class="footer-content">
+            <div class="footer-left">
+                <p class="footer-logo">MAJANGDEAL</p>
+                <p class="footer-subtitle">믿을 수 있는 상인 거래 플랫폼</p>
+            </div>
+            <div class="footer-right">
+                <div class="footer-column">
+                    <p class="footer-column-title">서비스</p>
+                    <p class="footer-link">판매하기</p>
+                    <p class="footer-link">구매하기</p>
+                    <p class="footer-link">카테고리</p>
+                </div>
+                <div class="footer-column">
+                    <p class="footer-column-title">고객지원</p>
+                    <p class="footer-link">고객센터</p>
+                    <p class="footer-link">자주묻는질문</p>
+                    <p class="footer-link">공지사항</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="config.js"></script>
+    <script src="script.js"></script>
+    <script>
+        // 로그인 체크 및 판매이력 로드
+        document.addEventListener('DOMContentLoaded', function() {
+            // 로그인 체크
+            const userInfo = localStorage.getItem('userInfo');
+            if (!userInfo) {
+                localStorage.setItem('loginRequired', 'sales-history');
+                window.location.href = 'index.html';
+                return;
+            }
+
+            // 판매이력 로드
+            loadSalesHistory();
+            
+            // 헤더는 script.js에서 자동으로 처리됨
+        });
+
+        async function loadSalesHistory() {
+            try {
+                console.log('판매이력 API 호출:', `${window.CONFIG.API_BASE_URL}${window.CONFIG.ENDPOINT.MY_SALES}`);
+                
+                const response = await fetch(`${window.CONFIG.API_BASE_URL}${window.CONFIG.ENDPOINT.MY_SALES}`, {
+                    method: 'GET',
+                    credentials: window.CONFIG?.USE_CREDENTIALS ? 'include' : 'omit'
+                });
+
+                console.log('API 응답 상태:', response.status);
+
+                if (!response.ok) {
+                    throw new Error(`판매이력 조회 실패: ${response.status}`);
+                }
+
+                const data = await response.json();
+                console.log('판매이력 데이터:', data);
+                displaySalesHistory(data);
+            } catch (error) {
+                console.error('판매이력 로드 오류:', error);
+                // Keep showing empty state
+            }
+        }
+
+        function displaySalesHistory(salesData) {
+            const salesList = document.getElementById('sales-list');
+            
+            console.log('판매이력 표시:', salesData);
+            
+            if (!salesData || salesData.length === 0) {
+                console.log('판매이력이 없습니다. 빈 상태 유지');
+                return; // Keep empty state
+            }
+
+            console.log(`${salesData.length}개의 판매이력 중 최대 5개 표시`);
+            salesList.innerHTML = '';
+
+            salesData.slice(0, 5).forEach((sale, index) => {
+                console.log(`카드 ${index + 1} 생성:`, sale);
+                const card = createSalesCard(sale);
+                salesList.appendChild(card);
+            });
+        }
+
+        function createSalesCard(sale) {
+            const card = document.createElement('div');
+            card.className = 'sales-card';
+
+            // 디버깅: 가격 필드 확인
+            console.log('가격 필드 확인:', {
+                price: sale.price,
+                pricePerUnit: sale.pricePerUnit,
+                unit: sale.unit,
+                quantity: sale.quantity
+            });
+
+            // 날짜 포맷팅
+            const date = new Date(sale.createdAt || sale.date);
+            const formattedDate = `${date.getFullYear()}.${String(date.getMonth() + 1).padStart(2, '0')}.${String(date.getDate()).padStart(2, '0')}`;
+
+            // 보관 방법 한글 변환
+            const storageTypeMap = {
+                'FROZEN': '냉동',
+                'CHILLED': '냉장',
+                'REFRIGERATED': '냉장'
+            };
+
+            // 단위 한글 변환
+            const unitMap = {
+                'PIECE': '덩어리',
+                'BOX': '박스',
+                'KG': 'kg'
+            };
+
+            card.innerHTML = `
+                <div class="sales-card-header">
+                    <div class="sales-card-top">
+                        <p class="sales-card-category">${sale.categoryName || sale.category}</p>
+                        <p class="sales-card-date">${formattedDate}</p>
+                    </div>
+                    <p class="sales-card-part">${sale.partName || sale.part}/${storageTypeMap[sale.storageType] || sale.storageType}</p>
+                </div>
+                <div class="sales-card-divider"></div>
+                <div class="sales-card-details">
+                    <div class="sales-detail-row">
+                        <span class="sales-detail-label">등급</span>
+                        <span class="sales-detail-value">${sale.grade || '-'}</span>
+                    </div>
+                    <div class="sales-detail-row">
+                        <span class="sales-detail-label">판매수량</span>
+                        <span class="sales-detail-value">${sale.quantity || 0} / ${unitMap[sale.unit] || sale.unit}</span>
+                    </div>
+                    <div class="sales-detail-row">
+                        <span class="sales-detail-label">단가</span>
+                        <span class="sales-detail-value">${(sale.price || 0).toLocaleString()} 원/${unitMap[sale.unit] || sale.unit}</span>
+                    </div>
+                </div>
+            `;
+
+            return card;
+        }
+    </script>
+</body>
+</html>
+

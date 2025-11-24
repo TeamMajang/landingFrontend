@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>판매하기 - MAJANGDEAL</title>
+  <title>majangdeal</title>
   <link href="https://fonts.googleapis.com/css?family=Inter&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="style.css">
   <style>
@@ -425,9 +425,12 @@
             selectedStorageType = null;
             submitButton.disabled = true;
           } else {
+            // 수입소, 수입돼지 등 냉동/냉장 선택이 필요없는 경우
+            // 자동으로 냉동으로 설정
             storageSection.style.display = 'none';
-            selectedStorageType = null;
+            selectedStorageType = '냉동';
             submitButton.disabled = false;
+            console.log('수입육 선택: 자동으로 냉동 설정');
           }
         });
       });
@@ -460,6 +463,18 @@
         }
       });
     });
+  </script>
+
+  <script>
+    // 로그인 상태 체크 - 즉시 실행
+    (function() {
+      const userInfo = localStorage.getItem('userInfo');
+      if (!userInfo) {
+        // 로그인되어 있지 않으면 플래그 저장하고 메인으로 리다이렉트
+        localStorage.setItem('loginRequired', 'sell');
+        window.location.href = 'index.html';
+      }
+    })();
   </script>
 </body>
 </html>

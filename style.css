@@ -356,7 +356,7 @@ img {
   gap: 0px;
   padding: 40px 0px;
   width: 100%;
-  margin: 0 auto 80px auto;
+  margin: 0 auto 30px auto;
   max-width: 1200px;
   flex-grow: 0;
   flex-shrink: 1;
@@ -702,8 +702,47 @@ img {
   padding: 80px 40px;
   max-width: 1200px;
   margin: 0 auto;
-  gap: 32px;
+  gap: 48px;
   background-color: rgba(255, 255, 255, 1);
+}
+
+.price-section-header {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+}
+
+.price-section-title-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+}
+
+.trending-up-icon {
+  width: 48px;
+  height: 48px;
+  flex-shrink: 0;
+}
+
+.price-section-main-title {
+  font-family: var(--font-family-inter);
+  font-weight: 700;
+  font-size: 32px;
+  line-height: 38.39999771118164px;
+  color: #000000;
+  margin: 0;
+}
+
+.price-section-notice {
+  font-family: var(--font-family-inter);
+  font-weight: 700;
+  font-size: 16px;
+  line-height: 38.39999771118164px;
+  color: rgba(107, 114, 128, 1);
+  margin: 0;
+  text-align: center;
 }
 
 .price-container {
@@ -727,10 +766,10 @@ img {
   height: 39px;
 }
 
-.price-main-title {
+.price-date-title {
   font-family: var(--font-family-inter);
   font-weight: 600;
-  font-size: 32px;
+  font-size: 28px;
   line-height: 38.39999771118164px;
   color: var(--text-black);
   margin: 0;
@@ -775,8 +814,9 @@ img {
   flex-direction: row;
   gap: 8px;
   align-items: center;
-  width: 86px;
+  width: auto;
   height: 39px;
+  white-space: nowrap;
 }
 
 .market-label {
@@ -786,6 +826,7 @@ img {
   line-height: 38.39999771118164px;
   color: var(--text-black);
   margin: 0;
+  white-space: nowrap;
 }
 
 .market-value {
@@ -959,12 +1000,14 @@ img {
   display: flex;
   flex-direction: row;
   align-items: center;
+  justify-content: flex-start;
   gap: 8px;
 }
 
 .chevron-icon {
   width: 18px;
   height: 22px;
+  flex-shrink: 0;
 }
 
 .change-amount {
@@ -1120,12 +1163,16 @@ img {
 }
 
 .modal-overlay {
-  position: absolute;
+  position: fixed;
   top: 0;
   left: 0;
   width: 100%;
   height: 100%;
   background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
 }
 
 .modal-content {
@@ -2398,6 +2445,15 @@ img {
   background-color: rgba(37, 99, 235, 1);
 }
 
+.notification-save-button:disabled {
+  background-color: rgba(156, 163, 175, 1);
+  cursor: not-allowed;
+}
+
+.notification-save-button:disabled:hover {
+  background-color: rgba(156, 163, 175, 1);
+}
+
 .notification-save-text {
   font-family: var(--font-family-inter);
   font-weight: 600;
@@ -2405,5 +2461,14 @@ img {
   line-height: 19.200000762939453px;
   color: rgba(255, 255, 255, 1);
   margin: 0;
+}
+
+/* 로그인 필요 모달 버튼 hover */
+#login-required-login:hover {
+  background-color: #2563eb !important;
+}
+
+#login-required-close:hover {
+  background-color: #e5e7eb !important;
 }
 

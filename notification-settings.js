@@ -6,6 +6,17 @@ document.addEventListener('DOMContentLoaded', function() {
   // Check if this is part of signup flow
   checkSignupFlow();
   
+  // 로컬스토리지 초기화 (알림 설정 페이지에서는 항상 초기 상태로 시작)
+  const referrer = document.referrer;
+  const isFromSignup = referrer.includes('signup-step3.html') || 
+                       referrer.includes('signup-step2.html') ||
+                       referrer.includes('signup.html');
+  
+  // 회원가입 플로우가 아닐 때만 로컬스토리지 초기화
+  if (!isFromSignup) {
+    localStorage.removeItem('notificationSettings');
+  }
+  
   // Load categories from API first
   loadCategories();
 });
@@ -61,6 +72,9 @@ async function loadCategories() {
     
     // Load saved settings
     loadSavedSettings();
+    
+    // Update save button state
+    updateSaveButton();
     
     // Hide loading message
     const loadingElement = document.getElementById('notification-loading');
@@ -152,11 +166,28 @@ function initializeCheckboxes() {
 
 function toggleCheckbox(checkbox) {
   checkbox.classList.toggle('checked');
+  updateSaveButton();
 }
 
 function updateCategoryCheckbox(itemCheckbox) {
   // 카테고리 체크박스가 제거되었으므로 이 함수는 더 이상 필요하지 않음
   // 하지만 호환성을 위해 유지
+}
+
+// 완료 버튼 활성화/비활성화 업데이트
+function updateSaveButton() {
+  const saveButton = document.getElementById('notification-save-btn');
+  if (!saveButton) return;
+  
+  const checkedItems = document.querySelectorAll('.notification-check.checked');
+  
+  if (checkedItems.length > 0) {
+    saveButton.disabled = false;
+    saveButton.style.cursor = 'pointer';
+  } else {
+    saveButton.disabled = true;
+    saveButton.style.cursor = 'not-allowed';
+  }
 }
 
 function setupEventListeners() {
@@ -173,6 +204,7 @@ function setupEventListeners() {
       categoryItems.forEach(item => {
         item.classList.add('checked');
       });
+      updateSaveButton();
     });
   });
   
@@ -187,6 +219,7 @@ function setupEventListeners() {
       categoryItems.forEach(item => {
         item.classList.remove('checked');
       });
+      updateSaveButton();
     });
   });
   
@@ -200,6 +233,12 @@ function setupEventListeners() {
 }
 
 function saveSettings() {
+  // 버튼이 비활성화되어 있으면 아무것도 하지 않음
+  const saveButton = document.getElementById('notification-save-btn');
+  if (saveButton && saveButton.disabled) {
+    return;
+  }
+  
   const selectedItems = [];
   const checkedItems = document.querySelectorAll('.notification-check.checked[data-item-id]');
   
@@ -357,31 +396,68 @@ function submitSignup(categoryIds) {
 // Send settings to API (일반 알림 설정용)
 function sendSettingsToAPI(selectedItemIds) {
   const API_BASE_URL = window.CONFIG.API_BASE_URL;
+  const categoryAlertsEndpoint = window.CONFIG.ENDPOINT.CATEGORY_ALERTS;
   
-  fetch(`${API_BASE_URL}/notifications/settings`, {
-    method: 'POST',
+  fetch(`${API_BASE_URL}${categoryAlertsEndpoint}`, {
+    method: 'PUT',
     headers: {
       'Content-Type': 'application/json',
     },
     credentials: window.CONFIG?.USE_CREDENTIALS ? 'include' : 'omit',
     body: JSON.stringify({
-      partIds: selectedItemIds
+      categoryIds: selectedItemIds
     })
   })
   .then(response => {
     if (!response.ok) {
       throw new Error(`HTTP error! status: ${response.status}`);
     }
+    // 204 No Content 응답 처리
+    if (response.status === 204) {
+      return null;
+    }
     return response.json();
   })
   .then(data => {
     console.log('Settings saved:', data);
-    alert('알림 설정이 저장되었습니다.');
+    // 커스텀 모달 표시
+    showSuccessModal();
   })
   .catch(error => {
     console.error('Error saving settings:', error);
     alert('알림 설정 저장에 실패했습니다. 다시 시도해주세요.');
   });
+}
+
+// 성공 모달 표시
+function showSuccessModal() {
+  const modal = document.getElementById('notification-success-modal');
+  if (modal) {
+    modal.style.display = 'flex';
+    document.body.style.overflowY = 'hidden';
+    
+    // 확인 버튼 클릭 이벤트
+    const closeBtn = document.getElementById('notification-success-close-btn');
+    if (closeBtn) {
+      closeBtn.onclick = function() {
+        modal.style.display = 'none';
+        document.body.style.overflowY = 'scroll';
+        // 메인 페이지로 이동
+        window.location.href = 'index.html';
+      };
+    }
+    
+    // 배경 클릭 시 닫기
+    const overlay = modal.querySelector('.modal-overlay');
+    if (overlay) {
+      overlay.onclick = function() {
+        modal.style.display = 'none';
+        document.body.style.overflowY = 'scroll';
+        // 메인 페이지로 이동
+        window.location.href = 'index.html';
+      };
+    }
+  }
 }
 
 

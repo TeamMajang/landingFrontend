@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>회원가입 2단계 - MAJANGDEAL</title>
+  <title>majangdeal</title>
   <link href="https://fonts.googleapis.com/css?family=Inter&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="style.css">
   <style>
@@ -416,6 +416,7 @@
               <button type="button" class="signup-verify-button" id="verify-business-btn">인증하기</button>
             </div>
             <input type="text" class="signup-input" id="business-number-input" placeholder="사업자 등록번호(숫자10자리)" maxlength="10">
+            <p class="signup-error-message" id="business-number-error" style="display: none; color: #dc2626; font-size: 14px; margin-top: 8px;">유효하지 않은 사업자번호입니다.</p>
           </div>
           
           <div class="signup-input-group">
@@ -533,9 +534,10 @@
         const businessNumber = businessNumberInput.value.trim();
         const companyName = companyNameInput.value.trim();
         const address = addressInput.value.trim();
+        const detailAddress = detailAddressInput.value.trim();
         const isBusinessNumberVerified = businessNumberInput.classList.contains('verified');
         
-        if (businessNumber && companyName && address && isBusinessNumberVerified) {
+        if (businessNumber && companyName && address && detailAddress && isBusinessNumberVerified) {
           submitButton.disabled = false;
         } else {
           submitButton.disabled = true;
@@ -554,6 +556,13 @@
       businessNumberInput.addEventListener('input', function() {
         // Only allow numbers
         this.value = this.value.replace(/[^0-9]/g, '');
+        
+        // Hide error message when user modifies input
+        const errorElement = document.getElementById('business-number-error');
+        if (errorElement) {
+          errorElement.style.display = 'none';
+        }
+        
         updateSubmitButton();
         updateVerifyButton();
       });
@@ -570,6 +579,12 @@
         if (businessNumber.length !== 10) {
           alert('사업자 등록번호는 10자리 숫자여야 합니다.');
           return;
+        }
+        
+        // Hide error message when starting verification
+        const errorElement = document.getElementById('business-number-error');
+        if (errorElement) {
+          errorElement.style.display = 'none';
         }
         
         // Save original button HTML
@@ -611,26 +626,55 @@
               data = await response.json();
               console.log('Response data:', data);
             } catch (e) {
-              console.log('Response is not JSON, treating as success');
-              data = {};
+              console.log('Response is not JSON, treating as error');
+              alert('인증 응답을 처리할 수 없습니다.');
+              verifyButton.disabled = false;
+              verifyButton.classList.remove('verified');
+              verifyButton.innerHTML = originalButtonHTML;
+              updateVerifyButton();
+              return;
             }
             
-            // Success: Change input to gray
-            businessNumberInput.classList.add('verified');
-            businessNumberInput.disabled = true;
-            
-            // Change button to verified state (Figma design)
-            verifyButton.classList.remove('active');
-            verifyButton.classList.add('verified');
-            verifyButton.innerHTML = `
-              <div class="verify-check-icon">
-                <svg width="28" height="28" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg">
-                  <path d="M9 14L12.5 17.5L19 11" stroke="#3b82f6" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                </svg>
-              </div>
-              <span class="verify-text">인증완료</span>
-            `;
-            verifyButton.disabled = true;
+            // Check valid field in response
+            if (data.valid === true) {
+              // Hide error message on success
+              const errorElement = document.getElementById('business-number-error');
+              if (errorElement) {
+                errorElement.style.display = 'none';
+              }
+              
+              // Success: Change input to gray
+              businessNumberInput.classList.add('verified');
+              businessNumberInput.disabled = true;
+              
+              // Change button to verified state (Figma design)
+              verifyButton.classList.remove('active');
+              verifyButton.classList.add('verified');
+              verifyButton.innerHTML = `
+                <div class="verify-check-icon">
+                  <svg width="28" height="28" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M9 14L12.5 17.5L19 11" stroke="#3b82f6" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                  </svg>
+                </div>
+                <span class="verify-text">인증완료</span>
+              `;
+              verifyButton.disabled = true;
+              
+              // 인증 완료 후 버튼 상태 업데이트
+              updateSubmitButton();
+            } else {
+              // valid is false - show error message
+              const errorElement = document.getElementById('business-number-error');
+              if (errorElement) {
+                errorElement.style.display = 'block';
+              }
+              
+              // Restore button state
+              verifyButton.disabled = false;
+              verifyButton.classList.remove('verified');
+              verifyButton.innerHTML = originalButtonHTML;
+              updateVerifyButton();
+            }
           } else {
             // Error response
             let errorMessage = '인증에 실패했습니다.';

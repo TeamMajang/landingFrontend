@@ -35,14 +35,14 @@ function updateHeaderAfterLogin(userInfo) {
         localStorage.removeItem('savedLoginId');
         localStorage.removeItem('userInfo');
         
-        // Reload page to show login/signup buttons again
-        location.reload();
+        // Redirect to main page
+        window.location.href = 'index.html';
       } catch (error) {
         console.error('Logout error:', error);
-        // Even if API call fails, clear local storage and reload
+        // Even if API call fails, clear local storage and redirect to main
         localStorage.removeItem('savedLoginId');
         localStorage.removeItem('userInfo');
-        location.reload();
+        window.location.href = 'index.html';
       }
     });
   }
@@ -114,11 +114,18 @@ function updateHeaderAfterLogin(userInfo) {
     
     // Add click functionality for menu items
     const personalInfoItem = document.querySelector('.personal-info-item');
+    const salesHistoryItem = document.querySelector('.sales-history-item');
     const notificationItem = document.querySelector('.notification-item');
     
     if (personalInfoItem) {
       personalInfoItem.addEventListener('click', function() {
         window.location.href = 'mypage.html';
+      });
+    }
+    
+    if (salesHistoryItem) {
+      salesHistoryItem.addEventListener('click', function() {
+        window.location.href = 'sales-history.html';
       });
     }
     
@@ -148,6 +155,33 @@ function restoreHeaderIfLoggedIn() {
 document.addEventListener('DOMContentLoaded', function() {
   // Check if user is logged in
   const userInfo = localStorage.getItem('userInfo');
+  const loginRequired = localStorage.getItem('loginRequired');
+  
+  // 로그인 필요 플래그가 있으면 모달 표시
+  if (loginRequired && !userInfo) {
+    const loginRequiredModal = document.getElementById('login-required-modal');
+    const loginRequiredMessage = document.getElementById('login-required-message');
+    
+    if (loginRequiredModal) {
+      // 메시지 설정
+      if (loginRequiredMessage) {
+        if (loginRequired === 'sell') {
+          loginRequiredMessage.textContent = '판매하기는 로그인 후 이용하실 수 있습니다.';
+        } else if (loginRequired === 'notification') {
+          loginRequiredMessage.textContent = '알림설정은 로그인 후 이용하실 수 있습니다.';
+        } else if (loginRequired === 'sales-history') {
+          loginRequiredMessage.textContent = '판매이력은 로그인 후 이용하실 수 있습니다.';
+        }
+      }
+      
+      // 모달 표시
+      loginRequiredModal.style.display = 'flex';
+      document.body.style.overflowY = 'hidden';
+    }
+    
+    // 플래그 제거
+    localStorage.removeItem('loginRequired');
+  }
   
   if (!userInfo) {
     // Only add login modal trigger if user is not logged in
@@ -186,6 +220,33 @@ document.addEventListener('DOMContentLoaded', function() {
       if (loginModal) {
         loginModal.style.display = 'none';
         document.body.style.overflowY = 'scroll'; /* 스크롤바 공간 유지 */
+      }
+    });
+  }
+
+  // 로그인 필요 모달 버튼 이벤트
+  const loginRequiredModal = document.getElementById('login-required-modal');
+  const loginRequiredClose = document.getElementById('login-required-close');
+  const loginRequiredLogin = document.getElementById('login-required-login');
+  
+  if (loginRequiredClose) {
+    loginRequiredClose.addEventListener('click', function() {
+      if (loginRequiredModal) {
+        loginRequiredModal.style.display = 'none';
+        document.body.style.overflowY = 'scroll';
+      }
+    });
+  }
+  
+  if (loginRequiredLogin) {
+    loginRequiredLogin.addEventListener('click', function() {
+      // 로그인 필요 모달 닫기
+      if (loginRequiredModal) {
+        loginRequiredModal.style.display = 'none';
+      }
+      // 로그인 모달 열기
+      if (loginModal) {
+        loginModal.style.display = 'flex';
       }
     });
   }
@@ -232,6 +293,11 @@ document.addEventListener('DOMContentLoaded', function() {
   function closeResetPasswordModalFunc() {
     if (resetPasswordModal) {
       resetPasswordModal.style.display = 'none';
+      // 로그인 모달 다시 표시
+      const loginModal = document.getElementById('login-modal');
+      if (loginModal) {
+        loginModal.style.display = 'flex';
+      }
       document.body.style.overflowY = 'scroll'; /* 스크롤바 공간 유지 */
       // 입력 필드 초기화
       if (resetPasswordIdInput) {
@@ -414,6 +480,11 @@ document.addEventListener('DOMContentLoaded', function() {
         const findIdModal = document.getElementById('find-id-modal');
         if (findIdModal && findIdModal.style.display === 'flex') {
           findIdModal.style.display = 'none';
+          // 로그인 모달 다시 표시
+          const loginModal = document.getElementById('login-modal');
+          if (loginModal) {
+            loginModal.style.display = 'flex';
+          }
           document.body.style.overflowY = 'scroll'; /* 스크롤바 공간 유지 */
         } else if (loginModal && loginModal.style.display === 'flex') {
           loginModal.style.display = 'none';
@@ -524,6 +595,25 @@ document.addEventListener('DOMContentLoaded', function() {
     });
   }
   
+  // 로그인 모달 비밀번호 보기/숨기기 토글
+  const loginPasswordToggleBtn = document.getElementById('login-password-toggle-btn');
+  if (loginPasswordToggleBtn && loginPasswordInput) {
+    loginPasswordToggleBtn.addEventListener('click', function() {
+      const eyeIcon = this.querySelector('.eye-icon');
+      const eyeOffIcon = this.querySelector('.eye-off-icon');
+      
+      if (loginPasswordInput.type === 'password') {
+        loginPasswordInput.type = 'text';
+        eyeIcon.style.display = 'none';
+        eyeOffIcon.style.display = 'block';
+      } else {
+        loginPasswordInput.type = 'password';
+        eyeIcon.style.display = 'block';
+        eyeOffIcon.style.display = 'none';
+      }
+    });
+  }
+  
   // Load saved ID from localStorage on page load
   const savedLoginId = localStorage.getItem('savedLoginId');
   if (savedLoginId && loginIdInput) {
@@ -547,6 +637,11 @@ document.addEventListener('DOMContentLoaded', function() {
       link.addEventListener('click', function(e) {
         e.preventDefault();
         if (findIdModal) {
+          // 기존 로그인 모달 숨기기
+          const loginModal = document.getElementById('login-modal');
+          if (loginModal) {
+            loginModal.style.display = 'none';
+          }
           findIdModal.style.display = 'flex';
           document.body.style.overflowY = 'hidden'; /* overflow-y만 숨김, 스크롤바 공간은 유지 */
           // Setup button handler after modal is shown
@@ -561,6 +656,11 @@ document.addEventListener('DOMContentLoaded', function() {
         e.preventDefault();
         const resetPasswordModal = document.getElementById('reset-password-modal');
         if (resetPasswordModal) {
+          // 기존 로그인 모달 숨기기
+          const loginModal = document.getElementById('login-modal');
+          if (loginModal) {
+            loginModal.style.display = 'none';
+          }
           resetPasswordModal.style.display = 'flex';
           document.body.style.overflowY = 'hidden'; /* overflow-y만 숨김, 스크롤바 공간은 유지 */
         }
@@ -573,6 +673,11 @@ document.addEventListener('DOMContentLoaded', function() {
     closeFindIdModal.addEventListener('click', function() {
       if (findIdModal) {
         findIdModal.style.display = 'none';
+        // 로그인 모달 다시 표시
+        const loginModal = document.getElementById('login-modal');
+        if (loginModal) {
+          loginModal.style.display = 'flex';
+        }
         document.body.style.overflowY = 'scroll'; /* 스크롤바 공간 유지 */
       }
     });
@@ -582,6 +687,11 @@ document.addEventListener('DOMContentLoaded', function() {
     findIdModalOverlay.addEventListener('click', function() {
       if (findIdModal) {
         findIdModal.style.display = 'none';
+        // 로그인 모달 다시 표시
+        const loginModal = document.getElementById('login-modal');
+        if (loginModal) {
+          loginModal.style.display = 'flex';
+        }
         document.body.style.overflowY = 'scroll'; /* 스크롤바 공간 유지 */
       }
     });
@@ -645,9 +755,9 @@ document.addEventListener('DOMContentLoaded', function() {
           try {
             errorData = JSON.parse(errorText);
           } catch (e) {
-            errorData = { message: errorText || '아이디 찾기에 실패했습니다.' };
+            errorData = { message: errorText || '사업자 등록번호를 정확히 입력해주세요.' };
           }
-          throw new Error(errorData.message || '아이디 찾기에 실패했습니다.');
+          throw new Error(errorData.message || '사업자 등록번호를 정확히 입력해주세요.');
         }
         
         const data = await response.json();
@@ -736,5 +846,152 @@ document.addEventListener('DOMContentLoaded', function() {
     buyButton.style.cursor = 'pointer';
   }
   
+  // 경락가격 데이터 로드
+  loadLivestockPrices();
+  
 });
+
+// 경락가격 데이터 로드 함수
+async function loadLivestockPrices() {
+  console.log('=== 경락가격 로드 시작 ===');
+  console.log('API_BASE_URL:', API_BASE_URL);
+  
+  try {
+    const apiUrl = `${API_BASE_URL}/livestock-price`;
+    console.log('API URL:', apiUrl);
+    
+    const response = await fetch(apiUrl, {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      credentials: window.CONFIG?.USE_CREDENTIALS ? 'include' : 'omit',
+    });
+
+    console.log('응답 상태:', response.status);
+
+    if (!response.ok) {
+      console.error('경락가격 API 호출 실패:', response.status);
+      return;
+    }
+
+    const data = await response.json();
+    console.log('API 응답 데이터:', data);
+    
+    const nationalData = data.response?.body?.items?.item?.find(item => item.abattNm === '전국');
+    
+    if (!nationalData) {
+      console.error('전국 데이터를 찾을 수 없습니다.');
+      console.log('사용 가능한 데이터:', data.response?.body?.items?.item);
+      return;
+    }
+
+    console.log('전국 데이터:', nationalData);
+
+    // 오늘 날짜로 업데이트 (YYYY.MM.DD 형식)
+    const priceDate = document.getElementById('price-date');
+    console.log('날짜 요소:', priceDate);
+    if (priceDate) {
+      const today = new Date();
+      const year = today.getFullYear();
+      const month = String(today.getMonth() + 1).padStart(2, '0');
+      const day = String(today.getDate()).padStart(2, '0');
+      const formattedDate = `${year}.${month}.${day}`;
+      priceDate.textContent = formattedDate;
+      console.log('날짜 업데이트 완료 (오늘):', formattedDate);
+    }
+
+    // 각 카테고리 데이터 업데이트
+    console.log('한우 가격:', nationalData.hanwooAuctAmt);
+    console.log('육우 가격:', nationalData.yukwooAuctAmt);
+    console.log('돼지(탕박) 가격:', nationalData.skinYAuctAmt);
+    console.log('돼지(박피) 가격:', nationalData.skinNAuctAmt);
+    
+    updatePriceRow('hanwoo', nationalData.hanwooAuctAmt, nationalData.hanwooAuctdiffAmt);
+    updatePriceRow('yukwoo', nationalData.yukwooAuctAmt, nationalData.yukwooAuctdiffAmt);
+    updatePriceRow('skinY', nationalData.skinYAuctAmt, nationalData.skinYAuctdiffAmt);
+    updatePriceRow('skinN', nationalData.skinNAuctAmt, nationalData.skinNAuctdiffAmt);
+
+    console.log('=== 경락가격 로드 완료 ===');
+
+  } catch (error) {
+    console.error('경락가격 데이터 로드 중 오류:', error);
+  }
+}
+
+// 가격 행 업데이트 함수
+function updatePriceRow(category, price, diff) {
+  console.log(`\n[${category}] 업데이트 시작`);
+  console.log(`  가격:`, price);
+  
+  const row = document.querySelector(`.price-row[data-category="${category}"]`);
+  console.log(`  행 요소:`, row);
+  
+  if (!row) {
+    console.error(`  [${category}] 행을 찾을 수 없습니다!`);
+    return;
+  }
+
+  // 평균가격 업데이트
+  const priceAmount = row.querySelector('.price-amount');
+  console.log(`  가격 요소:`, priceAmount);
+  
+  if (priceAmount) {
+    const formattedPrice = (price && price > 0) ? formatNumber(price) : '-';
+    console.log(`  업데이트할 가격:`, formattedPrice);
+    priceAmount.textContent = formattedPrice;
+    console.log(`  업데이트 후 textContent:`, priceAmount.textContent);
+  } else {
+    console.error(`  [${category}] 가격 요소를 찾을 수 없습니다!`);
+  }
+
+  // 전일대비 업데이트
+  const changeContent = row.querySelector('.change-content');
+  const changeAmount = row.querySelector('.change-amount');
+  const chevronIcon = row.querySelector('.chevron-icon');
+  
+  console.log(`  전일대비 컨텐츠:`, changeContent);
+  console.log(`  전일대비 요소:`, changeAmount);
+  console.log(`  화살표 아이콘:`, chevronIcon);
+  console.log(`  전일대비 값:`, diff);
+  
+  if (changeAmount && chevronIcon && changeContent) {
+    if (diff !== undefined && diff !== null && diff !== 0) {
+      // 전일대비 데이터가 있는 경우
+      const formattedDiff = formatNumber(Math.abs(diff));
+      changeAmount.textContent = formattedDiff;
+      changeContent.style.justifyContent = 'flex-start';  // 좌측 정렬
+      
+      if (diff > 0) {
+        // 상승: 빨간색 + 위쪽 화살표
+        changeAmount.className = 'change-amount price-up';
+        chevronIcon.src = 'images/chevron-up.svg';
+        chevronIcon.alt = 'up';
+        chevronIcon.style.display = 'inline-block';
+        console.log(`  전일대비 업데이트: ${formattedDiff} (상승 - 빨간색)`);
+      } else {
+        // 하락: 파란색 + 아래쪽 화살표
+        changeAmount.className = 'change-amount price-down';
+        chevronIcon.src = 'images/chevron-down.svg';
+        chevronIcon.alt = 'down';
+        chevronIcon.style.display = 'inline-block';
+        console.log(`  전일대비 업데이트: ${formattedDiff} (하락 - 파란색)`);
+      }
+    } else {
+      // 전일대비 데이터가 없거나 0인 경우: "-"만 표시, 화살표 완전히 숨김, 중앙 정렬
+      changeAmount.textContent = '-';
+      changeAmount.className = 'change-amount';
+      chevronIcon.style.display = 'none';
+      changeContent.style.justifyContent = 'center';
+      console.log(`  전일대비: - (데이터 없음, 화살표 완전히 숨김, 중앙 정렬)`);
+    }
+  } else {
+    console.error(`  [${category}] 전일대비 요소를 찾을 수 없습니다!`);
+  }
+}
+
+// 숫자 포맷팅 함수 (천 단위 콤마)
+function formatNumber(num) {
+  return num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+}
 

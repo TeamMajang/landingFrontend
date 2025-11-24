@@ -3,7 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>개인정보보기</title>
+    <title>majangdeal</title>
+    <link rel="icon" type="image/x-icon" href="favicon.ico">
     <link href="https://fonts.googleapis.com/css?family=Inter&display=swap" rel="stylesheet">
     <link href="https://spoqa.github.io/spoqa-han-sans/css/SpoqaHanSansNeo.css" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
@@ -566,6 +567,24 @@
                                         </div>
                                     </div>
                                     <div class="dropdown-divider"></div>
+                                    <div class="dropdown-menu-item sales-history-item">
+                                        <div class="dropdown-icon file-icon">
+                                            <svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                <path d="M10.5 1.5H4.5C4.10218 1.5 3.72064 1.65804 3.43934 1.93934C3.15804 2.22064 3 2.60218 3 3V15C3 15.3978 3.15804 15.7794 3.43934 16.0607C3.72064 16.342 4.10218 16.5 4.5 16.5H13.5C13.8978 16.5 14.2794 16.342 14.5607 16.0607C14.842 15.7794 15 15.3978 15 15V6L10.5 1.5Z" stroke="#6b7280" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                                                <path d="M10.5 1.5V6H15" stroke="#6b7280" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                                                <path d="M12 9.75H6" stroke="#6b7280" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                                                <path d="M12 12.75H6" stroke="#6b7280" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                                                <path d="M7.5 6.75H6.75H6" stroke="#6b7280" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                                            </svg>
+                                        </div>
+                                        <p class="dropdown-menu-text">판매이력 보기</p>
+                                        <div class="dropdown-chevron">
+                                            <svg width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                <path d="M5.25 3.5L8.75 7L5.25 10.5" stroke="#9ca3af" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                                            </svg>
+                                        </div>
+                                    </div>
+                                    <div class="dropdown-divider"></div>
                                     <div class="dropdown-menu-item notification-item">
                                         <div class="dropdown-icon bell-icon">
                                             <svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -811,6 +830,7 @@
         </footer>
     </div>
     <script src="config.js"></script>
+    <script src="script.js"></script>
     <script>
         // API에서 마이페이지 데이터 로드
         async function loadMyPageData() {
@@ -1454,6 +1474,14 @@
         }
         
         document.addEventListener('DOMContentLoaded', function() {
+            // 로그인 상태 체크
+            const userInfo = localStorage.getItem('userInfo');
+            if (!userInfo) {
+                // 로그인되어 있지 않으면 메인 페이지로 리다이렉트
+                window.location.href = 'index.html';
+                return;
+            }
+            
             // 페이지 로드 시 마이페이지 데이터 가져오기
             loadMyPageData();
             
@@ -1687,9 +1715,9 @@
                                 // API 호출
                                 updateStoreName(storeName).then(success => {
                                     if (success) {
-                                        input.classList.remove('editing');
-                                        input.classList.remove('white');
-                                        input.setAttribute('readonly', 'readonly');
+                            input.classList.remove('editing');
+                            input.classList.remove('white');
+                            input.setAttribute('readonly', 'readonly');
                                         this.textContent = '재설정';
                                         this.classList.remove('complete-btn');
                                     }
@@ -1714,13 +1742,13 @@
                                         input.classList.remove('editing');
                                         input.classList.remove('white');
                                         input.setAttribute('readonly', 'readonly');
-                                        this.textContent = '재설정';
-                                        this.classList.remove('complete-btn');
-                                    }
+                        this.textContent = '재설정';
+                        this.classList.remove('complete-btn');
+                    }
                                 }).catch(error => {
                                     console.error('Failed to update business address:', error);
                                     alert('사업장 주소 업데이트에 실패했습니다. 다시 시도해주세요.');
-                                });
+            });
                                 return; // API 호출 중이므로 여기서 종료
                             }
                             

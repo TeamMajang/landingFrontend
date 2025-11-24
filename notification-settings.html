@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>알림 재설정 - MAJANGDEAL</title>
+  <title>majangdeal</title>
   <link href="https://fonts.googleapis.com/css?family=Inter&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="style.css">
   <style>
@@ -29,7 +29,7 @@
       justify-content: center;
       align-items: flex-start;
       background-color: #ffffff;
-      padding: 80px 20px 40px 20px;
+      padding: 20px 20px 40px 20px;
       box-sizing: border-box;
     }
     
@@ -201,10 +201,31 @@
 
       <!-- Save Button -->
       <div class="notification-save-section">
-        <button type="button" class="notification-save-button" id="notification-save-btn">
+        <button type="button" class="notification-save-button" id="notification-save-btn" disabled>
           <p class="notification-save-text">완료</p>
         </button>
       </div>
+    </div>
+  </div>
+
+  <!-- Success Modal -->
+  <div id="notification-success-modal" class="modal" style="display: none;">
+    <div class="modal-overlay"></div>
+    <div class="modal-content" style="width: 400px; padding: 40px; text-align: center;">
+      <div style="margin-bottom: 24px;">
+        <svg width="64" height="64" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg" style="margin: 0 auto;">
+          <circle cx="32" cy="32" r="30" fill="#10b981" opacity="0.1"/>
+          <circle cx="32" cy="32" r="24" fill="#10b981"/>
+          <path d="M22 32L28 38L42 24" stroke="white" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </div>
+      <h2 style="font-family: 'Inter', sans-serif; font-size: 24px; font-weight: 600; color: #111827; margin-bottom: 16px;">알림 설정 완료</h2>
+      <p style="font-family: 'Inter', sans-serif; font-size: 16px; color: #6b7280; margin-bottom: 32px;">
+        알림 설정이 저장되었습니다.
+      </p>
+      <button id="notification-success-close-btn" style="width: 100%; padding: 12px; background-color: #3b82f6; border: none; border-radius: 8px; font-family: 'Inter', sans-serif; font-size: 16px; font-weight: 600; color: #ffffff; cursor: pointer; transition: background-color 0.2s;">
+        확인
+      </button>
     </div>
   </div>
 
@@ -233,11 +254,22 @@
     document.getElementById('footer-container').innerHTML = html;
   }
   
+  // 로그인 상태 체크 - 즉시 실행
+  (function() {
+    const userInfo = localStorage.getItem('userInfo');
+    if (!userInfo) {
+      // 로그인되어 있지 않으면 플래그 저장하고 메인으로 리다이렉트
+      localStorage.setItem('loginRequired', 'notification');
+      window.location.href = 'index.html';
+    }
+  })();
+
   document.addEventListener('DOMContentLoaded', function() {
     loadHeader();
     loadFooter();
   });
 </script>
+
 </body>
 </html>
 

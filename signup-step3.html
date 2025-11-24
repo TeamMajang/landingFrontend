@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>회원가입 3단계 - MAJANGDEAL</title>
+  <title>majangdeal</title>
   <link href="https://fonts.googleapis.com/css?family=Inter&display=swap" rel="stylesheet">
   <link href="https://spoqa.github.io/spoqa-han-sans/css/SpoqaHanSansNeo.css" rel="stylesheet">
   <link rel="stylesheet" href="style.css">
@@ -33,7 +33,7 @@
     
     .signup-container {
       width: 480px;
-      height: 865px;
+      min-height: 865px;
       background-color: #ffffff;
       border: 1px solid #e2e8f0;
       border-radius: 16px;
@@ -106,6 +106,32 @@
       display: flex;
       flex-direction: column;
       gap: 4px;
+      position: relative;
+    }
+    
+    .password-input-wrapper {
+      position: relative;
+      display: flex;
+      align-items: center;
+    }
+    
+    .password-toggle-button {
+      position: absolute;
+      right: 16px;
+      background: none;
+      border: none;
+      cursor: pointer;
+      padding: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 24px;
+      height: 24px;
+      color: #9ca3af;
+    }
+    
+    .password-toggle-button:hover {
+      color: #6b7280;
     }
     
     .signup-label-row {
@@ -194,6 +220,10 @@
       line-height: 19.2px;
       color: #111827;
       box-sizing: border-box;
+    }
+    
+    .password-input-wrapper .signup-input {
+      padding-right: 48px;
     }
     
     .signup-input::placeholder {
@@ -393,13 +423,37 @@
         
         <div class="signup-input-group">
           <p class="signup-label">비밀번호</p>
-          <input type="password" class="signup-input" id="password-input" placeholder="8~16자의 영문 대/소문자, 숫자, 특수문자">
+          <div class="password-input-wrapper">
+            <input type="password" class="signup-input" id="password-input" placeholder="8~16자의 영문 대/소문자, 숫자, 특수문자">
+            <button type="button" class="password-toggle-button" id="password-toggle-btn">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" class="eye-icon">
+                <path d="M1 12C1 12 5 4 12 4C19 4 23 12 23 12C23 12 19 20 12 20C5 20 1 12 1 12Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                <circle cx="12" cy="12" r="3" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" class="eye-off-icon" style="display: none;">
+                <path d="M17.94 17.94C16.2306 19.243 14.1491 19.9649 12 20C5 20 1 12 1 12C2.24389 9.6819 3.96914 7.65661 6.06 6.06M9.9 4.24C10.5883 4.0789 11.2931 3.99836 12 4C19 4 23 12 23 12C22.393 13.1356 21.6691 14.2047 20.84 15.19M14.12 14.12C13.8454 14.4147 13.5141 14.6512 13.1462 14.8151C12.7782 14.9791 12.3809 15.0673 11.9781 15.0744C11.5753 15.0815 11.1752 15.0074 10.8016 14.8565C10.4281 14.7056 10.0887 14.4811 9.80385 14.1962C9.51897 13.9113 9.29439 13.572 9.14351 13.1984C8.99262 12.8248 8.91853 12.4247 8.92563 12.0219C8.93274 11.6191 9.02091 11.2218 9.18488 10.8538C9.34884 10.4858 9.58525 10.1546 9.88 9.88" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                <line x1="1" y1="1" x2="23" y2="23" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </button>
+          </div>
           <p class="signup-error-message" id="password-error-message"></p>
         </div>
         
         <div class="signup-input-group">
           <p class="signup-label">비밀번호 확인</p>
-          <input type="password" class="signup-input" id="password-confirm-input" placeholder="번호만 입력해주세요.">
+          <div class="password-input-wrapper">
+            <input type="password" class="signup-input" id="password-confirm-input" placeholder="번호만 입력해주세요.">
+            <button type="button" class="password-toggle-button" id="password-confirm-toggle-btn">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" class="eye-icon">
+                <path d="M1 12C1 12 5 4 12 4C19 4 23 12 23 12C23 12 19 20 12 20C5 20 1 12 1 12Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                <circle cx="12" cy="12" r="3" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" class="eye-off-icon" style="display: none;">
+                <path d="M17.94 17.94C16.2306 19.243 14.1491 19.9649 12 20C5 20 1 12 1 12C2.24389 9.6819 3.96914 7.65661 6.06 6.06M9.9 4.24C10.5883 4.0789 11.2931 3.99836 12 4C19 4 23 12 23 12C22.393 13.1356 21.6691 14.2047 20.84 15.19M14.12 14.12C13.8454 14.4147 13.5141 14.6512 13.1462 14.8151C12.7782 14.9791 12.3809 15.0673 11.9781 15.0744C11.5753 15.0815 11.1752 15.0074 10.8016 14.8565C10.4281 14.7056 10.0887 14.4811 9.80385 14.1962C9.51897 13.9113 9.29439 13.572 9.14351 13.1984C8.99262 12.8248 8.91853 12.4247 8.92563 12.0219C8.93274 11.6191 9.02091 11.2218 9.18488 10.8538C9.34884 10.4858 9.58525 10.1546 9.88 9.88" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                <line x1="1" y1="1" x2="23" y2="23" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </button>
+          </div>
           <p class="signup-error-message" id="password-confirm-error-message"></p>
         </div>
         
@@ -488,7 +542,15 @@
         const password = passwordInput.value.trim();
         const passwordConfirm = passwordConfirmInput.value.trim();
         
-        if (name && phone && loginId && password && passwordConfirm && isIdVerified && isIdAvailable && isPhoneVerified) {
+        // 비밀번호 양식 검증
+        const isPasswordValid = validatePassword(password);
+        
+        // 비밀번호 확인 일치 여부
+        const isPasswordMatch = password === passwordConfirm;
+        
+        if (name && phone && loginId && password && passwordConfirm && 
+            isIdVerified && isIdAvailable && isPhoneVerified && 
+            isPasswordValid && isPasswordMatch) {
           submitButton.disabled = false;
         } else {
           submitButton.disabled = true;
@@ -754,6 +816,10 @@
         verifyPhoneButton.innerHTML = '인증 중...';
         phoneErrorMessage.classList.remove('visible');
         
+        // 인증 중일 때 텍스트박스 회색으로 변경
+        phoneInput.classList.add('verified');
+        phoneInput.disabled = true;
+        
         try {
           const API_BASE_URL = window.CONFIG.API_BASE_URL;
           const phoneVerificationSendEndpoint = window.CONFIG.ENDPOINT.PHONE_VERIFICATION_SEND;
@@ -776,6 +842,9 @@
           if (response.ok) {
             // 인증번호 전송 성공
             phoneInput.value = formattedPhone; // 하이픈 형식으로 업데이트
+            
+            // 인증 성공 시 텍스트박스 다시 활성화 (흰색으로)
+            phoneInput.classList.remove('verified');
             phoneInput.disabled = false; // 인증번호 확인 전까지는 수정 가능
             
             // 인증번호 입력 필드 표시
@@ -802,6 +871,11 @@
             
             phoneErrorMessage.textContent = errorMessage;
             phoneErrorMessage.classList.add('visible');
+            
+            // 실패 시 텍스트박스 다시 활성화 (흰색으로)
+            phoneInput.classList.remove('verified');
+            phoneInput.disabled = false;
+            
             verifyPhoneButton.disabled = false;
             verifyPhoneButton.innerHTML = originalButtonHTML;
             updatePhoneVerifyButton();
@@ -810,6 +884,11 @@
           console.error('Error sending phone verification:', error);
           phoneErrorMessage.textContent = `인증번호 전송 중 오류가 발생했습니다: ${error.message}`;
           phoneErrorMessage.classList.add('visible');
+          
+          // 오류 시 텍스트박스 다시 활성화 (흰색으로)
+          phoneInput.classList.remove('verified');
+          phoneInput.disabled = false;
+          
           verifyPhoneButton.disabled = false;
           verifyPhoneButton.innerHTML = originalButtonHTML;
           updatePhoneVerifyButton();
@@ -1034,6 +1113,44 @@
           window.location.href = 'signup-step4.html';
         }
       });
+      
+      // 비밀번호 보기/숨기기 토글
+      const passwordToggleBtn = document.getElementById('password-toggle-btn');
+      const passwordConfirmToggleBtn = document.getElementById('password-confirm-toggle-btn');
+      
+      if (passwordToggleBtn) {
+        passwordToggleBtn.addEventListener('click', function() {
+          const eyeIcon = this.querySelector('.eye-icon');
+          const eyeOffIcon = this.querySelector('.eye-off-icon');
+          
+          if (passwordInput.type === 'password') {
+            passwordInput.type = 'text';
+            eyeIcon.style.display = 'none';
+            eyeOffIcon.style.display = 'block';
+          } else {
+            passwordInput.type = 'password';
+            eyeIcon.style.display = 'block';
+            eyeOffIcon.style.display = 'none';
+          }
+        });
+      }
+      
+      if (passwordConfirmToggleBtn) {
+        passwordConfirmToggleBtn.addEventListener('click', function() {
+          const eyeIcon = this.querySelector('.eye-icon');
+          const eyeOffIcon = this.querySelector('.eye-off-icon');
+          
+          if (passwordConfirmInput.type === 'password') {
+            passwordConfirmInput.type = 'text';
+            eyeIcon.style.display = 'none';
+            eyeOffIcon.style.display = 'block';
+          } else {
+            passwordConfirmInput.type = 'password';
+            eyeIcon.style.display = 'block';
+            eyeOffIcon.style.display = 'none';
+          }
+        });
+      }
     });
   </script>
 
