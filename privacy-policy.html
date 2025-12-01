@@ -1,0 +1,987 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>개인정보 처리방침 - majangdeal</title>
+  <link href="https://fonts.googleapis.com/css?family=Inter&display=swap" rel="stylesheet">
+  <link href="https://spoqa.github.io/spoqa-han-sans/css/SpoqaHanSansNeo.css" rel="stylesheet">
+  <style>
+    :root {
+      --text-dark: #0f172a;
+      --text-gray: #475569;
+      --background: #ffffff;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: 'Spoqa Han Sans Neo', 'Inter', sans-serif;
+      background-color: var(--background);
+      color: var(--text-dark);
+      line-height: 1.8;
+    }
+
+    .page-root {
+      min-height: 100vh;
+      padding: 48px 32px 64px;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .policy-container {
+      width: 100%;
+      margin: 0;
+      background-color: transparent;
+      border: none;
+      border-radius: 0;
+      padding: 0;
+      box-shadow: none;
+      flex: 1;
+    }
+
+    h1 {
+      font-size: 32px;
+      margin: 0 0 32px;
+    }
+
+    h2 {
+      font-size: 20px;
+      margin: 64px 0 28px;
+    }
+
+    h3 {
+      font-size: 16px;
+      margin: 28px 0 8px;
+    }
+
+    p {
+      margin: 8px 0;
+      color: var(--text-gray);
+    }
+
+    ol {
+      margin: 8px 0 16px 0;
+      padding-left: 0;
+      color: var(--text-gray);
+      list-style-position: inside;
+    }
+
+    ol > li {
+      margin-bottom: 6px;
+    }
+
+    .toc strong {
+      color: var(--text-dark);
+    }
+
+    .policy-section {
+      margin: 48px 0 32px;
+    }
+
+    .policy-section h3 {
+      font-size: 18px;
+      margin-bottom: 16px;
+    }
+
+    .policy-details {
+      padding-left: 0;
+      margin: 0;
+      list-style-position: inside;
+      color: var(--text-dark);
+    }
+
+    .policy-details li {
+      margin-bottom: 14px;
+    }
+
+    .policy-details li strong {
+      display: block;
+      font-size: 16px;
+    }
+
+    .data-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 24px 0;
+      border: 1px solid #4b4f55;
+    }
+
+    .data-table thead th {
+      background-color: #2d2f31;
+      color: #ffffff;
+      padding: 14px 16px;
+      border-right: 1px solid #4b4f55;
+      font-weight: 600;
+      text-align: left;
+    }
+
+    .data-table tbody td {
+      background-color: #353739;
+      color: #ffffff;
+      padding: 14px 16px;
+      border-top: 1px solid #4b4f55;
+      border-right: 1px solid #4b4f55;
+      vertical-align: top;
+    }
+
+    .data-table thead th:last-child,
+    .data-table tbody td:last-child {
+      border-right: none;
+    }
+
+    .table-9 {
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-start;
+      align-items: flex-start;
+      width: 100%;
+      padding: 0;
+      background-color: #353739;
+      border: 1px solid #4b4f55;
+      border-radius: 8px;
+      overflow: hidden;
+      margin: 24px 0;
+    }
+
+    .row {
+      display: flex;
+      flex-direction: row;
+      width: 100%;
+      background-color: transparent;
+    }
+
+    .type-header,
+    .type-default {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: flex-start;
+      width: 25%;
+      border-top: 1px solid #4b4f55;
+      border-right: 1px solid #4b4f55;
+    }
+
+    .table-9.three-cols .type-header,
+    .table-9.three-cols .type-default {
+      width: 33.333%;
+    }
+
+    .type-header {
+      background-color: #2d2f31;
+    }
+
+    .table-9 .row:first-child .type-header {
+      border-top: none;
+    }
+
+    .table-9 .row .type-header:last-child,
+    .table-9 .row .type-default:last-child {
+      border-right: none;
+    }
+
+    .table-9 p,
+    .table-9 li {
+      color: #ffffff;
+      font-size: 14px;
+      line-height: 1.6;
+    }
+
+    .content-12,
+    .content-15,
+    .content-18,
+    .content-21,
+    .content-25,
+    .content-28,
+    .content-31,
+    .content-34,
+    .content-38,
+    .content-41,
+    .content-44,
+    .content-47,
+    .content-51,
+    .content-54,
+    .content-57,
+    .content-60,
+    .content-64,
+    .content-67,
+    .content-70,
+    .content-73 {
+      padding: 12px 16px;
+      width: 100%;
+      box-sizing: border-box;
+    }
+
+    .table-list {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+
+    .table-list li {
+      position: relative;
+      padding-left: 14px;
+      margin-bottom: 4px;
+    }
+
+    .table-list li::before {
+      content: '•';
+      position: absolute;
+      left: 0;
+      color: #ffffff;
+    }
+
+    .site-footer {
+      width: 100%;
+      background-color: #f8fafc;
+      padding: 32px 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .site-footer-links {
+      display: flex;
+      flex-direction: row;
+      gap: 20px;
+      align-items: center;
+    }
+
+    .site-footer-links a {
+      font-family: 'Inter', sans-serif;
+      font-size: 14px;
+      color: #9ca3af;
+      text-decoration: none;
+      transition: color 0.2s ease;
+    }
+
+    .site-footer-links a:hover {
+      color: #6b7280;
+    }
+
+    @media (max-width: 768px) {
+      h1 {
+        font-size: 26px;
+      }
+
+      h2 {
+        margin: 56px 0 24px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="page-root">
+    <article class="policy-container">
+      <h1>개인정보 처리방침</h1>
+
+      <p>마장딜(이하 “회사”)는 정보통신서비스제공자가 준수하여야 하는 대한민국의 관계 법령 및 개인정보보호 규정, 가이드라인을 준수하고 있습니다. “개인정보 처리방침”이란 이용자의 소중한 개인정보를 보호함으로써 이용자가 안심하고 서비스를 이용할 수 있도록 최선을 다하고 있습니다. 또한 개인정보처리방침의 개정이 있을 경우 여러분께 항상 알리겠으며, 수시로 확인할 수 있도록 서비스를 통해 게시하도록 하겠습니다. 본 개인정보 처리방침에서 정하지 않은 용어의 정의는 서비스 이용약관을 따릅니다.</p>
+
+      <div class="toc">
+        <h3 style="font-weight: 700;">[ 목차 ]</h3>
+        <ol>
+          <li><strong>개인정보의 처리 목적</strong></li>
+          <li><strong>개인정보의 수집 및 이용 목적, 항목, 보유 및 이용기간</strong></li>
+          <li><strong>개인정보의 제3자 제공</strong></li>
+          <li><strong>개인정보처리 위탁</strong></li>
+          <li><strong>개인정보의 파기</strong></li>
+          <li><strong>정보주체와 법정대리인의 권리, 의무 및 행사방법</strong></li>
+          <li><strong>개인정보 자동 수집 장치의 설치, 운영 및 거부에 관한 사항</strong></li>
+          <li><strong>형태정보의 수집, 이용 및 거부 등에 관한 사항</strong></li>
+          <li><strong>개인정보의 안전성 확보조치</strong></li>
+          <li><strong>개인정보 보호 책임자 및 담당 부서</strong></li>
+          <li><strong>권익침해 구제방법</strong></li>
+          <li><strong>개인정보처리방침 변경 고지</strong></li>
+        </ol>
+      </div>
+
+      <div class="policy-section">
+        <h3>1. 개인정보의 처리 목적</h3>
+        <ol class="policy-details">
+          <li>
+            회원가입 및 서비스 관리<br>
+            회원가입 의사 확인, 회원제 서비스 제공에 따른 본인 식별·인증, 회원자격 유지·관리, 제한적 본인확인제 시행에 따른 본인확인, 서비스 부정이용 방지, 만 14세 미만 아동 여부 확인, 서비스 이용 관련 각종 고지·통지, 고충처리, 분쟁 조정을 위한 기록 보존 등을 목적으로 개인정보를 처리합니다.
+          </li>
+          <li>
+            민원사무 처리<br>
+            민원인의 신원 확인, 민원사항 확인, 사실조사를 위한 연락·통지, 처리결과 통보를 목적으로 개인정보를 처리합니다.
+          </li>
+          <li>
+            재화 또는 서비스 제공<br>
+            서비스 제공, 청구서 발송, 콘텐츠 제공, 맞춤 서비스 제공, 요금 결제 목적으로 개인정보를 처리합니다.
+          </li>
+          <li>
+            마케팅 및 광고에의 활용<br>
+            신규 서비스(제품) 개발 및 맞춤형 정보 서비스 제공, 이벤트 및 광고성 정보 제공 및 참여 기회 제공, 인구통계학적 특성에 따른 서비스 제공 및 광고 게재, 서비스의 유효성 확인, 접속 빈도 파악 또는 회원의 서비스 이용에 대한 통계 및 설문을 목적으로 개인정보를 처리합니다.
+          </li>
+        </ol>
+      </div>
+
+      <div class="policy-section">
+        <h3>2. 개인정보의 수집 및 이용 목적, 항목, 보유 및 이용기간</h3>
+        <div>회사는 「개인정보 보호법」에 따라 서비스 제공을 위해 필요
+            최소한의 범위에서 개인정보를 수집・이용합니다.<br>
+            (선택) 항목의 경우, 「개인정보 보호법」 제15조
+            제1항 제1호 및 제22조 제1항 제7호에 따라 정보주체의 동의를 받아 처리하고
+            있습니다.  </div>
+        <div class="table-9 three-cols">
+          <div class="row">
+            <div class="type-header">
+              <div class="content-12">
+                <p class="text-13">서비스 구분</p>
+              </div>
+            </div>
+            <div class="type-header">
+              <div class="content-15">
+                <p class="text-16">처리 목적</p>
+              </div>
+            </div>
+            <div class="type-header">
+              <div class="content-18">
+                <p class="text-19">수집 항목</p>
+              </div>
+            </div>
+            <div class="type-header">
+              <div class="content-21">
+                <p class="text-22">보유 및 이용기간</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="type-default">
+              <div class="content-25">
+                <p class="text-26">회원가입</p>
+              </div>
+            </div>
+            <div class="type-default">
+              <div class="content-28">
+                <p class="text-29">회원가입 및 회원관리</p>
+              </div>
+            </div>
+            <div class="type-default">
+              <div class="content-31">
+                <ul class="table-list">
+                  <li>사업자 등록번호</li>
+                  <li>이름</li>
+                  <li>전화번호</li>
+                  <li>소재지</li>
+                  <li>상세주소</li>
+                </ul>
+              </div>
+            </div>
+            <div class="type-default">
+              <div class="content-34">
+                <p class="text-35">회원 탈퇴 시까지</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="type-default">
+              <div class="content-38">
+                <p class="text-39">메신저</p>
+              </div>
+            </div>
+            <div class="type-default">
+              <div class="content-41">
+                <p class="text-42">분쟁 조정</p>
+              </div>
+            </div>
+            <div class="type-default">
+              <div class="content-44">
+                <ul class="table-list">
+                  <li>대화 내역 및 일시</li>
+                  <li>이메일 주소</li>
+                  <li>SNS ID(구글 가입 시)</li>
+                  <li>닉네임</li>
+                  <li>휴대폰 번호</li>
+                </ul>
+              </div>
+            </div>
+            <div class="type-default">
+              <div class="content-47">
+                <p class="text-48">3년</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="type-default">
+              <div class="content-51">
+                <p class="text-52">자동 수집 정보</p>
+              </div>
+            </div>
+            <div class="type-default">
+              <div class="content-54">
+                <p class="text-55">웹/앱 사용자 분석</p>
+              </div>
+            </div>
+            <div class="type-default">
+              <div class="content-57">
+                <ul class="table-list">
+                  <li>이름</li>
+                  <li>전화번호</li>
+                </ul>
+              </div>
+            </div>
+            <div class="type-default">
+              <div class="content-60">
+                <p class="text-61">14개월</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="type-default">
+              <div class="content-64">
+                <p class="text-65">마케팅 및 홍보(선택)</p>
+              </div>
+            </div>
+            <div class="type-default">
+              <div class="content-67">
+                <p class="text-68">광고 및 홍보, 이벤트 안내 등</p>
+              </div>
+            </div>
+            <div class="type-default">
+              <div class="content-70">
+                <ul class="table-list">
+                  <li>이름</li>
+                  <li>전화번호</li>
+                </ul>
+              </div>
+            </div>
+            <div class="type-default">
+              <div class="content-73">
+                <p class="text-74">수신 거부 시까지</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="policy-section">
+        <h3>3. 개인정보의 제 3자 제공</h3>
+        <div>
+            회사는 정보주체의 개인정보를 개인정보의 처리 목적에서
+명시한 범위 내에서만 처리하며, 정보주체의 동의, 법률의 특별한 규정 등
+「개인정보 보호법」 제17조 및 제18조에 해당하는 경우에만 개인정보를 제3자에게
+제공하고 그 이외에는 정보주체의 개인정보를 제3자에게 제공하지 않습니다.
+        </div>
+      </div>
+
+      <div class="policy-section">
+        <h3>4. 개인정보 처리 위탁</h3>
+        <div>회사는 서비스 제공 및 안정적인 시스템 운영을 위해 아래와 같이 개인정보 처리를 위탁하고 있습니다.</div>
+        <div class="table-9 three-cols">
+          <div class="row">
+            <div class="type-header">
+              <div class="content-12">
+                <p class="text-13">수탁자</p>
+              </div>
+            </div>
+            <div class="type-header">
+              <div class="content-15">
+                <p class="text-16">위탁업무 내용</p>
+              </div>
+            </div>
+            <div class="type-header">
+              <div class="content-18">
+                <p class="text-19">보유 및 이용기간</p>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="type-default">
+              <div class="content-25">
+                <p class="text-26">Amazon Web Services, Inc.</p>
+              </div>
+            </div>
+            <div class="type-default">
+              <div class="content-28">
+                <p class="text-29">클라우드 인프라 제공 및 데이터 보관</p>
+              </div>
+            </div>
+            <div class="type-default">
+              <div class="content-31">
+                <p class="text-35">회원 탈퇴 또는 계약 종료, 폐업 시까지</p>
+              </div>
+            </div>
+          </div>
+        </div>
+        개인정보처리자명> 은(는) 위탁계약 체결 시 「개인정보 보호법」 제26조에 따라
+        위탁업무 수행목적 외 개인정보 처리금지, 기술적・관리적 보호조치, 재위탁 제한,
+        수탁자에 대한 관리・감독, 손해배상 등 책임에 관한 사항을 계약서 등 문서에
+        명시하고, 수탁자가 개인정보를 안전하게 처리하는지를 감독하고 있습니다.
+    </br></br>
+        위탁업무의 내용이나 수탁자가 변경될 경우에는 지체없이 본 개인정보
+        처리방침을 통하여 공개하도록 하겠습니다.
+      </div>
+
+      <div class="policy-section5">
+        <h3>5. 개인정보의 파기</h3>
+        <div>
+            회사는 개인정보 보유기간의 경과, 처리목적 달성 등
+            개인정보가 불필요하게 되었을 때에는 지체없이 해당 개인정보를 파기합니다. </br> </br>
+            정보주체로부터 동의받은 개인정보 보유기간이 경과하거나 처리목적이
+            달성되었음에도 불구하고 다른 법령에 따라 개인정보를 계속 보존하여야 하는
+            경우에는, 해당 개인정보를 별도의 데이터베이스(DB)로 옮기거나 보관장소를
+            달리하여 보존합니다.
+            </br> </br>
+            <div>개인정보 파기의 절차 및 방법은 다음과 같습니다.</div>
+            1. 파기절차</br>
+            MAJANGDEAL은 파기 사유가 발생한 개인정보를 선정하고,
+            개인정보 보호책임자의 승인을 받아 개인정보를
+            파기합니다.</br>
+            2. 파기방법</br>
+            MAJANGDEAL은 전자적 파일 형태로 기록・저장된 개인정보는 기록을
+            재생할 수 없도록 파기하며, 종이 문서에 기록・저장된 개인정보는 분쇄기로
+            분쇄하거나 소각하여 파기합니다.
+        </div>
+      </div>
+
+      <div class="policy-section6">
+        <h3>6. 정보주체와 법정대리인의 권리, 의무 및 행사방법</h3>
+        <div>
+            정보주체는 「정보통신망 이용촉진 및 정보보호 등에 관한 법률」, 「개인정보 보호법」 등 기타 개인정보에 관한 법률을 준수하여야 합니다.</p>
+            정보주체는 회사에 대해 언제든지 개인정보 열람・정정・삭제・처리정지 및 철회 요구 등의 권리를 행사(이하 “권리 행사”라 함)할 수 있습니다.</p>
+            권리 행사는 회사에 대해 「개인정보 보호법」 시행령 제41조
+            제1항에 따라 서면, 전자우편을 통하여 하실 수 있으며,
+            회사는 이에 대해 지체없이 조치하겠습니다.<br>
+            또한 정보주체는 언제든지 등록되어 있는 자신의 개인정보를 조회 및 수정(계정 설정> 내 정보)하실 수 있으며, 정보 삭제 및 처리 정지(계정 설정> 내 정보> 회원 탈퇴)를 요구할 수도 있습니다.</p>
+            회사는 권리 행사를 아래 이메일을 통해 할 수 있습니다 또한 회사는 정보주체의 권리 행사가 신속하게 처리되도록 노력하겠습니다.
+            <div class="table-9 three-cols">
+                <div class="row">
+                  <div class="type-header">
+                    <div class="content-12">
+                      <p class="text-13">이름</p>
+                    </div>
+                  </div>
+                  <div class="type-header">
+                    <div class="content-15">
+                      <p class="text-16">직위</p>
+                    </div>
+                  </div>
+                  <div class="type-header">
+                    <div class="content-18">
+                      <p class="text-19">이메일</p>
+                    </div>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="type-default">
+                    <div class="content-25">
+                      <p class="text-26">박영찬</p>
+                    </div>
+                  </div>
+                  <div class="type-default">
+                    <div class="content-28">
+                      <p class="text-29">대표</p>
+                    </div>
+                  </div>
+                  <div class="type-default">
+                    <div class="content-31">
+                      <p class="text-35">jak878942@gmail.com</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+        </div>
+      </div>
+      <div class="policy-section7">
+        <h3>7. 개인정보 자동 수집 장치의 설치, 운영 및 거부에 관한 사항</h3>
+        <div>
+            회사는 사용자에게 개별적인 서비스와 편의를 제공하기 위해
+            이용정보를 저장하고 수시로 불러오는 ‘쿠키(cookie)’를 사용합니다.</p>
+            쿠키는 웹사이트 운영에 이용되는 서버(http)가 정보주체의 브라우저에 보내는
+            소량의 정보이며 정보주체의 PC 또는 모바일에 저장됩니다
+        </div>
+        <div class="table-9">
+            <div class="row">
+                <div class="type-header">
+                  <div class="content-12">
+                    <p class="text-13">수집 항목</p>
+                  </div>
+                </div>
+                <div class="type-header">
+                  <div class="content-15">
+                    <p class="text-16">수집 장법</p>
+                  </div>
+                </div>
+                <div class="type-header">
+                  <div class="content-18">
+                    <p class="text-19">수집 목적</p>
+                  </div>
+                </div>
+                <div class="type-header">
+                    <div class="content-18">
+                      <p class="text-19">보유 및 이용기간</p>
+                    </div>
+                  </div>
+              </div>
+              <div class="row">
+                <div class="type-default">
+                  <div class="content-25">
+                    <p class="text-26">웹사이트 방문 이력</p>
+                  </div>
+                </div>
+                <div class="type-default">
+                  <div class="content-28">
+                    <p class="text-29">웹사이트 방문시 자동 수집</p>
+                  </div>
+                </div>
+                <div class="type-default">
+                  <div class="content-31">
+                    <p class="text-35">관심기반 맞춤형 광고</p>
+                  </div>
+                </div>
+                <div class="type-default">
+                    <div class="content-31">
+                      <p class="text-35">수집일로부터 2년</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div>
+            <div>정보주체는 웹 브라우저 옵션 설정을 통해 쿠키 허용, 차단 등의 설정을 할 수
+                있습니다. 다만, 쿠키 저장을 거부할 경우 맞춤형 서비스 이용에 어려움이 발생할
+                수 있습니다.
+            </div><br>
+            <div>< 쿠키 허용 / 차단 방법 ></div><br>
+
+            <div>▶ 웹 브라우저에서 쿠키 허용/차단</div><br>
+
+            - 크롬(Chrome) : 웹 브라우저 설정 > 개인정보 보호 및 보안 > 인터넷 사용 기록
+            삭제<br>
+            - 엣지(Edge) : 웹 브라우저 설정 > 쿠키 및 사이트 권한 > 쿠키 및 사이트 데이터
+            관리 및 삭제<br>
+
+            <br>▶ 모바일 브라우저에서 쿠키 허용/차단</br><br>
+
+            - 크롬(Chrome) : 모바일 브라우저 설정 > 개인정보 보호 및 보안 > 인터넷 사용
+            기록 삭제<br>
+            - 사파리(Safari) : 모바일 기기 설정 > 사파리(Safari) > 고급 > 모든 쿠키 차단<br>
+            - 삼성 인터넷 : 모바일 브라우저 설정 > 인터넷 사용 기록 > 인터넷 사용 기록 삭제
+        </div>
+      </div>
+      <div class="policy-section8">
+        <h3>8. 개인정보 자동 수집 장치의 설치, 운영 및 거부에 관한 사항</h3>
+        <div>
+            회사는 사용자가 웹사이트・앱을 방문하거나 이용하는 경우,
+            효과적인 서비스 이용과 광고 및 마케팅을 위해 쿠키 및 타사가 제공하는 SDK를
+            포함한 태그 등을 이용하고 있습니다.</p>
+            회사의 웹/앱으로부터 제3자가 수집해가는 행태정보는 다음과 같습니다.</p>
+            <div class="table-9 three-cols">
+                <div class="row">
+                <div class="type-header">
+                    <div class="content-12">
+                    <p class="text-13">형태정보의 항목</p>
+                    </div>
+                </div>
+                <div class="type-header">
+                    <div class="content-15">
+                    <p class="text-16">방법</p>
+                    </div>
+                </div>
+                <div class="type-header">
+                    <div class="content-18">
+                    <p class="text-19">목적</p>
+                    </div>
+                </div>
+                </div>
+                <div class="row">
+                    <div class="type-default">
+                        <div class="content-25">
+                        <p class="text-26">이용자의 서비스 방문 이력, 검색, 콘텐츠 소비, 활동 등</p>
+                        </div>
+                    </div>
+                    <div class="type-default">
+                        <div class="content-28">
+                        <p class="text-29">이용자 웹/앱 서비스 이용 시 자동 수집 및 전송</p>
+                        </div>
+                    </div>
+                    <div class="type-default">
+                        <div class="content-31">
+                        <p class="text-35">웹/앱 사용자 분석, 광고 및 홍보</p>
+                        </div>
+                    </div>
+                </div>
+                
+            </div>
+            <div>
+                정보주체는 브라우저의 쿠키 설정 변경 등을 통해 제3자가 수집해가는 행태정보의
+                허용, 차단 등의 설정을 할 수 있습니다.
+                <div><제3자 수집 행태정보의 허용 / 차단 방법></div>
+
+                <br><div>▶ 웹 브라우저에서 제3자가 수집해가는 행태정보의 허용/차단</div></br>
+
+                <div>
+                    (1) 크롬(Chrome)</br>
+                    - Chrome에서 오른쪽 상단 ‘⋮ ’ 표시를 클릭한 후, 「설정」 표시를 클릭합니다.<br>
+                    - 설정 페이지 좌측에 「개인정보 보호 및 보안」을 클릭하고, 「서드파티쿠키」를<br>
+                    클릭하여 「서드파티쿠키 차단」 여부를 선택합니다.<br>
+                    - 특정 사이트를 허용하고 싶은 경우, 「서드파티쿠티」 하단에 있는 「서드 파티<br>
+                    쿠키 사용이 허용됨」 옆에 있는 「추가」를 클릭하고, 해당 사이트 주소를<br>
+                    입력합니다.<br>
+                </div><br>
+
+                <div>
+                    (2) 엣지(Edge)<br>
+                    - Edge에서 오른쪽 상단 ‘…’ 표시를 클릭한 후, 「설정」을 클릭합니다.<br>
+                    - 설정 페이지 좌측의 「개인정보, 검색 및 서비스」를 클릭 후 「추적방지」<br>
+                    섹션에서 「추적방지」 여부 및 수준을 선택합니다.<br>
+                    - 특정 사이트를 허용하고 싶은 경우, 「추적방지」 섹션 하단의 「예외」를<br>
+                    클릭하고, 「사이트 추가」를 선택하여 해당 사이트 주소를 입력합니다.<br>
+                </div><br>
+                
+                <div>
+                    <div>▶ 모바일 브라우저에서 제3자가 수집해가는 행태정보의 허용/차단</div><br>
+                    <div>(1) 크롬(Chrome)</div>
+                    < 안드로이드(Android) 기기의 경우 ><br>
+                    - 기기에서 크롬(Chrome) 앱을 열고, 오른쪽 상단 ‘⋮ ’ 표시를 클릭한 후,<br>
+                    「설정」 표시를 클릭합니다.<br>
+                    - 「사이트 설정」에서 「서드파티쿠키」를 클릭하고, 「서드파티쿠키 차단」<br>
+                    여부를 선택합니다.<br>
+                    - 특정 사이트를 허용하고 싶은 경우, 「서드파티쿠티」 하단에 있는 「사이트<br>
+                    예외 추가」를 클릭하고, 해당 사이트 주소를 입력합니다.<br>
+                    <br>
+                    < 아이폰(iPhone/iPad) 기기의 경우 ><br>
+                    - 기기에서 크롬(Chrome) 앱을 열고, 오른쪽 상단 ‘⋮ ’ 표시를 클릭한 후,<br>
+                    「설정」 표시를 클릭합니다.<br>
+                    - 설정 페이지 좌측에 「개인정보 보호 및 보안」을 클릭하고, 「인터넷 사용<br>
+                    기록 삭제」를 클릭합니다.<br>
+                    - 선택 항목들 중 「쿠키, 사이트 데이터」를 선택하고, 「인터넷 사용 기록<br>
+                    삭제」를 클릭합니다.<br>
+ 
+                </div><br>
+                <div>
+                    <div>(2) 사파리(Safari)</div>
+                    - 기기에서 「설정」을 열고, 설치된 앱 항목들 중 「Safari」를 클릭합니다.<br>
+                    - 「고급」을 클릭하고, 「모든 쿠키 차단」을 선택합니다.<br>
+                </div><br>
+                <div>
+                    <div>(3) 삼성인터넷</div>
+                    - 기기에서 삼성인터넷 앱을 열고, 하단에 ‘≡’ 표시를 클릭한 후, 「설정」<br>
+                    표시를 클릭합니다.<br>
+                    - 「인터넷 사용 기록」 항목에서 「인터넷 사용 기록 삭제」를 클릭합니다.<br>
+                    - 선택 항목들 중 「쿠키 및 사이트 데이터」를 선택하고, 「데이터 삭제」를<br>
+                    클릭합니다.
+                </div>
+            </div>
+        </div>
+      </div>
+      <div class="policy-section9">
+        <h3>9. 개인정보의 안정성 활보조치</h3>
+        <div>회사는 개인정보의 안정성 확보를 위해 다음과 같은 조치를 취하고 있습니다.</div>
+        <ol>
+            <li>관리적 조치 : 내부관리계획 수립・시행, 전담조직 운영, 정기적 직원 교육</li>
+            <li>기술적 조치 : 개인정보처리시스템 등의 접근권한 관리, 접근통제시스템 설치,
+                개인정보의 암호화, 보안프로그램 설치 및 갱신</li>
+            <li>물리적 조치 : 전산실, 자료보관실 등의 접근통제</li>
+        </ol>
+      </div>
+      <div class="policy-section10">
+        <h3>10. 개인정보의 안정성 활보조치</h3>
+        <div>회사 개인정보 처리에 관한 업무를 총괄해서 책임지고,
+            개인정보 처리와 관련한 정보주체의 불만처리 및 피해구제 등을 위하여 아래와
+            같이 개인정보 보호책임자를 지정하고 있습니다.</div>
+        <div>
+            <div class="table-9 three-cols">
+                <div class="row">
+                    <div class="type-header">
+                        <div class="content-12">
+                        <p class="text-13">이름</p>
+                        </div>
+                    </div>
+                    <div class="type-header">
+                        <div class="content-15">
+                        <p class="text-16">직위</p>
+                        </div>
+                    </div>
+                    <div class="type-header">
+                        <div class="content-18">
+                        <p class="text-19">이메일</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="type-default">
+                        <div class="content-25">
+                        <p class="text-26">박영찬</p>
+                        </div>
+                    </div>
+                    <div class="type-default">
+                        <div class="content-28">
+                        <p class="text-29">대표</p>
+                        </div>
+                    </div>
+                    <div class="type-default">
+                        <div class="content-31">
+                        <p class="text-35">jak878942@gmail.com</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div>정보주체는 회사 의 서비스(또는 사업)을 이용하시면서 발생한
+                모든 개인정보보호 관련 문의, 불만처리, 피해구제 등에 관한 사항을 개인정보
+                보호책임자 및 담당부서로 문의할 수 있습니다. 회사는
+                정보주체의 문의에 대해 지체없이 답변 및 처리해드릴 것입니다.
+            </div>
+        </div>
+        <div class="policy-section11">
+            <h3>11. 권익침해 구제방법</h3>
+            <div>정보주체는 개인정보침해로 인한 구제를 받기 위하여 개인정보분쟁조정위원회, 한국인터넷진흥원 개인정보침해신고센터 등에 분쟁해결이나 상담 등을 신청할 수 있습니다. 이 밖에 기타 개인정보침해의 신고, 상담에 대하여는 아래의 기관에 문의하시기 바랍니다.</div>
+            <div class="table-9 three-cols">
+                <div class="row">
+                    <div class="type-header">
+                        <div class="content-12">
+                        <p class="text-13">구분</p>
+                        </div>
+                    </div>
+                    <div class="type-header">
+                        <div class="content-15">
+                        <p class="text-16">연락처</p>
+                        </div>
+                    </div>
+                    <div class="type-header">
+                        <div class="content-18">
+                        <p class="text-19">링크</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="type-default">
+                        <div class="content-25">
+                        <p class="text-26">개인정보침해 신고센터</p>
+                        </div>
+                    </div>
+                    <div class="type-default">
+                        <div class="content-28">
+                        <p class="text-29">(국번없이) 118</p>
+                        </div>
+                    </div>
+                    <div class="type-default">
+                        <div class="content-31">
+                        <p class="text-35">https://privacy.kisa.or.kr</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="type-default">
+                        <div class="content-25">
+                        <p class="text-26">개인정보분쟁조정위원회</p>
+                        </div>
+                    </div>
+                    <div class="type-default">
+                        <div class="content-28">
+                        <p class="text-29">(국번없이) 1833-6972</p>
+                        </div>
+                    </div>
+                    <div class="type-default">
+                        <div class="content-31">
+                        <p class="text-35">https://kopico.go.kr</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="type-default">
+                        <div class="content-25">
+                        <p class="text-26">대검찰청</p>
+                        </div>
+                    </div>
+                    <div class="type-default">
+                        <div class="content-28">
+                        <p class="text-29">(국번없이) 1301</p>
+                        </div>
+                    </div>
+                    <div class="type-default">
+                        <div class="content-31">
+                        <p class="text-35">https://spo.go.kr</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="type-default">
+                        <div class="content-25">
+                        <p class="text-26">경찰청</p>
+                        </div>
+                    </div>
+                    <div class="type-default">
+                        <div class="content-28">
+                        <p class="text-29">(국번없이) 182</p>
+                        </div>
+                    </div>
+                    <div class="type-default">
+                        <div class="content-31">
+                        <p class="text-35">https://ecrm.police.go.kr</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <br>
+            <div>회사는 정보주체의 개인정보 자기결정권을 보장하고 개인정보침해로 인한 상담 및 피해 구제를 위해 노력하고 있으며, 신고나 상담이 필요한 경우 아래의 담당 부서로 연락해 주시기 바랍니다.</div>
+            <br>
+            <div>
+                <div class="table-9 three-cols">
+                    <div class="row">
+                        <div class="type-header">
+                            <div class="content-12">
+                            <p class="text-13">이름</p>
+                            </div>
+                        </div>
+                        <div class="type-header">
+                            <div class="content-15">
+                            <p class="text-16">직위</p>
+                            </div>
+                        </div>
+                        <div class="type-header">
+                            <div class="content-18">
+                            <p class="text-19">이메일</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="type-default">
+                            <div class="content-25">
+                            <p class="text-26">박영찬</p>
+                            </div>
+                        </div>
+                        <div class="type-default">
+                            <div class="content-28">
+                            <p class="text-29">대표</p>
+                            </div>
+                        </div>
+                        <div class="type-default">
+                            <div class="content-31">
+                            <p class="text-35">jak878942@gmail.com</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="policy-section12">
+            <h3>12. 개인정보처리방침 변경 고지</h3>
+            <div>
+                이 개인정보 처리방침은 2025.01.30부터 적용됩니다.
+            </div>
+            <div>
+                ※개인정보 처리방침의 변경 또는 삭제 내용이 있을 시, 아래 공지하도록 하겠습니다.
+            </div>
+        </div>
+    </article>
+  </div>
+  <footer class="site-footer">
+    <div class="site-footer-links">
+      <a href="terms-of-service.html">이용약관</a>
+      <a href="privacy-policy.html">개인정보처리방침</a>
+      <a href="privacy-consent.html">개인정보 수집 및 이용동의서</a>
+      <a href="#">고객센터:070-8144-9013</a>
+    </div>
+  </footer>
+</body>
+</html>
+

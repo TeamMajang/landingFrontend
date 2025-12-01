@@ -88,9 +88,10 @@ async function loadFooter(footerType = 'default') {
                     <div class="footer-links">
                         <div>
                             <div class="footer-heading">정책</div>
-                            <a href="#">이용약관</a>
-                            <a href="#">개인정보처리방침</a>
-                            <a href="#">고객센터</a>
+                            <a href="terms-of-service.html">이용약관</a>
+                            <a href="privacy-policy.html">개인정보처리방침</a>
+                            <a href="privacy-consent.html">개인정보 수집 및 이용동의서</a>
+                            <a href="#">고객센터:070-8144-9013</a>
                         </div>
                     </div>
                 </div>

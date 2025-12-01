@@ -174,6 +174,7 @@
     
     .signup-age-check-row,
     .signup-service-row,
+    .signup-privacy-policy-row,
     .signup-privacy-req-row,
     .signup-privacy-opt-row,
     .signup-marketing-row {
@@ -186,6 +187,7 @@
     
     .signup-age-check,
     .signup-service-check,
+    .signup-privacy-policy-check,
     .signup-privacy-req-check,
     .signup-privacy-opt-check,
     .signup-marketing-check {
@@ -198,6 +200,7 @@
     
     .signup-age-label,
     .signup-service-label,
+    .signup-privacy-policy-label,
     .signup-privacy-req-label,
     .signup-privacy-opt-label,
     .signup-marketing-label {
@@ -225,6 +228,7 @@
     
     .signup-age-text,
     .signup-service-text,
+    .signup-privacy-policy-text,
     .signup-privacy-req-text,
     .signup-privacy-opt-text,
     .signup-marketing-text {
@@ -242,6 +246,8 @@
       align-items: center;
       justify-content: center;
       flex-shrink: 0;
+      text-decoration: none;
+      color: inherit;
     }
     
     .signup-notice-section {
@@ -375,11 +381,25 @@
                 <span class="signup-service-text">이용약관 동의</span>
               </div>
             </div>
-            <div class="signup-chevron-right">
+            <a href="terms-of-service.html" class="signup-chevron-right" target="_blank" rel="noopener noreferrer" aria-label="서비스 이용약관 열기">
               <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <path d="M6 4L10 8L6 12" stroke="#9ca3af" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
               </svg>
+            </a>
+          </div>
+          <div class="signup-privacy-policy-row">
+            <div class="signup-privacy-policy-check">
+              <div class="signup-check" id="signup-privacy-policy-check"></div>
+              <div class="signup-privacy-policy-label">
+                <span class="signup-required-label">(필수)</span>
+                <span class="signup-privacy-policy-text">개인정보 처리방침</span>
+              </div>
             </div>
+            <a href="privacy-policy.html" class="signup-chevron-right" target="_blank" rel="noopener noreferrer" aria-label="개인정보 처리방침 열기">
+              <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M6 4L10 8L6 12" stroke="#9ca3af" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </a>
           </div>
           <div class="signup-privacy-req-row">
             <div class="signup-privacy-req-check">
@@ -389,11 +409,11 @@
                 <span class="signup-privacy-req-text">개인정보 수집 및 이용 동의</span>
               </div>
             </div>
-            <div class="signup-chevron-right">
+            <a href="privacy-consent.html" class="signup-chevron-right" target="_blank" rel="noopener noreferrer" aria-label="개인정보 수집 및 이용 동의서 열기">
               <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <path d="M6 4L10 8L6 12" stroke="#9ca3af" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
               </svg>
-            </div>
+            </a>
           </div>
           <div class="signup-privacy-opt-row">
             <div class="signup-privacy-opt-check">
@@ -403,11 +423,11 @@
                 <span class="signup-privacy-opt-text">개인정보 수집 및 이용 동의</span>
               </div>
             </div>
-            <div class="signup-chevron-right">
+            <a href="privacy-consent.html" class="signup-chevron-right" target="_blank" rel="noopener noreferrer" aria-label="개인정보 수집 및 이용 동의서 열기">
               <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <path d="M6 4L10 8L6 12" stroke="#9ca3af" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
               </svg>
-            </div>
+            </a>
           </div>
           <div class="signup-marketing-row">
             <div class="signup-marketing-check">
@@ -447,13 +467,14 @@
       const allCheck = document.getElementById('signup-all-check');
       const ageCheck = document.getElementById('signup-age-check');
       const serviceCheck = document.getElementById('signup-service-check');
+      const privacyPolicyCheck = document.getElementById('signup-privacy-policy-check');
       const privacyReqCheck = document.getElementById('signup-privacy-req-check');
       const privacyOptCheck = document.getElementById('signup-privacy-opt-check');
       const marketingCheck = document.getElementById('signup-marketing-check');
       const submitButton = document.getElementById('signup-submit-button');
       
-      const requiredChecks = [ageCheck, serviceCheck, privacyReqCheck];
-      const allChecks = [ageCheck, serviceCheck, privacyReqCheck, privacyOptCheck, marketingCheck];
+      const requiredChecks = [ageCheck, serviceCheck, privacyPolicyCheck, privacyReqCheck];
+      const allChecks = [ageCheck, serviceCheck, privacyPolicyCheck, privacyReqCheck, privacyOptCheck, marketingCheck];
       
       // 회원가입 첫 페이지 진입 시 이전 데이터 삭제 (다른 페이지에서 돌아온 경우)
       const referrer = document.referrer;
@@ -477,6 +498,9 @@
           }
           if (step1Data.serviceAgreed) {
             serviceCheck.classList.add('checked');
+          }
+          if (step1Data.privacyPolicyAgreed) {
+            privacyPolicyCheck.classList.add('checked');
           }
           if (step1Data.privacyRequiredAgreed) {
             privacyReqCheck.classList.add('checked');
@@ -566,6 +590,14 @@
         });
       }
       
+      if (privacyPolicyCheck) {
+        privacyPolicyCheck.addEventListener('click', function() {
+          toggleCheck(privacyPolicyCheck);
+          updateSubmitButton();
+          updateAllCheck();
+        });
+      }
+      
       if (privacyReqCheck) {
         privacyReqCheck.addEventListener('click', function() {
           toggleCheck(privacyReqCheck);
@@ -596,6 +628,7 @@
             const signupData = {
               ageAgreed: ageCheck.classList.contains('checked'),
               serviceAgreed: serviceCheck.classList.contains('checked'),
+              privacyPolicyAgreed: privacyPolicyCheck.classList.contains('checked'),
               privacyRequiredAgreed: privacyReqCheck.classList.contains('checked'),
               privacyOptionalAgreed: privacyOptCheck.classList.contains('checked'),
               marketingAgreed: marketingCheck.classList.contains('checked')
@@ -613,9 +646,10 @@
   <!-- Footer -->
   <div class="signup-footer-section">
     <div class="signup-footer-links">
-      <a href="#" class="signup-footer-link">이용약관</a>
-      <a href="#" class="signup-footer-link">개인정보처리방침</a>
-      <a href="#" class="signup-footer-link">고객센터</a>
+      <a href="terms-of-service.html" class="signup-footer-link">이용약관</a>
+      <a href="privacy-policy.html" class="signup-footer-link">개인정보처리방침</a>
+      <a href="privacy-consent.html" class="signup-footer-link">개인정보 수집 및 이용동의서</a>
+      <a href="#" class="signup-footer-link">고객센터:070-8144-9013</a>
     </div>
   </div>
 </body>
